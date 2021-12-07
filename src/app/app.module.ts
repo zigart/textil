@@ -10,7 +10,7 @@ import { ReviewComponent } from './review/review.component';
 import { FindjobComponent } from './findjob/findjob.component';
 import { DivideComponent } from './divide/divide.component';
 import { FormsModule } from '@angular/forms';
-import { MachinesComponent } from './machines/machines.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
 
@@ -22,7 +22,7 @@ import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component'
     ReviewComponent,
     FindjobComponent,
     DivideComponent,
-    MachinesComponent,
+    ConfigurationComponent,
     MachinecfgComponent,
     LayoutmachineComponent
   ],
