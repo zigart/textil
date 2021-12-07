@@ -1,8 +1,6 @@
 <div class="container">
     <h1 class="title">TRABAJADORES</h1>
     <div class="btn">
-        <button class="btn--worker" >Persona</button>
-        <button class="btn--worker" >Persona</button>
-        <button class="btn--worker" >Persona</button>
+        <button class="btn--worker" *ngFor="let worker of workers">{{worker}}</button>
     </div>
 </div>

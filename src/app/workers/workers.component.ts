@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
+  public workers: Array<string> = ['persona 1', 'persona 2', 'persona 3' ];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
