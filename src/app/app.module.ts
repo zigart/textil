@@ -10,6 +10,7 @@ import { ReviewComponent } from './review/review.component';
 import { FindjobComponent } from './findjob/findjob.component';
 import { DivideComponent } from './divide/divide.component';
 import { FormsModule } from '@angular/forms';
+import { MachinesComponent } from './machines/machines.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     JobComponent,
     ReviewComponent,
     FindjobComponent,
-    DivideComponent
+    DivideComponent,
+    MachinesComponent
   ],
   imports: [
     BrowserModule,
