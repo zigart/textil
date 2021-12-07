@@ -22,6 +22,6 @@ export class MachinesComponent implements OnInit {
   }
 
   redirect(machine:number){
-    this.router.navigate(['/inicio/configuracion/' + machine])
+    this.router.navigate(['/inicio/configuracion/maquina'])
   }
 }

@@ -1,6 +1,3 @@
 <div class="container">
-    <ul>
-        <li class="machines" *ngFor="let machine of machines"><a (click)="redirect(machine)">Maquina N° {{machine}}</a></li>
-    </ul>
-    <button (click)="addMachine()">Agregar Maquina</button>
+    <router-outlet></router-outlet>
 </div>

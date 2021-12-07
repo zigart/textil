@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-machinecfg',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./machinecfg.component.scss']
 })
 export class MachinecfgComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  public numberMachine:number;
+  constructor(private routerAct:ActivatedRoute) { 
+    let routerActiv:any = this.routerAct.snapshot.paramMap.get('machine');
+    this.numberMachine = routerActiv;
+    
   }
 
+  ngOnInit(): void {
+    console.log();
+  }
 }

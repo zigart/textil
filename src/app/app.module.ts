@@ -12,6 +12,7 @@ import { DivideComponent } from './divide/divide.component';
 import { FormsModule } from '@angular/forms';
 import { MachinesComponent } from './machines/machines.component';
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
+import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MachinecfgComponent } from './machinecfg/machinecfg.component';
     FindjobComponent,
     DivideComponent,
     MachinesComponent,
-    MachinecfgComponent
+    MachinecfgComponent,
+    LayoutmachineComponent
   ],
   imports: [
     BrowserModule,
