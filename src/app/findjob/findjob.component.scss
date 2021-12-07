@@ -10,3 +10,14 @@ $oceanicBlue: #3C4F76;
     color: white;
     font-size: 18px;
 }
+
+.check{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    input{
+        margin-left: 10px;
+    }
+    margin-top: 20px;
+}
