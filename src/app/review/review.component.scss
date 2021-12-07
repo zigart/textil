@@ -1,0 +1,36 @@
+$deepBlue: #383F51;
+$purple: #DDDBF1;
+$oceanicBlue: #3C4F76;
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 79.8vw;
+    height: 99.7vh;
+
+    form{
+        width: 50vw;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        input{
+            margin-bottom: 30px;
+            width: 60%;
+            height: 20px;
+        }
+        label{
+            margin-bottom: 10px;
+        }
+        button{
+            width: 60%;
+            height: 50px;
+            background-color: $deepBlue;
+            color: $purple;
+            border-radius: 20px;
+        }
+    }
+}
