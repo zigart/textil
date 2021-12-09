@@ -27,30 +27,30 @@ $oceanicBlue: #3C4F76;
         p{
             font-size: 20px;
         }
-    }
-
-    .review{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: 20px 0 20px 0;
-        button{
-            margin-left: 20px;
-            width: 150px;
+        .information--review{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 20px 0 20px 0;
+            button{
+                margin-left: 20px;
+                width: 150px;
+            }
         }
-    }
-
-    .divide{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: 20px 0 20px 0;
-        button{
-            width: 150px;
-            margin-left: 20px;
+        .divide{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 20px 0 20px 0;
+            button{
+                width: 150px;
+                margin-left: 20px;
+            }
         }
     }
     form{
         display: none;
     }
+
+
 }

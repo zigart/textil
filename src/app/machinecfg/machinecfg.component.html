@@ -1,23 +1,23 @@
 <div class="container">
     <div class="title"><h1>MAQUINA N° {{numberMachine}}</h1></div>
     <div class="information">
-        <div class="review">
-            <p>Ultima revision: {{date | date: 'short'}} </p>
-            <button (click)="editReview()">EDITAR REVISION</button>
+        <div class="information--review">
+            <p id="review" ([ngModel])="reviewDate">Ultima revision: {{date | date: 'short'}} </p>
+            <button (click)="editForm($event)">EDITAR REVISION</button>
         </div>
         <div class="divide">
             <p>Ultima separacion: {{date | date: 'short'}} </p>
-            <button (click)="editDivide()">EDITAR SEPARACION</button>
+            <button (click)="editForm($event)">EDITAR SEPARACION</button>
         </div>
     </div>
     <div class="buttons">
     </div>
 
     <!--seguir viendo el displey none a arreglar-->
-    <form class="review">
+    <form id="form">
         <label for="date">FECHA Y HORARIO:</label>
-        <input type="text" name="date">
-        <button>Editar</button>
+        <input type="text" name="date" [(ngModel)]="newDate">
+        <button (click)="edit()">Editar</button>
         <button>Cancelar</button>
     </form>
 </div>
