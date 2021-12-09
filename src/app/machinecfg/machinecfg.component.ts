@@ -44,10 +44,18 @@ export class MachinecfgComponent implements OnInit {
   //button for final edit 
   edit(){
     let form = document.getElementById('form');
-    if (this.toModify && form) {
-      this.toModify.innerText = "ultima revision:" + this.newDate;
+    if(window.confirm('Esta informacion sera irrecuperable')){
+      if (this.toModify && form) {
+        this.toModify.innerText = "ultima revision:" + this.newDate;
+        form.style.display = "none";
+      }
+    }
+  }
+
+  cancel(){
+    let form = document.getElementById('form');
+    if (form) {
       form.style.display = "none";
     }
-
   }
 }
