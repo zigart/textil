@@ -27,7 +27,6 @@ export class MachinecfgComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log();
   }
 
 

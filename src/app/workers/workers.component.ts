@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workers',
@@ -8,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class WorkersComponent implements OnInit {
   public workers: Array<string> = ['persona 1', 'persona 2', 'persona 3' ];
 
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngOnInit(): void {
+  }
+
+  redirect(){
+    this.router.navigate(['/inicio/configuracion']);
   }
 
 }
