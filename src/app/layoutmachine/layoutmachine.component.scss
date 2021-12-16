@@ -24,7 +24,11 @@ $oceanicBlue: #3C4F76;
             width: calc(100% * (1/4) - 10px - 1px);
             height: 100px;
             border: 1px solid red;
+            a{
+                cursor: pointer;
+            }
         }
+    
     }
     
     button{

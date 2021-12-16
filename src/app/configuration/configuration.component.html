@@ -4,5 +4,6 @@
         <input type="password" [(ngModel)]="password" name="password">
         <button (click)="signIn()">Ingresar</button>
     </form>
-    <router-outlet id="outlet"></router-outlet>
+    <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayout)="displayOrNotLayout()" id="layout"></app-layoutmachine>
+    <app-machinecfg [number] = "machineNumb" id="machineCfg"></app-machinecfg>
 </div>

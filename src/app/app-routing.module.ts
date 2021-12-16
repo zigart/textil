@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DivideComponent } from './divide/divide.component';
 import { FindjobComponent } from './findjob/findjob.component';
 import { JobComponent } from './job/job.component';
-import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
-import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ReviewComponent } from './review/review.component';
 
@@ -15,12 +13,7 @@ const routes: Routes = [
     {path: 'trabajo', component: FindjobComponent},
     {path: 'revisar', component: ReviewComponent},
     {path: 'separar', component: DivideComponent},
-    {path: 'configuracion', component: ConfigurationComponent,
-      children: [
-        {path: 'maquinas', component: LayoutmachineComponent},
-        {path: 'maquina/:machine', component: MachinecfgComponent}
-      ]
-      }
+    {path: 'configuracion', component: ConfigurationComponent}
   ]},
 ];
 

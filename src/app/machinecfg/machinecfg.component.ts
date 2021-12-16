@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,7 +14,6 @@ export class MachinecfgComponent implements OnInit {
   public reviewDate:string;
 
   private toModify:any;
-
   constructor(private routerAct:ActivatedRoute) { 
     //initializations
     this.review = false;  
@@ -28,7 +27,7 @@ export class MachinecfgComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  @Input() number:number =0;
 
   //this function find the html element when somebady click the button
    editForm(e:any){

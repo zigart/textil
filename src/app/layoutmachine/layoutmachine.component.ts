@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,8 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LayoutmachineComponent implements OnInit {
   public machines: Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  private password:string = "maquinas";
+  private booleanDisplay: boolean = false;
 
+  @Output() machineNumber = new EventEmitter<number>();
+  @Output() displayLayout = new EventEmitter<boolean>();
   constructor(private router:Router, private routerAct:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class LayoutmachineComponent implements OnInit {
   }
 
   redirect(machine:number){
-    this.router.navigate(['/inicio/configuracion/maquina/' + machine])
-    
+    this.machineNumber.emit(machine);
+    this.displayLayout.emit(false);
   }
 }
