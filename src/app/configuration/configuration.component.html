@@ -1,9 +1,9 @@
 <div class="container">
     <form id="login">
-        <label for="password">Contraseña: </label>
+        <label for="password">Contraseña </label>
         <input type="password" [(ngModel)]="password" name="password">
         <button (click)="signIn()">Ingresar</button>
     </form>
     <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayout)="displayOrNotLayout()" id="layout"></app-layoutmachine>
-    <app-machinecfg [number] = "machineNumb" id="machineCfg"></app-machinecfg>
+    <app-machinecfg [number] = "machineNumb" id="machineCfg" (clicked)="getBack($event)"></app-machinecfg>
 </div>

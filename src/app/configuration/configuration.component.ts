@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-configuration',
@@ -56,5 +55,13 @@ export class ConfigurationComponent implements OnInit {
     
   }
   
+  getBack(e:boolean){
+    let machineCfg = document.getElementById('machineCfg');
+    let layout = document.getElementById('layout');
+    if ( e === true && machineCfg && layout) {
+      machineCfg.style.display = "none";
+      layout.style.display = "block";
+    }
+  }
   
 }

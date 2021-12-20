@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,13 +7,14 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./machinecfg.component.scss']
 })
 export class MachinecfgComponent implements OnInit {
+
   public numberMachine:number;
   public date =  Date.now();
   public review: boolean;
   public newDate:string;
   public reviewDate:string;
-
   private toModify:any;
+  
   constructor(private routerAct:ActivatedRoute) { 
     //initializations
     this.review = false;  
@@ -27,6 +28,7 @@ export class MachinecfgComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   @Input() number:number =0;
 
   //this function find the html element when somebady click the button
@@ -55,5 +57,11 @@ export class MachinecfgComponent implements OnInit {
     if (form) {
       form.style.display = "none";
     }
+  }
+  
+  @Output() clicked = new EventEmitter<boolean>();
+
+  back(){
+    this.clicked.emit(true);
   }
 }

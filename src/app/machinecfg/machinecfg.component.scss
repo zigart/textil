@@ -13,9 +13,16 @@ $oceanicBlue: #3C4F76;
         width: 79vw;
         height: 10vh;
         display: flex;
-        flex-direction: column;
-        justify-self: center;
+        flex-direction: row;
+        justify-content: flex-start;
         align-items: center;
+        h1{
+            width: 100%;
+            text-align: center;
+        }
+        #back{
+            margin: 20px;
+        }
     }
     .information{
         width: 79vw;
