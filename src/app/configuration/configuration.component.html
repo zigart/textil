@@ -4,6 +4,12 @@
         <input type="password" [(ngModel)]="password" name="password">
         <button (click)="signIn()">Ingresar</button>
     </form>
+    <nav id="nav">
+        <ul>
+            <li><a>Maquinas</a></li>
+            <li><a>Personal</a></li>
+        </ul>
+    </nav>
     <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayout)="displayOrNotLayout()" id="layout"></app-layoutmachine>
     <app-machinecfg [number] = "machineNumb" id="machineCfg" (clicked)="getBack($event)"></app-machinecfg>
 </div>

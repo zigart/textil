@@ -26,10 +26,12 @@ export class ConfigurationComponent implements OnInit {
   signIn(){
     let login = document.getElementById('login');
     let layout = document.getElementById('layout');
+    let nav = document.getElementById('nav');
     if (this.password === this.truePassword) {
-      if(login && layout){
+      if(login && layout && nav){
         login.style.display = "none";
         layout.style.display = "block";
+        nav.style.display = "block";
       }
     }
   }
