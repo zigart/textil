@@ -15,7 +15,8 @@ $oceanicBlue: #3C4F76;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        flex-grow: 1;
+        margin-bottom: 100px;
+
         li{
             display: flex;
             justify-content: center;
@@ -31,7 +32,7 @@ $oceanicBlue: #3C4F76;
     
     }
     
-    button{
+    #openForm{
         width: 100px;
         height: 50px;
         border-radius: 20px;
@@ -42,5 +43,18 @@ $oceanicBlue: #3C4F76;
 
     #addNewWorker{
         display: none;
+        justify-content: center;
+        align-items: center;
+        label{
+            margin-right: 20px;
+        }
+        button{
+            width: 80px;
+            height: 30px;
+            border-radius: 20px;
+            margin-left: 20px;
+            background-color: $deepBlue;
+            color: $purple;
+        }
     }
 }

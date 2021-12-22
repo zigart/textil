@@ -24,7 +24,7 @@ export class WorkerscfgComponent implements OnInit {
   addWorker(){
     let form = document.getElementById('addNewWorker');
     if (form) {
-      form.style.display = "block";
+      form.style.display = "flex";
     }
   }
 
