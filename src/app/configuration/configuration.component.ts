@@ -15,7 +15,7 @@ export class ConfigurationComponent implements OnInit {
   
   constructor(private router: Router) { 
     this.password = '';
-    this.truePassword = "panichella";
+    this.truePassword = "";
     this.displayLayout = false;
     this.machineNumb = 0;
   }

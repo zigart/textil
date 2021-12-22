@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { from } from 'rxjs';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,10 +9,34 @@ import { DataService } from '../services/data.service';
 })
 export class WorkerscfgComponent implements OnInit {
 
-  constructor(private dataService:DataService) { }
+  public workers: Array<string>;
+  public newWorker: string;
+
+  constructor(private dataService:DataService) {
+    this.workers = [];
+    this.newWorker = '';
+   }
 
   ngOnInit(): void {
-    console.log(this.dataService.workers);
+    this.workers = this.dataService.workers;
+  }
+
+  addWorker(){
+    let form = document.getElementById('addNewWorker');
+    if (form) {
+      form.style.display = "block";
+    }
+  }
+
+  add(){
+    console.log(this.newWorker);
+    this.workers.push(this.newWorker);
+    this.newWorker = "";
+    let form = document.getElementById('addNewWorker');
+
+    if (form) {
+      form.style.display= "none";
+    }
   }
 
 }
