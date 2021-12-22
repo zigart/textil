@@ -6,11 +6,11 @@
     </form>
     <nav id="nav">
         <ul>
-            <li><a>Maquinas</a></li>
-            <li><a>Personal</a></li>
+            <li><a (click)="showMachinesLayout()">Maquinas</a></li>
+            <li><a (click)="showWorkersCfg()">Personal</a></li>
         </ul>
     </nav>
     <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayout)="displayOrNotLayout()" id="layout"></app-layoutmachine>
     <app-machinecfg [number] = "machineNumb" id="machineCfg" (clicked)="getBack($event)"></app-machinecfg>
-    <app-workerscfg></app-workerscfg>
+    <app-workerscfg id="workersCfg"></app-workerscfg>
 </div>

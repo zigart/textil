@@ -66,4 +66,21 @@ export class ConfigurationComponent implements OnInit {
     }
   }
   
+  showMachinesLayout(){
+    let layout = document.getElementById('layout');
+    let workersCfg = document.getElementById('workersCfg');
+    if (layout && workersCfg) {
+      layout.style.display = "block";
+      workersCfg.style.display = "none";
+    }
+
+  }
+  showWorkersCfg(){
+    let layout = document.getElementById('layout');
+    let workersCfg = document.getElementById('workersCfg');
+    if (layout && workersCfg) {
+      layout.style.display = "none";
+      workersCfg.style.display = "block";
+  }
+}
 }
