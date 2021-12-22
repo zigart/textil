@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-workers',
@@ -9,11 +10,14 @@ import { Router } from '@angular/router';
 export class WorkersComponent implements OnInit {
   public workers: Array<string> = ['persona 1', 'persona 2', 'persona 3' ];
 
-  constructor(private router:Router) {}
+  constructor(private router:Router, private DataService: DataService ) {}
 
   ngOnInit(): void {
+    this.DataService.transferInputWorkers(this.workers);
   }
-
+  
+  
+  
   redirect(){
     this.router.navigate(['/inicio/configuracion']);
   }

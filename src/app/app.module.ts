@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
+import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -24,14 +26,15 @@ import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component'
     DivideComponent,
     ConfigurationComponent,
     MachinecfgComponent,
-    LayoutmachineComponent
+    LayoutmachineComponent,
+    WorkerscfgComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
