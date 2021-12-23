@@ -14,7 +14,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
 import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
-import { DataService } from './services/data.service';
+import { DataService } from './services/Data.service';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+import { DataService } from '../services/Data.service';
 
 @Component({
   selector: 'app-workers',
@@ -8,15 +8,19 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
-  public workers: Array<string> = ['persona 1', 'persona 2', 'persona 3' ];
+  public workers:Array<string>;
 
-  constructor(private router:Router, private DataService: DataService ) {}
+  constructor(private router:Router, private DataService: DataService ) {
+    this.workers = this.DataService.workers;
 
-  ngOnInit(): void {
-    this.DataService.transferInputWorkers(this.workers);
   }
   
   
+  ngOnInit(): void {
+
+  }
+  
+  //i need get the info after that workerscfg send her data at the service
   
   redirect(){
     this.router.navigate(['/inicio/configuracion']);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
-import { DataService } from '../services/data.service';
+import { DataService } from '../services/Data.service';
 
 @Component({
   selector: 'app-workerscfg',
@@ -13,12 +13,13 @@ export class WorkerscfgComponent implements OnInit {
   public newWorker: string;
 
   constructor(private dataService:DataService) {
-    this.workers = [];
+    this.workers = this.dataService.workers;
     this.newWorker = '';
    }
 
   ngOnInit(): void {
-    this.workers = this.dataService.workers;
+    this.dataService.workers = this.workers;
+    console.log(this.dataService.workers);
   }
 
   addWorker(){
@@ -29,8 +30,8 @@ export class WorkerscfgComponent implements OnInit {
   }
 
   add(){
-    console.log(this.newWorker);
     this.workers.push(this.newWorker);
+    this.dataService.workers = this.workers;
     this.newWorker = "";
     let form = document.getElementById('addNewWorker');
 
