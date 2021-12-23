@@ -15,6 +15,7 @@ import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
 import { LayoutworkersComponent } from './layoutworkers/layoutworkers.component';
 import { DataService } from './services/Data.service';
+import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DataService } from './services/Data.service';
     ConfigurationComponent,
     MachinecfgComponent,
     LayoutmachineComponent,
-    LayoutworkersComponent
+    LayoutworkersComponent,
+    WorkerscfgComponent
   ],
   imports: [
     BrowserModule,

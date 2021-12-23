@@ -12,25 +12,28 @@ export class ConfigurationComponent implements OnInit {
   private truePassword:string;
   public displayLayout:boolean;
   public machineNumb:number;
+  public workerName:string;
   
   constructor(private router: Router) { 
     this.password = '';
     this.truePassword = "";
     this.displayLayout = false;
     this.machineNumb = 0;
+    this.workerName = '';
+
   }
   
   ngOnInit(): void {
   }
   
   signIn(){
+    var layoutMachines = document.getElementById('layoutMachines');
     let login = document.getElementById('login');
-    let layout = document.getElementById('layout');
     let nav = document.getElementById('nav');
     if (this.password === this.truePassword) {
-      if(login && layout && nav){
+      if(login && layoutMachines && nav){
         login.style.display = "none";
-        layout.style.display = "block";
+        layoutMachines.style.display = "block";
         nav.style.display = "block";
       }
     }
@@ -38,18 +41,19 @@ export class ConfigurationComponent implements OnInit {
   
   
   
-  displayOrNotLayout(){
-    let layout = document.getElementById('layout');
+  displayOrNotLayoutMachines(){
+    let layoutMachines = document.getElementById('layoutMachines');
     let machineCfg = document.getElementById('machineCfg');
-    if (this.displayLayout === true && layout && machineCfg) {
-      layout.style.display = 'block';
+    if (this.displayLayout === true && layoutMachines && machineCfg) {
+      layoutMachines.style.display = 'block';
       machineCfg.style.display = 'none';
-    }else if (layout && machineCfg) {
-      layout.style.display = 'none';
+    }else if (layoutMachines && machineCfg) {
+      layoutMachines.style.display = 'none';
       machineCfg.style.display = 'block';
     }{
     }
   }
+
 
 
   machineNumber(value:number){
@@ -57,30 +61,57 @@ export class ConfigurationComponent implements OnInit {
     
   }
   
-  getBack(e:boolean){
+  getBackFromMachineCfg(e:boolean){
     let machineCfg = document.getElementById('machineCfg');
-    let layout = document.getElementById('layout');
-    if ( e === true && machineCfg && layout) {
+    let layoutMachines = document.getElementById('layoutMachines');
+    if ( e === true && machineCfg && layoutMachines) {
       machineCfg.style.display = "none";
-      layout.style.display = "block";
+      layoutMachines.style.display = "block";
     }
   }
   
   showMachinesLayout(){
-    let layout = document.getElementById('layout');
-    let workersCfg = document.getElementById('workersCfg');
-    if (layout && workersCfg) {
-      layout.style.display = "block";
-      workersCfg.style.display = "none";
+    let layoutMachines = document.getElementById('layoutMachines');
+    let layoutWorkers = document.getElementById('layoutWorkers');
+    if (layoutMachines && layoutWorkers) {
+      layoutMachines.style.display = "block";
+      layoutWorkers.style.display = "none";
     }
 
   }
   showWorkersCfg(){
-    let layout = document.getElementById('layout');
-    let workersCfg = document.getElementById('workersCfg');
-    if (layout && workersCfg) {
-      layout.style.display = "none";
-      workersCfg.style.display = "block";
+    let layoutMachines = document.getElementById('layoutMachines');
+    let layoutWorkers = document.getElementById('layoutWorkers');
+    if (layoutMachines && layoutWorkers) {
+      layoutMachines.style.display = "none";
+      layoutWorkers.style.display = "block";
   }
 }
+
+  GetNameWorker(name:string){
+    this.workerName = name;
+  }
+
+
+  displayOrNotLayoutWorkers(event:boolean){
+    let layoutWorkers = document.getElementById('layoutWorkers');
+    let workersCfg = document.getElementById('workersCfg');
+    if (event === true && layoutWorkers && workersCfg) {
+      layoutWorkers.style.display = 'block';
+      workersCfg.style.display = 'none';
+    }else if (layoutWorkers && workersCfg) {
+      layoutWorkers.style.display = 'none';
+      workersCfg.style.display = 'block';
+    }{
+    }
+  }
+
+  getBackFromWorkersCfg(e:boolean){
+    let workersCfg = document.getElementById('workersCfg');
+    let layoutWorkers = document.getElementById('layoutWorkers');
+    if ( e === true && workersCfg && layoutWorkers) {
+      workersCfg.style.display = "none";
+      layoutWorkers.style.display = "block";
+    }
+  }
 }

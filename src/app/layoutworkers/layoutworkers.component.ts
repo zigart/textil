@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DataService } from '../services/Data.service';
 
 @Component({
-  selector: 'app-workerscfg',
+  selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
   styleUrls: ['./layoutworkers.component.scss']
 })
@@ -38,4 +38,10 @@ export class LayoutworkersComponent implements OnInit {
     }
   }
 
+  @Output() nameWorker = new EventEmitter<string>();
+  @Output() displayLayoutWorkers = new EventEmitter<boolean>();
+  redirect(worker:string){
+    this.nameWorker.emit(worker);
+    this.displayLayoutWorkers.emit(false);
+  }
 }

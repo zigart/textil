@@ -31,7 +31,7 @@ export class MachinecfgComponent implements OnInit {
 
   @Input() number:number =0;
 
-  //this function find the html element when somebady click the button
+  //this function find the html element when somebody click the button
    editForm(e:any){
     let paragraph = e.path[1].childNodes[0];
     this.toModify = paragraph;

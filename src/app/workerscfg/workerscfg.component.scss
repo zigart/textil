@@ -1,0 +1,76 @@
+$deepBlue: #383F51;
+$purple: #DDDBF1;
+$oceanicBlue: #3C4F76;
+
+.container{
+    width: 79vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    .title{
+        width: 79vw;
+        height: 10vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        h1{
+            width: 100%;
+            text-align: center;
+        }
+        #back{
+            margin: 20px;
+            border-radius: 20px;
+            width: 50px;
+            height: 30px;
+            background-color: $deepBlue;
+            color: $purple;
+        }
+    }
+    .information{
+        width: 79vw;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .machineActive{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            label{
+                margin: 10px;
+            }
+        }
+        p{
+            font-size: 20px;
+        }
+        .information--review{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 20px 0 20px 0;
+            button{
+                margin-left: 20px;
+                width: 150px;
+            }
+        }
+        .divide{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 20px 0 20px 0;
+            button{
+                width: 150px;
+                margin-left: 20px;
+            }
+        }
+    }
+    form{
+        display: none;
+    }
+
+
+}

@@ -58,10 +58,14 @@ $oceanicBlue: #3C4F76;
             color: $purple;
         }
     }
-    #layout{
+    #layoutMachines{
         display: none;
     }
     #machineCfg{
+        display: none;
+    }
+
+    #layoutWorkers{
         display: none;
     }
 

@@ -11,7 +11,7 @@ export class LayoutmachineComponent implements OnInit {
   private booleanDisplay: boolean = false;
 
   @Output() machineNumber = new EventEmitter<number>();
-  @Output() displayLayout = new EventEmitter<boolean>();
+  @Output() displayLayoutMachine = new EventEmitter<boolean>();
   constructor(private router:Router, private routerAct:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -25,6 +25,6 @@ export class LayoutmachineComponent implements OnInit {
 
   redirect(machine:number){
     this.machineNumber.emit(machine);
-    this.displayLayout.emit(false);
+    this.displayLayoutMachine.emit(false);
   }
 }

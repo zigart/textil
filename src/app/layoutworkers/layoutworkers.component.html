@@ -1,6 +1,6 @@
 <div class="container">
     <ul>
-        <li *ngFor="let worker of workers"><a>{{worker}}</a></li>
+        <li *ngFor="let worker of workers"><a (click)="redirect(worker)">{{worker}}</a></li>
     </ul>
     <button id="openForm" (click)="addWorker()">Agregar Persona</button>
     <form id="addNewWorker">
