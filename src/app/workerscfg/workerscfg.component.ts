@@ -19,7 +19,6 @@ export class WorkerscfgComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.workers = this.workers;
-    console.log(this.dataService.workers);
   }
 
   addWorker(){
