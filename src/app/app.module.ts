@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
-import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
+import { LayoutworkersComponent } from './layoutworkers/layoutworkers.component';
 import { DataService } from './services/Data.service';
 
 @NgModule({
@@ -27,7 +27,7 @@ import { DataService } from './services/Data.service';
     ConfigurationComponent,
     MachinecfgComponent,
     LayoutmachineComponent,
-    WorkerscfgComponent
+    LayoutworkersComponent
   ],
   imports: [
     BrowserModule,

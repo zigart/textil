@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
 import { DataService } from '../services/Data.service';
 
 @Component({
   selector: 'app-workerscfg',
-  templateUrl: './workerscfg.component.html',
-  styleUrls: ['./workerscfg.component.scss']
+  templateUrl: './layoutworkers.component.html',
+  styleUrls: ['./layoutworkers.component.scss']
 })
-export class WorkerscfgComponent implements OnInit {
+export class LayoutworkersComponent implements OnInit {
 
   public workers: Array<string>;
   public newWorker: string;
