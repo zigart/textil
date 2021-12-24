@@ -13,5 +13,5 @@
     <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayoutMachine)="displayOrNotLayoutMachines()" id="layoutMachines"></app-layoutmachine>
     <app-machinecfg [number] = "machineNumb" id="machineCfg" (clicked)="getBackFromMachineCfg($event)"></app-machinecfg>
     <app-layoutworkers id="layoutWorkers" (nameWorker)="GetNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
-    <app-workerscfg [workerName]="workerName" id="workersCfg" (clicked) = "getBackFromWorkersCfg($event)"></app-workerscfg>
+    <app-workerscfg [workerName]="workerName" id="workersCfg" (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
 </div>

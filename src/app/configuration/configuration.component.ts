@@ -73,18 +73,26 @@ export class ConfigurationComponent implements OnInit {
   showMachinesLayout(){
     let layoutMachines = document.getElementById('layoutMachines');
     let layoutWorkers = document.getElementById('layoutWorkers');
-    if (layoutMachines && layoutWorkers) {
+    let machineCfg = document.getElementById('machineCfg');
+    let workersCfg = document.getElementById('workersCfg');
+    if (layoutMachines && layoutWorkers && machineCfg && workersCfg) {
       layoutMachines.style.display = "block";
       layoutWorkers.style.display = "none";
+      machineCfg.style.display = 'none';
+      workersCfg.style.display = 'none';
     }
 
   }
   showWorkersCfg(){
     let layoutMachines = document.getElementById('layoutMachines');
     let layoutWorkers = document.getElementById('layoutWorkers');
-    if (layoutMachines && layoutWorkers) {
+    let machineCfg = document.getElementById('machineCfg');
+    let workersCfg = document.getElementById('workersCfg');
+    if (layoutMachines && layoutWorkers && machineCfg && workersCfg) {
       layoutMachines.style.display = "none";
       layoutWorkers.style.display = "block";
+      machineCfg.style.display = 'none';
+      workersCfg.style.display = 'none';
   }
 }
 
@@ -96,12 +104,14 @@ export class ConfigurationComponent implements OnInit {
   displayOrNotLayoutWorkers(event:boolean){
     let layoutWorkers = document.getElementById('layoutWorkers');
     let workersCfg = document.getElementById('workersCfg');
+    
     if (event === true && layoutWorkers && workersCfg) {
       layoutWorkers.style.display = 'block';
       workersCfg.style.display = 'none';
     }else if (layoutWorkers && workersCfg) {
       layoutWorkers.style.display = 'none';
       workersCfg.style.display = 'block';
+      
     }{
     }
   }
