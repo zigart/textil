@@ -16,6 +16,7 @@ import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component'
 import { LayoutworkersComponent } from './layoutworkers/layoutworkers.component';
 import { DataService } from './services/Data.service';
 import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

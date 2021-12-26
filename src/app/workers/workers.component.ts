@@ -8,7 +8,7 @@ import { DataService } from '../services/Data.service';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
-  public workers:Array<string>;
+  public workers:Array<object>;
 
   constructor(private router:Router, private DataService: DataService ) {
     this.workers = this.DataService.workers;
@@ -16,12 +16,8 @@ export class WorkersComponent implements OnInit {
   }
   
   
-  ngOnInit(): void {
-
-  }
-  
-  //i need get the info after that workerscfg send her data at the service
-  
+  ngOnInit(): void {}
+ 
   redirect(){
     this.router.navigate(['/inicio/configuracion']);
   }
