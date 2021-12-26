@@ -17,7 +17,23 @@ export class LayoutworkersComponent implements OnInit {
     this.newWorker = '';
    }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getWorker();
+  }
+
+  //this function return a object and i need a string with his name. Fix it
+  getWorker(){
+    this.dataService.getWorkers().subscribe(
+      (response) =>{
+        this.workers = response.worker
+        this.workers;
+      },
+      (error) =>{
+        console.log(error);
+      }
+    )
+  }
+
 
   addWorker(){
     let form = document.getElementById('addNewWorker');
