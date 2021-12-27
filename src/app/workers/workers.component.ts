@@ -8,16 +8,30 @@ import { DataService } from '../services/Data.service';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit {
-  public workers:Array<object>;
+  public workers:Array<any>;
 
   constructor(private router:Router, private DataService: DataService ) {
-    this.workers = this.DataService.workers;
+    this.workers = [];
 
   }
   
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getWorker();
+  }
  
+
+  getWorker(){
+    this.DataService.getWorkers().subscribe(
+      (response) =>{
+        this.workers = response.worker
+      },
+      (error) =>{
+        console.log(error);
+      }
+    )
+  }
+
   redirect(){
     this.router.navigate(['/inicio/configuracion']);
   }

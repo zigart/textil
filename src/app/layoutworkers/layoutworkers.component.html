@@ -1,11 +1,11 @@
 <div class="container">
     <ul>
-        <li *ngFor="let worker of workers"><a (click)="redirect(worker)">{{worker}}</a></li>
+        <li *ngFor="let worker of workers"><a (click)="redirect(worker.name)">{{worker.name}}</a></li>
     </ul>
     <button id="openForm" (click)="addWorker()">Agregar Persona</button>
     <form id="addNewWorker">
         <label for="name">Nombre</label>
         <input  type="text" name="newWorker" [(ngModel)]="newWorker">
-        <button (click)="add()">Agregar</button>
+        <button (click)="add(); getWorker(); ">Agregar</button>
     </form>
 </div>

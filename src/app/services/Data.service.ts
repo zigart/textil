@@ -9,10 +9,7 @@ import { worker } from '../models/worker.model';
 })
 export class DataService {
   private url:string = 'http://localhost:3700/';
-  public workers: Array<any>;
-  constructor(private _http:HttpClient) {
-    this.workers = [];
-  }
+  constructor(private _http:HttpClient) {}
 
 
   addWorker(newWorker: worker): Observable<any>{

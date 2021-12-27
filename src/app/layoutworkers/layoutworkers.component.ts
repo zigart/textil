@@ -12,8 +12,8 @@ export class LayoutworkersComponent implements OnInit {
   public workers: Array<any>;
   public newWorker: string;
 
-  constructor(private dataService:DataService) {
-    this.workers = this.dataService.workers;
+  constructor(private DataService:DataService) {
+    this.workers = [];
     this.newWorker = '';
    }
 
@@ -21,19 +21,17 @@ export class LayoutworkersComponent implements OnInit {
     this.getWorker();
   }
 
-  //this function return a object and i need a string with his name. Fix it
   getWorker(){
-    this.dataService.getWorkers().subscribe(
+    this.DataService.getWorkers().subscribe(
       (response) =>{
-        this.workers = response.worker
-        this.workers;
+        this.workers = response.worker;
+        console.log(response);
       },
       (error) =>{
         console.log(error);
       }
     )
   }
-
 
   addWorker(){
     let form = document.getElementById('addNewWorker');
@@ -42,11 +40,11 @@ export class LayoutworkersComponent implements OnInit {
     }
   }
 
-  add(){
+   add(){
     let newWorker = new worker(this.newWorker, 'true', 'true', 'hoy 12:30', 'hoy 12:33');
-    this.dataService.addWorker(newWorker).subscribe(
+     this.DataService.addWorker(newWorker).subscribe(
       response =>{
-        console.log(response);
+        this.getWorker();
       }, error =>{
         console.log(error);
       }
