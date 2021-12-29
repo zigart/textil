@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -14,9 +14,10 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { MachinecfgComponent } from './machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
 import { LayoutworkersComponent } from './layoutworkers/layoutworkers.component';
-import { DataService } from './services/Data.service';
+import { dataService } from './services/data.service';
 import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'; 
+
 
 @NgModule({
   declarations: [
@@ -38,7 +39,13 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [DataService],
+  providers: [dataService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (dataService: dataService ) => () => dataService.load(),
+      deps:[dataService],
+      multi: true
+     }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

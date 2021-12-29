@@ -1,31 +1,42 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DataService } from '../services/Data.service';
+import { Component, EventEmitter, OnInit, OnDestroy ,Output } from '@angular/core';
+import { dataService } from '../services/data.service';
 import {  worker } from '../models/worker.model';
-
+import { of, Subscription } from 'rxjs'
+import { concatMap } from 'rxjs/operators'
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
   styleUrls: ['./layoutworkers.component.scss']
 })
-export class LayoutworkersComponent implements OnInit {
+export class LayoutworkersComponent implements OnInit, OnDestroy {
 
+ 
   public workers: Array<any>;
   public newWorker: string;
+  private listSubscription: Subscription = new Subscription();
+  private newSubscription: Subscription = new Subscription();
 
-  constructor(private DataService:DataService) {
+  constructor(private dataService:dataService) {
     this.workers = [];
     this.newWorker = '';
    }
-
-  ngOnInit(): void {
-    this.getWorker();
-  }
+   
+   
+   ngOnInit(): void {
+     this.getWorker();
+    }
+    
+    ngOnDestroy(): void {
+      this.listSubscription.unsubscribe();
+      this.newSubscription.unsubscribe();
+    }
+  
 
   getWorker(){
-    this.DataService.getWorkers().subscribe(
+   this.listSubscription =  this.dataService.workersList.subscribe(
       (response) =>{
-        this.workers = response.worker;
-        console.log(response);
+        this.workers = response;
+        
       },
       (error) =>{
         console.log(error);
@@ -33,6 +44,7 @@ export class LayoutworkersComponent implements OnInit {
     )
   }
 
+  //viewchild
   addWorker(){
     let form = document.getElementById('addNewWorker');
     if (form) {
@@ -42,9 +54,12 @@ export class LayoutworkersComponent implements OnInit {
 
    add(){
     let newWorker = new worker(this.newWorker, 'true', 'true', 'hoy 12:30', 'hoy 12:33');
-     this.DataService.addWorker(newWorker).subscribe(
+
+    this.newSubscription = this.dataService.addWorker(newWorker)
+    .pipe(concatMap(worker => this.dataService.getWorkers()))
+    .subscribe(
       response =>{
-        this.getWorker();
+        this.dataService.workersList.next(response);
       }, error =>{
         console.log(error);
       }
