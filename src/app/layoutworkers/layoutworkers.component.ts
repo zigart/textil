@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, OnDestroy ,Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, OnDestroy ,Output, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { dataService } from '../services/data.service';
 import {  worker } from '../models/worker.model';
-import { of, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
 @Component({
   selector: 'app-layoutworkers',
@@ -9,14 +9,19 @@ import { concatMap } from 'rxjs/operators'
   styleUrls: ['./layoutworkers.component.scss']
 })
 export class LayoutworkersComponent implements OnInit, OnDestroy {
-
- 
+  
+  
   public workers: Array<any>;
   public newWorker: string;
   private listSubscription: Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
+  
+  @Output() nameWorker = new EventEmitter<string>();
+  @Output() displayLayoutWorkers = new EventEmitter<boolean>();
+  
+  @ViewChild("addNewWorker") form!: ElementRef;
 
-  constructor(private dataService:dataService) {
+  constructor(private dataService:dataService, private render:Renderer2) {
     this.workers = [];
     this.newWorker = '';
    }
@@ -46,10 +51,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
 
   //viewchild
   addWorker(){
-    let form = document.getElementById('addNewWorker');
-    if (form) {
-      form.style.display = "flex";
-    }
+    this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 
    add(){
@@ -64,15 +66,10 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-    this.newWorker = "";
-    let form = document.getElementById('addNewWorker');
-    if (form) {
-      form.style.display= "none";
-    }
+      this.newWorker = "";
+      this.render.setStyle(this.form.nativeElement, 'display', 'none'); 
   }
 
-  @Output() nameWorker = new EventEmitter<string>();
-  @Output() displayLayoutWorkers = new EventEmitter<boolean>();
 
   redirect(worker:string){
     this.nameWorker.emit(worker);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef, Renderer2, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
+  @ViewChild('layoutMachines') layoutMachines!: ElementRef;
+  @ViewChild('nav') nav!: ElementRef;
+  @ViewChild('login') login!: ElementRef;
+  @ViewChild('machineCfg') machineCfg!:ElementRef;
+  @ViewChild('layoutWorkers') layoutWorkers!:ElementRef;
+  @ViewChild('workersCfg') workersCfg!:ElementRef;
   
   public password:string;
   private truePassword:string;
@@ -14,7 +20,8 @@ export class ConfigurationComponent implements OnInit {
   public machineNumb:number;
   public workerName:string;
   
-  constructor(private router: Router) { 
+
+  constructor(private router: Router, private render:Renderer2) { 
     this.password = '';
     this.truePassword = "";
     this.displayLayout = false;
@@ -26,30 +33,25 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit(): void {
   }
   
+ 
+  
   signIn(){
-    var layoutMachines = document.getElementById('layoutMachines');
-    let login = document.getElementById('login');
-    let nav = document.getElementById('nav');
     if (this.password === this.truePassword) {
-      if(login && layoutMachines && nav){
-        login.style.display = "none";
-        layoutMachines.style.display = "block";
-        nav.style.display = "block";
-      }
+      this.render.setStyle(this.login.nativeElement, 'display', 'none');
+      this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'flex');
+      this.render.setStyle(this.nav.nativeElement, 'display', 'flex');
     }
   }
   
   
   
   displayOrNotLayoutMachines(){
-    let layoutMachines = document.getElementById('layoutMachines');
-    let machineCfg = document.getElementById('machineCfg');
-    if (this.displayLayout === true && layoutMachines && machineCfg) {
-      layoutMachines.style.display = 'block';
-      machineCfg.style.display = 'none';
-    }else if (layoutMachines && machineCfg) {
-      layoutMachines.style.display = 'none';
-      machineCfg.style.display = 'block';
+    if (this.displayLayout === true) {
+      this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'flex');
+      this.render.setStyle(this.machineCfg.nativeElement, 'display', 'none');
+    }else{
+      this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'none');
+      this.render.setStyle(this.machineCfg.nativeElement, 'display', 'block');
     }{
     }
   }
@@ -62,38 +64,25 @@ export class ConfigurationComponent implements OnInit {
   }
   
   getBackFromMachineCfg(e:boolean){
-    let machineCfg = document.getElementById('machineCfg');
-    let layoutMachines = document.getElementById('layoutMachines');
-    if ( e === true && machineCfg && layoutMachines) {
-      machineCfg.style.display = "none";
-      layoutMachines.style.display = "block";
+
+    if ( e === true) {
+      this.render.setStyle(this.machineCfg.nativeElement, 'display', 'none');
+      this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'block');
     }
   }
   
   showMachinesLayout(){
-    let layoutMachines = document.getElementById('layoutMachines');
-    let layoutWorkers = document.getElementById('layoutWorkers');
-    let machineCfg = document.getElementById('machineCfg');
-    let workersCfg = document.getElementById('workersCfg');
-    if (layoutMachines && layoutWorkers && machineCfg && workersCfg) {
-      layoutMachines.style.display = "block";
-      layoutWorkers.style.display = "none";
-      machineCfg.style.display = 'none';
-      workersCfg.style.display = 'none';
+    this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'block');
+    this.render.setStyle(this.layoutWorkers.nativeElement, 'display', 'none');
+    this.render.setStyle(this.machineCfg.nativeElement, 'display', 'none');
+    this.render.setStyle(this.workersCfg.nativeElement, 'display', 'none');
     }
 
-  }
   showWorkersCfg(){
-    let layoutMachines = document.getElementById('layoutMachines');
-    let layoutWorkers = document.getElementById('layoutWorkers');
-    let machineCfg = document.getElementById('machineCfg');
-    let workersCfg = document.getElementById('workersCfg');
-    if (layoutMachines && layoutWorkers && machineCfg && workersCfg) {
-      layoutMachines.style.display = "none";
-      layoutWorkers.style.display = "block";
-      machineCfg.style.display = 'none';
-      workersCfg.style.display = 'none';
-  }
+    this.render.setStyle(this.layoutWorkers.nativeElement, 'display', 'block');
+    this.render.setStyle(this.layoutMachines.nativeElement, 'display', 'none');
+    this.render.setStyle(this.machineCfg.nativeElement, 'display', 'none');
+    this.render.setStyle(this.workersCfg.nativeElement, 'display', 'none');
 }
 
   GetNameWorker(name:string){
@@ -102,26 +91,19 @@ export class ConfigurationComponent implements OnInit {
 
 
   displayOrNotLayoutWorkers(event:boolean){
-    let layoutWorkers = document.getElementById('layoutWorkers');
-    let workersCfg = document.getElementById('workersCfg');
-    
-    if (event === true && layoutWorkers && workersCfg) {
-      layoutWorkers.style.display = 'block';
-      workersCfg.style.display = 'none';
-    }else if (layoutWorkers && workersCfg) {
-      layoutWorkers.style.display = 'none';
-      workersCfg.style.display = 'block';
-      
-    }{
+    if (event === true){
+      this.render.setStyle(this.layoutWorkers.nativeElement, 'display', 'block');
+      this.render.setStyle(this.workersCfg.nativeElement, 'display', 'none');
+    }else{
+      this.render.setStyle(this.layoutWorkers.nativeElement, 'display', 'none');
+      this.render.setStyle(this.workersCfg.nativeElement, 'display', 'block');  
     }
   }
 
   getBackFromWorkersCfg(e:boolean){
-    let workersCfg = document.getElementById('workersCfg');
-    let layoutWorkers = document.getElementById('layoutWorkers');
-    if ( e === true && workersCfg && layoutWorkers) {
-      workersCfg.style.display = "none";
-      layoutWorkers.style.display = "block";
+    if ( e === true) {
+      this.render.setStyle(this.workersCfg.nativeElement, 'display', 'none'); 
+      this.render.setStyle(this.layoutWorkers.nativeElement, 'display', 'block');
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MachinecfgComponent implements OnInit {
 
+  @ViewChild('form') form!:ElementRef;
+
   public numberMachine:number;
   public date =  Date.now();
   public review: boolean;
@@ -15,7 +17,7 @@ export class MachinecfgComponent implements OnInit {
   public reviewDate:string;
   private toModify:any;
   
-  constructor(private routerAct:ActivatedRoute) { 
+  constructor(private routerAct:ActivatedRoute, private render:Renderer2) { 
     //initializations
     this.review = false;  
     this.newDate = ""; // two way data binding
@@ -43,20 +45,16 @@ export class MachinecfgComponent implements OnInit {
 
   //button for final edit 
   edit(){
-    let form = document.getElementById('form');
     if(window.confirm('Esta informacion sera irrecuperable')){
-      if (this.toModify && form) {
+      if (this.toModify) {
         this.toModify.innerText = "ultima revision:" + this.newDate;
-        form.style.display = "none";
+        this.render.setStyle(this.form.nativeElement, 'display', 'none');
       }
     }
   }
 
   cancel(){
-    let form = document.getElementById('form');
-    if (form) {
-      form.style.display = "none";
-    }
+    this.render.setStyle(this.form.nativeElement, 'display', 'none');
   }
   
   @Output() clicked = new EventEmitter<boolean>();

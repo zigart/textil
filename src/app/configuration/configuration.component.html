@@ -1,17 +1,29 @@
 <div class="container">
-    <form id="login">
+    <form id="login" #login>
         <label for="password">Contraseña </label>
         <input type="password" [(ngModel)]="password" name="password">
         <button (click)="signIn()">Ingresar</button>
     </form>
-    <nav id="nav">
+    <nav id="nav" #nav>
         <ul>
             <li><a (click)="showMachinesLayout()">Maquinas</a></li>
             <li><a (click)="showWorkersCfg()">Personal</a></li>
         </ul>
     </nav>
-    <app-layoutmachine (machineNumber)="machineNumber($event)" (displayLayoutMachine)="displayOrNotLayoutMachines()" id="layoutMachines"></app-layoutmachine>
-    <app-machinecfg [number] = "machineNumb" id="machineCfg" (clicked)="getBackFromMachineCfg($event)"></app-machinecfg>
-    <app-layoutworkers id="layoutWorkers" (nameWorker)="GetNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
-    <app-workerscfg [workerName]="workerName" id="workersCfg" (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
+
+    <div #layoutMachines id="layoutMachines">
+        <app-layoutmachine  (machineNumber)="machineNumber($event)" (displayLayoutMachine)="displayOrNotLayoutMachines()"  ></app-layoutmachine>
+    </div>
+
+    <div #machineCfg id="machineCfg">
+        <app-machinecfg [number] = "machineNumb"  (clicked)="getBackFromMachineCfg($event)"></app-machinecfg>
+    </div>
+
+    <div #layoutWorkers id="layoutWorkers">
+        <app-layoutworkers  (nameWorker)="GetNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
+    </div>
+
+    <div #workersCfg id="workersCfg">
+        <app-workerscfg [workerName]="workerName"  (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
+    </div>
 </div>
