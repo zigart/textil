@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DivideComponent } from './divide/divide.component';
-import { FindjobComponent } from './findjob/findjob.component';
+import { DivideComponent } from './job/divide/divide.component';
+import { FindjobComponent } from './job/findjob/findjob.component';
 import { JobComponent } from './job/job.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { ReviewComponent } from './review/review.component';
+import { ConfigurationComponent } from './job/configuration/configuration.component'
+import { ReviewComponent } from './job/review/review.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},

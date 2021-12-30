@@ -6,17 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WorkersComponent } from './workers/workers.component';
 import { JobComponent } from './job/job.component';
-import { ReviewComponent } from './review/review.component';
-import { FindjobComponent } from './findjob/findjob.component';
-import { DivideComponent } from './divide/divide.component';
+import { ReviewComponent } from './job/review/review.component';
+import { FindjobComponent } from './job/findjob/findjob.component';
+import { DivideComponent } from './job/divide/divide.component';
 import { FormsModule } from '@angular/forms';
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { MachinecfgComponent } from './machinecfg/machinecfg.component';
-import { LayoutmachineComponent } from './layoutmachine/layoutmachine.component';
-import { LayoutworkersComponent } from './layoutworkers/layoutworkers.component';
+import { ConfigurationComponent } from './job/configuration/configuration.component';
+import { MachinecfgComponent } from './job/configuration/machinecfg/machinecfg.component';
+import { LayoutmachineComponent } from './job/configuration/layoutmachine/layoutmachine.component';
+import { LayoutworkersComponent } from './job/configuration/layoutworkers/layoutworkers.component';
 import { dataService } from './services/data.service';
-import { WorkerscfgComponent } from './workerscfg/workerscfg.component';
+import { WorkerscfgComponent } from './job/configuration/workerscfg/workerscfg.component';
 import { HttpClientModule } from '@angular/common/http'; 
+import { WorkersService } from './services/workers/workers.service';
 
 
 @NgModule({
@@ -40,10 +41,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [dataService,
+    WorkersService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (dataService: dataService ) => () => dataService.load(),
-      deps:[dataService],
+      useFactory: (WorkersService: WorkersService ) => () => WorkersService.load(),
+      deps:[WorkersService],
       multi: true
      }],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ElementRef, Renderer2, ComponentRef } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, OnDestroy ,Output, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { dataService } from '../services/data.service';
-import {  worker } from '../models/worker.model';
+import { dataService } from '../../../services/data.service';
+import { worker } from 'src/app/models/worker.model';
 import { Subscription } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
+import { WorkersService } from '../../../services/workers/workers.service';
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
@@ -21,7 +22,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   
   @ViewChild("addNewWorker") form!: ElementRef;
 
-  constructor(private dataService:dataService, private render:Renderer2) {
+  constructor(private dataService:dataService, private workerService:WorkersService, private render:Renderer2) {
     this.workers = [];
     this.newWorker = '';
    }
@@ -38,7 +39,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   
 
   getWorker(){
-   this.listSubscription =  this.dataService.workersList.subscribe(
+   this.listSubscription =  this.workerService.workersList.subscribe(
       (response) =>{
         this.workers = response;
         
@@ -61,7 +62,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
     .pipe(concatMap(worker => this.dataService.getWorkers()))
     .subscribe(
       response =>{
-        this.dataService.workersList.next(response);
+        this.workerService.workersList.next(response);
       }, error =>{
         console.log(error);
       }

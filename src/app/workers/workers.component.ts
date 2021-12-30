@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { dataService } from '../services/data.service';
+import { WorkersService } from '../services/workers/workers.service';
 
 @Component({
   selector: 'app-workers',
@@ -12,7 +13,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   public workers:Array<any>;
   private listSubscription:Subscription = new Subscription();
 
-  constructor(private router:Router, private dataService: dataService ) {
+  constructor(private router:Router, private dataService: dataService, private workersServices: WorkersService ) {
     this.workers = [];
   }
   
@@ -25,7 +26,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   }
   
   getWorker(){
-   this.listSubscription =  this.dataService.workersList.subscribe(
+   this.listSubscription =  this.workersServices.workersList.subscribe(
       (response) =>{
         this.workers = response;
       },
