@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { machine } from 'src/app/models/machine.model';
 
 @Component({
   selector: 'app-configuration',
@@ -17,7 +18,7 @@ export class ConfigurationComponent implements OnInit {
   public password:string;
   private truePassword:string;
   public displayLayout:boolean;
-  public machineNumb:number;
+  public machineNumb!:machine;
   public workerName:string;
   
 
@@ -25,7 +26,6 @@ export class ConfigurationComponent implements OnInit {
     this.password = '';
     this.truePassword = "";
     this.displayLayout = false;
-    this.machineNumb = 0;
     this.workerName = '';
 
   }
@@ -58,7 +58,7 @@ export class ConfigurationComponent implements OnInit {
 
 
 
-  machineNumber(value:number){
+  machineNumber(value:machine){
     this.machineNumb = value;
     
   }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { machine } from 'src/app/models/machine.model';
+import { MachineService } from 'src/app/services/machine/machine.service';
 
 @Component({
   selector: 'app-layoutmachine',
@@ -7,23 +8,40 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./layoutmachine.component.scss']
 })
 export class LayoutmachineComponent implements OnInit {
-  public machines: Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  private booleanDisplay: boolean = false;
+  public machines: Array<any>;
 
-  @Output() machineNumber = new EventEmitter<number>();
+  @Output() machineNumber = new EventEmitter<machine>();
   @Output() displayLayoutMachine = new EventEmitter<boolean>();
-  constructor(private router:Router, private routerAct:ActivatedRoute) { }
+
+  constructor(
+    private machineService:MachineService) { 
+      this.machines = [];
+    }
 
   ngOnInit(): void {
+    this.getMachines();
   }
+
+  getMachines(){
+    this.machineService.machineList.subscribe(
+      (response) =>{
+        this.machines = response;
+        console.log(this.machines);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+
 
   addMachine() {
     let lastItem = this.machines[this.machines.length - 1];
-    let newItem = lastItem + 1;
-    this.machines.push(newItem);
+    // let newItem = lastItem + 1;
+    // this.machines.push(newItem);
   }
 
-  redirect(machine:number){
+  redirect(machine:machine){
     this.machineNumber.emit(machine);
     this.displayLayoutMachine.emit(false);
   }

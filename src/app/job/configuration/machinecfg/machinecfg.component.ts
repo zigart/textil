@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { machine } from 'src/app/models/machine.model';
 
 @Component({
   selector: 'app-machinecfg',
@@ -31,7 +32,7 @@ export class MachinecfgComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() number:number =0;
+  @Input() number!:machine;
 
   //this function find the html element when somebody click the button
    editForm(e:any){

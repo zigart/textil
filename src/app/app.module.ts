@@ -18,6 +18,7 @@ import { dataService } from './services/data.service';
 import { WorkerscfgComponent } from './job/configuration/workerscfg/workerscfg.component';
 import { HttpClientModule } from '@angular/common/http'; 
 import { WorkersService } from './services/workers/workers.service';
+import { MachineService } from './services/machine/machine.service';
 
 
 @NgModule({
@@ -42,10 +43,17 @@ import { WorkersService } from './services/workers/workers.service';
   ],
   providers: [dataService,
     WorkersService,
+    MachineService,
     {
       provide: APP_INITIALIZER,
       useFactory: (WorkersService: WorkersService ) => () => WorkersService.load(),
       deps:[WorkersService],
+      multi: true
+     },
+     {
+      provide: APP_INITIALIZER,
+      useFactory: (machineService: MachineService ) => () => machineService.load(),
+      deps:[MachineService],
       multi: true
      }],
   bootstrap: [AppComponent]
