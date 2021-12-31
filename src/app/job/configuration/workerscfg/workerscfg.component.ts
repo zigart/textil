@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { dataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-workerscfg',
@@ -6,17 +7,31 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./workerscfg.component.scss']
 })
 export class WorkerscfgComponent implements OnInit {
+  @Input() workerID!:string;
+  @Input() workerName!:string;
+  @Output() clicked = new EventEmitter<boolean>();
 
-  @Input() workerName:string;
-
-  constructor() { 
-    this.workerName = '';
+  constructor(
+    private dataService:dataService
+  ) { 
+    
   }
 
   ngOnInit(): void {
+    this.getWorkerCfg();
   }
 
-  @Output() clicked = new EventEmitter<boolean>();
+  getWorkerCfg(){
+    this.dataService.getWorker(this.workerID).subscribe(
+      (response)=>{
+        console.log(response);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+
 
   back(){
     this.clicked.emit(true);

@@ -20,10 +20,10 @@
     </div>
 
     <div #layoutWorkers id="layoutWorkers">
-        <app-layoutworkers  (nameWorker)="GetNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
+        <app-layoutworkers (workerID)="getWorkerID($event)"  (nameWorker)="getNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
     </div>
 
     <div #workersCfg id="workersCfg">
-        <app-workerscfg [workerName]="workerName"  (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
+        <app-workerscfg [workerID]="workerID" [workerName]="workerName"  (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
     </div>
 </div>

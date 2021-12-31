@@ -11,6 +11,8 @@ export class WorkersService {
 
   public workersList: BehaviorSubject<worker[]> = new BehaviorSubject<worker[]>([]);
 
+  public worker: BehaviorSubject<worker[]> = new BehaviorSubject<worker[]>([]);
+
   constructor(private dataService:dataService) { }
   
   async load(){

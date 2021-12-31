@@ -20,6 +20,11 @@ export class dataService{
     let headers = new HttpHeaders();
     return this._http.get(this.url + 'trabajadores', {headers:headers});
   }
+
+  getWorker(id:string) : Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'trabajador/' + id, {headers:headers});
+  }
  
   addWorker(newWorker: worker): Observable<any>{
     let headers = new HttpHeaders();

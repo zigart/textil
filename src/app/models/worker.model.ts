@@ -1,8 +1,8 @@
 export class worker{
     constructor(
         public name:string, 
-        public  activeDivider:string, 
-        public activeReviewer:string, 
+        public activeDivider:boolean, 
+        public activeReviewer:boolean, 
         public lastDivition:string, 
         public lastReview:string
     ){}

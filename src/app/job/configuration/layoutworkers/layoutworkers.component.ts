@@ -18,6 +18,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   private newSubscription: Subscription = new Subscription();
   
   @Output() nameWorker = new EventEmitter<string>();
+  @Output() workerID = new EventEmitter<string>();
   @Output() displayLayoutWorkers = new EventEmitter<boolean>();
   
   @ViewChild("addNewWorker") form!: ElementRef;
@@ -50,13 +51,12 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
     )
   }
 
-  //viewchild
   addWorker(){
     this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 
    add(){
-    let newWorker = new worker(this.newWorker, 'true', 'true', 'hoy 12:30', 'hoy 12:33');
+    let newWorker = new worker(this.newWorker, true, true, 'hoy 12:30', 'hoy 12:33');
 
     this.newSubscription = this.dataService.addWorker(newWorker)
     .pipe(concatMap(worker => this.dataService.getWorkers()))
@@ -72,8 +72,9 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   }
 
 
-  redirect(worker:string){
+  redirect(worker:string, id:string){
     this.nameWorker.emit(worker);
+    this.workerID.emit(id);
     this.displayLayoutWorkers.emit(false);
   }
 }

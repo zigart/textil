@@ -20,6 +20,7 @@ export class ConfigurationComponent implements OnInit {
   public displayLayout:boolean;
   public machineNumb!:machine;
   public workerName:string;
+  public workerID:string;
   
 
   constructor(private router: Router, private render:Renderer2) { 
@@ -27,6 +28,7 @@ export class ConfigurationComponent implements OnInit {
     this.truePassword = "";
     this.displayLayout = false;
     this.workerName = '';
+    this.workerID = '';
 
   }
   
@@ -85,8 +87,12 @@ export class ConfigurationComponent implements OnInit {
     this.render.setStyle(this.workersCfg.nativeElement, 'display', 'none');
 }
 
-  GetNameWorker(name:string){
+  getNameWorker(name:string){
     this.workerName = name;
+  }
+
+  getWorkerID(id:string){
+    this.workerID = id;
   }
 
 
