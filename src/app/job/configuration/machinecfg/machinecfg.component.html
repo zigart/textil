@@ -1,7 +1,7 @@
-<div class="container">
+<app-nav></app-nav>
+<div class="container" *ngIf="machine">
     <div class="title">
-        <button id="back" (click)="back()">Atras</button>
-        <h1>MAQUINA N° {{number}}</h1></div>
+        <h1>MAQUINA N° {{machine.machineNumber}}</h1></div>
     <div class="information">
         <div class="machineActive">
             <label for="machiene">Maquina activa</label>

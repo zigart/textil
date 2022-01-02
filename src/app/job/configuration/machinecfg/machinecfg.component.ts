@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { machine } from 'src/app/models/machine.model';
+import { dataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-machinecfg',
@@ -17,27 +19,45 @@ export class MachinecfgComponent implements OnInit {
   public newDate:string;
   public reviewDate:string;
   private toModify:any;
+  public machineID!:string
+  private getMachineSubscription: Subscription = new Subscription();
+  public machine:any;
   
-  constructor(private routerAct:ActivatedRoute, private render:Renderer2) { 
+  constructor(private route:ActivatedRoute, private render:Renderer2,
+    private dataService:dataService) { 
     //initializations
     this.review = false;  
     this.newDate = ""; // two way data binding
     this.reviewDate = "";
     this.toModify;
     //------------------------------------------------------------
-    let routerActiv:any = this.routerAct.snapshot.paramMap.get('machine');
+    let routerActiv:any = this.route.snapshot.paramMap.get('machine');
     this.numberMachine = routerActiv;
   }
 
   ngOnInit(): void {
+    this.getMachine();
   }
 
-  @Input() number!:machine;
+
+  getMachine(){
+    this.machineID = this.route.snapshot.params['id'];
+
+    this.getMachineSubscription = this.dataService.getMachine(this.machineID).subscribe(
+      response =>{
+        this.machine = response;
+        console.log(this.machine);
+      }
+    )
+
+  }
 
   //this function find the html element when somebody click the button
    editForm(e:any){
     let paragraph = e.path[1].childNodes[0];
     this.toModify = paragraph;
+
+    //FIX THIS URGENT
     let form = document.getElementById('form');
     if (form) {
       form.style.display = "block";
@@ -58,9 +78,4 @@ export class MachinecfgComponent implements OnInit {
     this.render.setStyle(this.form.nativeElement, 'display', 'none');
   }
   
-  @Output() clicked = new EventEmitter<boolean>();
-
-  back(){
-    this.clicked.emit(true);
-  }
 }

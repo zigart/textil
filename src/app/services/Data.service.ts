@@ -38,6 +38,11 @@ export class dataService{
     return this._http.get(this.url + 'maquinas', {headers:headers});
   }
 
+  getMachine(id:string): Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'maquina/'+ id, {headers:headers});
+  }
+
   addMachine(newMachine: machine): Observable<any>{
     let headers = new HttpHeaders();
     return this._http.post(this.url + 'maquinas', newMachine, {headers:headers});
