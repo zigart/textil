@@ -21,6 +21,7 @@ import { WorkersService } from './services/workers/workers.service';
 import { MachineService } from './services/machine/machine.service';
 import { LoginService } from './services/config/login.service';
 import { LoginGuard } from './job/configuration/login.guard';
+import { NavComponent } from './job/configuration/nav/nav.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LoginGuard } from './job/configuration/login.guard';
     MachinecfgComponent,
     LayoutmachineComponent,
     LayoutworkersComponent,
-    WorkerscfgComponent
+    WorkerscfgComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,

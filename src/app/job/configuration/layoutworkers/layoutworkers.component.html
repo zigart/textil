@@ -1,3 +1,4 @@
+<app-nav></app-nav>
 <div class="container">
     <ul>
         <li *ngFor="let worker of workers"><a [routerLink]= "['../trabajador', worker._id]" (click)="redirect(worker._id)">{{worker.name}}</a></li>

@@ -6,41 +6,16 @@ $oceanicBlue: #3C4F76;
     width: 79.9vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    nav{
-        display: none;
-        width: 100%;
-        background-color: $oceanicBlue;
-        color: $purple;
-        width: 100%;
-        height: 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
     
-        ul{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            li{
-                list-style: none;
-                a{
-                    margin: 20px;
-                    width: 40px;
-                    height: 20px;
-                    color: $purple;
-                    font-size: 20px;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
     #login{
         display: flex;
         flex-direction: column;
         height: 300px;
+        justify-self: center;
         justify-content: center;
+        align-self: center;
         align-items: center;
         label{
             font-size: 25px;
@@ -58,19 +33,5 @@ $oceanicBlue: #3C4F76;
             background-color: $deepBlue;
             color: $purple;
         }
-    }
-    #layoutMachines{
-        display: none;
-    }
-    #machineCfg{
-        display: none;
-    }
-
-    #layoutWorkers{
-        display: none;
-    }
-
-    #workersCfg{
-        display: none;
     }
 }

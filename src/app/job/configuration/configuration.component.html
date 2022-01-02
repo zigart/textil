@@ -4,17 +4,5 @@
         <input type="password" [(ngModel)]="password" name="password">
         <button (click)="signIn()">Ingresar</button>
     </form>
-    <nav id="nav" #nav>
-        <ul>
-            <li><a routerLink="maquinas">Maquinas</a></li>
-            <li><a routerLink="trabajadores">Personal</a></li>
-        </ul>
-    </nav>
-
     <router-outlet></router-outlet>
-    
-
-    <div #machineCfg id="machineCfg">
-        <app-machinecfg [number] = "machineNumb"  (clicked)="getBackFromMachineCfg($event)"></app-machinecfg>
-    </div>
 </div>
