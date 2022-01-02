@@ -56,21 +56,14 @@ export class MachinecfgComponent implements OnInit {
    editForm(e:any){
     let paragraph = e.path[1].childNodes[0];
     this.toModify = paragraph;
-
-    //FIX THIS URGENT
-    let form = document.getElementById('form');
-    if (form) {
-      form.style.display = "block";
-    }
+    this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 
   //button for final edit 
   edit(){
     if(window.confirm('Esta informacion sera irrecuperable')){
-      if (this.toModify) {
-        this.toModify.innerText = "ultima revision:" + this.newDate;
-        this.render.setStyle(this.form.nativeElement, 'display', 'none');
-      }
+      this.render.setProperty(this.toModify, 'innerText', "ultima revision: " + this.newDate);
+      this.render.setStyle(this.form.nativeElement, 'display', 'none');
     }
   }
 
