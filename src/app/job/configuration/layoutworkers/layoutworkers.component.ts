@@ -72,9 +72,8 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   }
 
 
-  redirect(worker:string, id:string){
-    this.nameWorker.emit(worker);
-    this.workerID.emit(id);
+  redirect(worker:string[]){
+    this.workerService.worker.next(worker);
     this.displayLayoutWorkers.emit(false);
   }
 }

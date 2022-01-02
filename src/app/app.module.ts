@@ -19,6 +19,8 @@ import { WorkerscfgComponent } from './job/configuration/workerscfg/workerscfg.c
 import { HttpClientModule } from '@angular/common/http'; 
 import { WorkersService } from './services/workers/workers.service';
 import { MachineService } from './services/machine/machine.service';
+import { LoginService } from './services/config/login.service';
+import { LoginGuard } from './job/configuration/login.guard';
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { MachineService } from './services/machine/machine.service';
   providers: [dataService,
     WorkersService,
     MachineService,
+    LoginGuard,
     {
       provide: APP_INITIALIZER,
       useFactory: (WorkersService: WorkersService ) => () => WorkersService.load(),

@@ -1,6 +1,6 @@
 <div class="container">
     <ul>
-        <li *ngFor="let worker of workers"><a (click)="redirect(worker.name, worker._id)">{{worker.name}}</a></li>
+        <li *ngFor="let worker of workers"><a [routerLink]= "['../trabajador', worker._id]" (click)="redirect(worker._id)">{{worker.name}}</a></li>
     </ul>
     <button id="openForm" (click)="addWorker()">Agregar Persona</button>
     <form #addNewWorker id="addNewWorker">

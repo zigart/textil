@@ -6,24 +6,15 @@
     </form>
     <nav id="nav" #nav>
         <ul>
-            <li><a (click)="showMachinesLayout()">Maquinas</a></li>
-            <li><a (click)="showWorkersCfg()">Personal</a></li>
+            <li><a routerLink="maquinas">Maquinas</a></li>
+            <li><a routerLink="trabajadores">Personal</a></li>
         </ul>
     </nav>
 
-    <div #layoutMachines id="layoutMachines">
-        <app-layoutmachine  (machineNumber)="machineNumber($event)" (displayLayoutMachine)="displayOrNotLayoutMachines()"  ></app-layoutmachine>
-    </div>
+    <router-outlet></router-outlet>
+    
 
     <div #machineCfg id="machineCfg">
         <app-machinecfg [number] = "machineNumb"  (clicked)="getBackFromMachineCfg($event)"></app-machinecfg>
-    </div>
-
-    <div #layoutWorkers id="layoutWorkers">
-        <app-layoutworkers (workerID)="getWorkerID($event)"  (nameWorker)="getNameWorker($event)" (displayLayoutWorkers)="displayOrNotLayoutWorkers($event)" ></app-layoutworkers>
-    </div>
-
-    <div #workersCfg id="workersCfg">
-        <app-workerscfg [workerID]="workerID" [workerName]="workerName"  (clicked)="getBackFromWorkersCfg($event)"></app-workerscfg>
     </div>
 </div>

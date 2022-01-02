@@ -1,14 +1,13 @@
 <div class="container">
-    <div class="title">
-        <button id="back" (click)="back()">Atras</button>
-        <h1>{{workerName}}</h1>
+    <div class="title" *ngIf="individualWorker">
+        <h1  >{{individualWorker.name}}</h1>
     </div>
     <div class="information">
         <div class="machineActive">
             <label for="reviewer">Revisador Activo</label>
-            <input type="checkbox" name="reviewer">
+            <input #activeReviewer type="checkbox" name="reviewer">
             <label for="separator">Separador Activo</label>
-            <input type="checkbox" name="separator">
+            <input #activeDivider type="checkbox" name="separator">
         </div>
     </div>
 </div>
