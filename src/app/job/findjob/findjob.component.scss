@@ -2,22 +2,19 @@ $deepBlue: #383F51;
 $purple: #DDDBF1;
 $oceanicBlue: #3C4F76;
 
-.btn{
-    height: 80px;
-    width: 200px;
-    border-radius: 20px;
-    background-color: $oceanicBlue;
-    color: white;
-    font-size: 18px;
-}
 
-.check{
+.container{
+    width: 79.9vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    input{
-        margin-left: 10px;
+    .btn{
+        height: 80px;
+        width: 200px;
+        border-radius: 20px;
+        background-color: $oceanicBlue;
+        color: white;
+        font-size: 18px;
     }
-    margin-top: 20px;
 }
