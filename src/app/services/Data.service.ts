@@ -12,7 +12,12 @@ export class dataService{
   private url:string = 'http://localhost:3700/';
 
   constructor(private _http:HttpClient) {} 
-  
+  //attandant
+
+  getAttandant(){
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'encargado', {headers:headers});
+  }
 
   //workers
 
