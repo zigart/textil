@@ -46,7 +46,6 @@ export class MachinecfgComponent implements OnInit {
     this.getMachineSubscription = this.dataService.getMachine(this.machineID).subscribe(
       response =>{
         this.machine = response;
-        console.log(this.machine);
       }
     )
 

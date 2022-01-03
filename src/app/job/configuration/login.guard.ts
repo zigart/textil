@@ -23,7 +23,6 @@ export class LoginGuard implements CanActivateChild {
     this.loginServices.checkPassword(recived);
     this.loginServices.loged.subscribe(
       response => {
-        console.log(response);
         this.res = response;
       }
     )

@@ -20,9 +20,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   
   public password!:string;
   public loged:boolean;
-  public machineNumb!:machine;
-  public workerName:string;
-  public workerID:string;
   private loginSubscription:Subscription = new Subscription();
 
 
@@ -33,8 +30,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private loginGuard: LoginGuard) { 
     this.loged = false;
-    this.workerName = '';
-    this.workerID = '';
 
   }
   
@@ -47,21 +42,23 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
   
   signIn(){
+
+    //the password its taken from two way data binding
     this.loginGuard.getData(this.password);
 
     this.loginService.loged.subscribe(
       (response)=>{
-        console.log(response);
         this.loged = response;
       },
       (error)=>{
         console.log(error);
       }
-    )
+    );
 
+    //i must fix this, if I click on attandand next to login this is not showing again
     if (this.loged == true) {
       this.router.navigate(['maquinas'], {relativeTo: this.activatedRouter});
-       this.render.setStyle(this.login.nativeElement, 'display', 'none');
+      this.render.setStyle(this.login.nativeElement, 'display', 'none');
     }
   }
 

@@ -36,7 +36,6 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
    this.getMachinesSubscription = this.machineService.machineList.subscribe(
       (response) =>{
         this.machines = response;
-        console.log(this.machines);
       },
       (error)=>{
         console.log(error);

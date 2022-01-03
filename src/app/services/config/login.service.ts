@@ -16,7 +16,6 @@ export class LoginService implements OnDestroy{
       (response)=>{
         this.attandand = response;
         this.password = this.attandand[0].password;
-        console.log(this.password);
       },
       (error)=>{
         console.log(error);
