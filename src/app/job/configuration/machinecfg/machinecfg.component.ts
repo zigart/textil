@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { machine } from 'src/app/models/machine.model';
@@ -9,7 +9,7 @@ import { dataService } from 'src/app/services/data.service';
   templateUrl: './machinecfg.component.html',
   styleUrls: ['./machinecfg.component.scss']
 })
-export class MachinecfgComponent implements OnInit {
+export class MachinecfgComponent implements OnInit, OnDestroy {
 
   @ViewChild('form') form!:ElementRef;
 
@@ -22,6 +22,7 @@ export class MachinecfgComponent implements OnInit {
   public machineID!:string
   private getMachineSubscription: Subscription = new Subscription();
   public machine:any;
+  private updateSubscribe:Subscription = new Subscription();
   
   constructor(private route:ActivatedRoute, private render:Renderer2,
     private dataService:dataService) { 
@@ -34,13 +35,16 @@ export class MachinecfgComponent implements OnInit {
     let routerActiv:any = this.route.snapshot.paramMap.get('machine');
     this.numberMachine = routerActiv;
   }
-
+  
   @ViewChild('activeMachine') activeMachine!:ElementRef;
   ngOnInit(): void {
     this.getMachine();
-
+    
   }
   
+  ngOnDestroy(): void {
+    this.updateSubscribe.unsubscribe();
+  }
   
   getMachine(){
     this.machineID = this.route.snapshot.params['id'];
@@ -54,10 +58,9 @@ export class MachinecfgComponent implements OnInit {
   }
 
 
-  //give this info to the backend
   changeState(e:any){
     this.machine.activeMachine = e.target.checked;
-    this.dataService.updateActiveMachine(this.machine._id, this.machine).subscribe(
+    this.updateSubscribe= this.dataService.updateActiveMachine(this.machine._id, this.machine).subscribe(
       (response)=>{},
       (error)=>{
         console.log(error);

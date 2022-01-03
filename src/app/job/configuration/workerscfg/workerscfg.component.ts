@@ -18,6 +18,8 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
 
   public individualWorker!:any;
   private getWorker: Subscription = new Subscription();
+  private updateSubscribe:Subscription = new Subscription();
+
   constructor(
     private dataService:dataService,
     private workersService: WorkersService,
@@ -33,6 +35,27 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
    this.getWorker.unsubscribe();
   }
 
+
+  changeReviewerState(e:any){
+
+    this.individualWorker.activeReviewer = e.target.checked;
+    this.updateSubscribe= this.dataService.updateWorker(this.individualWorker._id, this.individualWorker).subscribe(
+      (response)=>{},
+      (error)=>{
+        console.log(error);
+      }
+    );
+  }
+
+  changeDividerState(e:any){
+
+    this.individualWorker.activeDivider = e.target.checked;
+    this.updateSubscribe = this.dataService.updateWorker(this.individualWorker._id, this.individualWorker).subscribe(
+      (response)=>{},
+      (error)=>{
+        console.log(error);
+      });
+  }
 
 
   getWorkerCfg(){

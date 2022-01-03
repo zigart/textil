@@ -36,6 +36,11 @@ export class dataService{
     return this._http.post(this.url + 'trabajadores', newWorker, {headers:headers});
   }
 
+  updateWorker(id:string, newValue:boolean){
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'trabajador/'+ id, newValue, {headers:headers});
+  }
+
   //machines
 
   getMachines() : Observable<any>{
