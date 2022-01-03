@@ -53,5 +53,9 @@ export class dataService{
     return this._http.post(this.url + 'maquinas', newMachine, {headers:headers});
   }
 
+  updateActiveMachine(id:string, newValue:boolean):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'maquina/'+ id, newValue, {headers:headers});
+  }
 
 }

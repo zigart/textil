@@ -35,22 +35,35 @@ export class MachinecfgComponent implements OnInit {
     this.numberMachine = routerActiv;
   }
 
+  @ViewChild('activeMachine') activeMachine!:ElementRef;
   ngOnInit(): void {
     this.getMachine();
+
   }
-
-
+  
+  
   getMachine(){
     this.machineID = this.route.snapshot.params['id'];
-
+    
     this.getMachineSubscription = this.dataService.getMachine(this.machineID).subscribe(
       response =>{
         this.machine = response;
       }
-    )
+      )
 
   }
 
+
+  //give this info to the backend
+  changeState(e:any){
+    this.machine.activeMachine = e.target.checked;
+    this.dataService.updateActiveMachine(this.machine._id, this.machine).subscribe(
+      (response)=>{},
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
   //this function find the html element when somebody click the button
    editForm(e:any){
     let paragraph = e.path[1].childNodes[0];

@@ -5,14 +5,14 @@
     <div class="information">
         <div class="machineActive">
             <label for="machiene">Maquina activa</label>
-            <input type="checkbox" name="machine">
+            <input #activeMachine type="checkbox" name="machine" [checked]="machine.activeMachine" (click)="changeState($event)">
         </div>
         <div class="information--review">
-            <p id="review" ([ngModel])="reviewDate">Ultima revision: {{date | date: 'short'}} </p>
+            <p id="review" ([ngModel])="reviewDate">Ultima revision: {{machine.lastReview}} </p>
             <button (click)="editForm($event)">EDITAR REVISION</button>
         </div>
         <div class="divide">
-            <p>Ultima separacion: {{date | date: 'short'}} </p>
+            <p>Ultima separacion: {{machine.lastDivition}} </p>
             <button (click)="editForm($event)">EDITAR SEPARACION</button>
         </div>
     </div>

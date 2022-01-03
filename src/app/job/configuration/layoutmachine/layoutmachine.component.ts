@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, last } from 'rxjs/operators';
 import { machine } from 'src/app/models/machine.model';
 import { dataService } from 'src/app/services/data.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-layoutmachine',
@@ -17,15 +18,16 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
 
   @Output() machineNumber = new EventEmitter<machine>();
   @Output() displayLayoutMachine = new EventEmitter<boolean>();
-
+  
   constructor(
     private machineService:MachineService,
     private dataService: dataService) { 
       this.machines = [];
     }
-
-  ngOnInit(): void {
-    this.getMachines();
+    
+    ngOnInit(): void {
+      this.getMachines();
+      console.log();
   }
 
   ngOnDestroy(): void {
@@ -44,9 +46,17 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
 
 
   addMachine() {
-    let lastItem = this.machines[this.machines.length - 1];
-    let sum = lastItem.machineNumber + 1;
-    let newMachine = new machine(sum, true);
+
+    
+  let lastItem = this.machines[this.machines.length - 1];
+  let sum;
+  if (!lastItem) {
+    sum = 1;
+  }else{
+    sum = lastItem.machineNumber + 1;
+  }
+  
+    let newMachine = new machine(sum, true, moment().format("l" + " "+ "LTS"), moment().format("l" + " "+ "LTS"));
     this.newSubscription = this.dataService.addMachine(newMachine)
     .pipe(concatMap(machines => this.dataService.getMachines()))
     .subscribe(
