@@ -11,12 +11,8 @@ import { LoginGuard } from './login.guard';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit, OnDestroy {
-  @ViewChild('layoutMachines') layoutMachines!: ElementRef;
-  @ViewChild('nav') nav!: ElementRef;
+
   @ViewChild('login') login!: ElementRef;
-  @ViewChild('machineCfg') machineCfg!:ElementRef;
-  @ViewChild('layoutWorkers') layoutWorkers!:ElementRef;
-  @ViewChild('workersCfg') workersCfg!:ElementRef;
   
   public password!:string;
   public loged:boolean;
@@ -48,7 +44,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
 
     this.loginService.loged.subscribe(
       (response)=>{
-        this.loged = response;
+        this.loginService.logedChild = response;
       },
       (error)=>{
         console.log(error);
@@ -56,10 +52,20 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     );
 
     //i must fix this, if I click on attandand next to login this is not showing again
-    if (this.loged == true) {
+    if (this.loginService.logedChild == true) {
       this.router.navigate(['maquinas'], {relativeTo: this.activatedRouter});
-      this.render.setStyle(this.login.nativeElement, 'display', 'none');
-    }
-  }
+      this.loginService.showLogin = false;
 
+  }
+  this.password = "";
+}
+
+
+   displayOrNot(){
+     if (this.loginService.showLogin === true) {
+       return 'flex'; 
+     }else{
+       return 'none';
+     }
+   }
 }

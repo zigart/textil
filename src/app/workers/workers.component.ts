@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoginService } from '../services/config/login.service';
 import { dataService } from '../services/data.service';
 import { WorkersService } from '../services/workers/workers.service';
 
@@ -13,7 +14,11 @@ export class WorkersComponent implements OnInit, OnDestroy {
   public workers:Array<any>;
   private listSubscription:Subscription = new Subscription();
 
-  constructor(private router:Router, private dataService: dataService, private workersServices: WorkersService ) {
+  constructor(
+    private router:Router, 
+    private dataService: dataService, 
+    private workersServices: WorkersService,
+    private loginService:LoginService ) {
     this.workers = [];
   }
   
@@ -37,6 +42,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   }
 
   redirectAttendant(){
+    this.loginService.showLogin = true;
     this.router.navigate(['/inicio/configuracion']);
   }
 

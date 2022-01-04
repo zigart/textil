@@ -8,9 +8,11 @@ import { dataService } from '../data.service';
 export class LoginService implements OnDestroy{
 
   public attandand:any;
-  password:string = '';
+  public password:string = '';
+  public logedChild!:boolean
   private subscription: Subscription = new Subscription();
-  loged:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public loged:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showLogin:boolean = true;
   constructor(private dataService:dataService) {
    this.subscription = this.dataService.getAttandant().subscribe(
       (response)=>{
