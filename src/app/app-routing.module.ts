@@ -11,9 +11,12 @@ import { LayoutworkersComponent } from './job/configuration/layoutworkers/layout
 import { WorkerscfgComponent } from './job/configuration/workerscfg/workerscfg.component';
 import { LoginService } from './services/config/login.service';
 import { LoginGuard } from './job/configuration/login.guard';
+import { FrontpageComponent } from './job/frontpage/frontpage.component';
+import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/inicio', pathMatch: 'full'},
+  {path: '', redirectTo: '/menu', pathMatch: 'full'},
+  {path: 'menu', component: FrontpageComponent},
   {path: 'inicio', component: JobComponent,
   children: [
     {path: 'trabajo', component: FindjobComponent},
@@ -25,7 +28,8 @@ const routes: Routes = [
       {path: 'maquina/:id', component: MachinecfgComponent},
       {path: 'trabajadores', component: LayoutworkersComponent},
       {path: 'trabajador/:id', component: WorkerscfgComponent}
-    ]}
+    ]},
+    {path: '**', component: NotfoundcomponentComponent}
   ]},
 ];
 
