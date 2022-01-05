@@ -46,8 +46,5 @@ export class WorkersComponent implements OnInit, OnDestroy {
     this.router.navigate(['/inicio/configuracion']);
   }
 
-  redirectWorker(){
-    this.router.navigate(['/inicio/trabajo']);
-  }
 
 }

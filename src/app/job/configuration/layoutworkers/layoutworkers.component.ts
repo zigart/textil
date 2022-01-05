@@ -4,6 +4,8 @@ import { worker } from 'src/app/models/worker.model';
 import { Subscription } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
 import { WorkersService } from '../../../services/workers/workers.service';
+import * as moment from 'moment';
+import { DatePipe, formatDate } from '@angular/common';
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
@@ -17,30 +19,39 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   private listSubscription: Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
   
+  
   @Output() nameWorker = new EventEmitter<string>();
   @Output() workerID = new EventEmitter<string>();
   @Output() displayLayoutWorkers = new EventEmitter<boolean>();
   
   @ViewChild("addNewWorker") form!: ElementRef;
-
-  constructor(private dataService:dataService, private workerService:WorkersService, private render:Renderer2) {
+  
+  constructor(
+    private dataService:dataService, 
+    private workerService:WorkersService, 
+    private render:Renderer2,
+    private datePipe: DatePipe
+    ) {
     this.workers = [];
     this.newWorker = '';
-   }
-   
-   
-   ngOnInit(): void {
-     this.getWorker();
-    }
-    
-    ngOnDestroy(): void {
-      this.listSubscription.unsubscribe();
-      this.newSubscription.unsubscribe();
-    }
+  }
   
-
+  
+ 
+  
+  ngOnInit(): void {
+    this.getWorker();
+    
+  }
+  
+  ngOnDestroy(): void {
+    this.listSubscription.unsubscribe();
+    this.newSubscription.unsubscribe();
+  }
+  
+  
   getWorker(){
-   this.listSubscription =  this.workerService.workersList.subscribe(
+    this.listSubscription =  this.workerService.workersList.subscribe(
       (response) =>{
         this.workers = response;
         
@@ -54,9 +65,10 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   addWorker(){
     this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
-
+  
+  date:any = moment().format('DD/MM/yyyy, HH:mm');
    add(){
-    let newWorker = new worker(this.newWorker, true, true, 'hoy 12:30', 'hoy 12:33');
+    let newWorker = new worker(this.newWorker, true, true, this.date , this.date);
 
     this.newSubscription = this.dataService.addWorker(newWorker)
     .pipe(concatMap(worker => this.dataService.getWorkers()))

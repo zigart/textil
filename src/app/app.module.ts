@@ -24,6 +24,7 @@ import { LoginGuard } from './job/configuration/login.guard';
 import { NavComponent } from './job/configuration/nav/nav.component';
 import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponen
     WorkersService,
     MachineService,
     LoginGuard,
+    DatePipe,
     {
       provide: APP_INITIALIZER,
       useFactory: (WorkersService: WorkersService ) => () => WorkersService.load(),

@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'menu', component: FrontpageComponent},
   {path: 'inicio', component: JobComponent,
   children: [
-    {path: 'trabajo', component: FindjobComponent},
+    {path: 'trabajo/:id', component: FindjobComponent},
     {path: 'revisar', component: ReviewComponent},
     {path: 'separar', component: DivideComponent},
     {path: 'configuracion', component: ConfigurationComponent, canActivateChild:[LoginGuard],

@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { machine } from 'src/app/models/machine.model';
 import { LoginService } from 'src/app/services/config/login.service';
@@ -17,19 +19,22 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   public password!:string;
   public loged:boolean;
   private loginSubscription:Subscription = new Subscription();
-
+  today:any;
 
   constructor(
     private router: Router, 
     private activatedRouter:ActivatedRoute, 
     private render:Renderer2,
     private loginService: LoginService,
-    private loginGuard: LoginGuard) { 
+    private loginGuard: LoginGuard,
+    private datePipe: DatePipe) { 
     this.loged = false;
+    this.today = moment(Date.now(), 'DD/MM/yyyy, HH:mm');
 
   }
   
   ngOnInit(): void {
+    console.log(this.today);
   }
   
   
