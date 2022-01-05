@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {  ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { concat, pipe, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { dataService } from 'src/app/services/data.service';
   templateUrl: './findjob.component.html',
   styleUrls: ['./findjob.component.scss']
 })
-export class FindjobComponent implements OnInit{
+export class FindjobComponent implements OnInit, OnDestroy{
 
   public workerID!:string;
   public checkboxValue : boolean = true;
@@ -18,12 +18,15 @@ export class FindjobComponent implements OnInit{
   constructor(private router: Router, private activeRoute: ActivatedRoute, private dataService:dataService) { }
   
   ngOnInit(): void {
-    this.dataService.getWorkers().subscribe(
+    this.subscription = this.dataService.getWorkers().subscribe(
       response =>{
         this.workersReviewAndDivide = response;
       });
-  }
-
+    }
+    
+    ngOnDestroy(): void {
+      this.subscription.unsubscribe();
+    }
 
   /*i need get all dates and compare it, if the date of this worker its the most recent in review 
   then it will be redirected to another function that auth if its the last divider
@@ -55,12 +58,17 @@ export class FindjobComponent implements OnInit{
     this.workers.forEach((i:any)=>{
       if (moment(i.lastReview).isAfter(this.timeReview)
       && moment(i.lastReview).isAfter(this.mostRecentReviewer[0].lastReviewer) ){
+
         this.mostRecentReviewer = [];
+
         console.log("este valor " + i.lastReview + " es mayor a este " + this.timeReview);
         this.mostRecentReviewer.push(i);
         console.log(this.mostRecentReviewer);
+
       }
+
       this.timeReview = i.lastReview;
+
     });
 
     if (this.workerID == this.mostRecentReviewer[0].id) {
@@ -70,17 +78,24 @@ export class FindjobComponent implements OnInit{
 
   lastDivider(){
     this.workers.forEach((i:any)=>{
+
       if (moment(i.lastDivider).isAfter(this.timeDivider)
       && moment(i.lastDivider).isAfter(this.mostRecentDivider[0].lastDivider)){
+
         this.mostRecentDivider = [];
         console.log("este valor en divider" + i.lastDivider + " es mayor a este " + this.timeDivider);
         this.mostRecentDivider.push(i);
         console.log(this.mostRecentDivider);
+
       }
+
       this.timeDivider = i.lastDivider;
+
     });
+
     if (this.workerID == this.mostRecentDivider[0].id) {
       this.router.navigate(['inicio/separar']);
     }
+
   }
 }
