@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {  ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { concat, pipe, Subscription } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
 import { dataService } from 'src/app/services/data.service';
 
 @Component({
@@ -14,50 +13,74 @@ export class FindjobComponent implements OnInit{
 
   public workerID!:string;
   public checkboxValue : boolean = true;
-  public workersReview:any
+  public workersReviewAndDivide:any
   private subscription: Subscription = new Subscription();
   constructor(private router: Router, private activeRoute: ActivatedRoute, private dataService:dataService) { }
   
   ngOnInit(): void {
     this.dataService.getWorkers().subscribe(
       response =>{
-        this.workersReview = response;
+        this.workersReviewAndDivide = response;
       });
   }
 
 
-  /*i need get all times and compare it, if the time of this worker its the most recent in review 
+  /*i need get all dates and compare it, if the date of this worker its the most recent in review 
   then it will be redirected to another function that auth if its the last divider
   if both are true he will be redirected to another component that has not been created yet
   */
- workers:Array<{id:number,lastReview:any,lastDivition:any}> = []
- time:Array<any> = [];
- mostRecentReviewer:Array<any> = ['04/01/2022, 10:59 AM'];
-  nextStep() {
+ workers:Array<{id:number,lastReview:any,lastDivider:any}> = []
+ timeReview:Array<any> = ['01/01/2000, 10:00'];
+ timeDivider:Array<any> = ['01/01/2000, 10:00'];
+ mostRecentReviewer:Array<any> = ['01/01/2000, 10:00'];
+ mostRecentDivider:Array<any> = ['01/01/2000, 10:00']
+  statusCheck() {
 
-    //this obtain the workers
+    //this gets the workers
     this.workerID =  this.activeRoute.snapshot.params['id'];
-    this.workersReview.forEach((i:any)=>{
+    this.workersReviewAndDivide.forEach((i:any)=>{
       this.workers.push({
         id: i._id, 
         lastReview: i.lastReview,
-        lastDivition: i.lastDivition
+        lastDivider: i.lastDivition
       });
     });
 
-    //this obtain the most recent date
+    //this gets the most recent date
+    this.lastReviewer();
+    this.lastDivider()
+  }
+
+  lastReviewer(){
     this.workers.forEach((i:any)=>{
-      if (moment(i.lastReview).isAfter(this.time)){
+      if (moment(i.lastReview).isAfter(this.timeReview)
+      && moment(i.lastReview).isAfter(this.mostRecentReviewer[0].lastReviewer) ){
         this.mostRecentReviewer = [];
-        console.log("este valor " + i.lastReview + " es mayor a este " + this.time);
+        console.log("este valor " + i.lastReview + " es mayor a este " + this.timeReview);
         this.mostRecentReviewer.push(i);
         console.log(this.mostRecentReviewer);
       }
-      this.time = i.lastReview;
+      this.timeReview = i.lastReview;
     });
 
     if (this.workerID == this.mostRecentReviewer[0].id) {
       this.router.navigate(['inicio/revisar']);
+    }
+  }
+
+  lastDivider(){
+    this.workers.forEach((i:any)=>{
+      if (moment(i.lastDivider).isAfter(this.timeDivider)
+      && moment(i.lastDivider).isAfter(this.mostRecentDivider[0].lastDivider)){
+        this.mostRecentDivider = [];
+        console.log("este valor en divider" + i.lastDivider + " es mayor a este " + this.timeDivider);
+        this.mostRecentDivider.push(i);
+        console.log(this.mostRecentDivider);
+      }
+      this.timeDivider = i.lastDivider;
+    });
+    if (this.workerID == this.mostRecentDivider[0].id) {
+      this.router.navigate(['inicio/separar']);
     }
   }
 }
