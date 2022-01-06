@@ -20,8 +20,8 @@ const routes: Routes = [
   {path: 'inicio', component: JobComponent,
   children: [
     {path: 'trabajo/:id', component: FindjobComponent},
-    {path: 'revisar', component: ReviewComponent},
-    {path: 'separar', component: DivideComponent},
+    {path: 'revisar/:id', component: ReviewComponent},
+    {path: 'separar/:id', component: DivideComponent},
     {path: 'configuracion', component: ConfigurationComponent, canActivateChild:[LoginGuard],
     children: [
       {path: 'maquinas', component: LayoutmachineComponent},

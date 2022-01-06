@@ -36,11 +36,12 @@ export class FindjobComponent implements OnInit, OnDestroy{
  timeReview:Array<any> = ['01/01/2000, 10:00'];
  timeDivider:Array<any> = ['01/01/2000, 10:00'];
  mostRecentReviewer:Array<any> = ['01/01/2000, 10:00'];
- mostRecentDivider:Array<any> = ['01/01/2000, 10:00']
-  statusCheck() {
-
-    //this gets the workers
-    this.workerID =  this.activeRoute.snapshot.params['id'];
+ mostRecentDivider:Array<any> = ['01/01/2000, 10:00'];
+ routes:Array<any> = ['inicio/revisar/', 'inicio/separar/' ]
+ statusCheck() {
+   this.workerID =  this.activeRoute.snapshot.params['id'];
+   
+   //this gets the workers
     this.workersReviewAndDivide.forEach((i:any)=>{
       this.workers.push({
         id: i._id, 
@@ -51,7 +52,12 @@ export class FindjobComponent implements OnInit, OnDestroy{
 
     //this gets the most recent date
     this.lastReviewer();
-    this.lastDivider()
+    this.lastDivider();
+
+    if (this.workerID != this.mostRecentDivider[0].id && this.workerID != this.mostRecentReviewer[0].id) {
+      console.log();
+      this.router.navigate([this.routes[Math.floor(Math.random() * this.routes.length)], this.workerID]);
+    }
   }
 
   lastReviewer(){
@@ -61,7 +67,7 @@ export class FindjobComponent implements OnInit, OnDestroy{
 
         this.mostRecentReviewer = [];
 
-        console.log("este valor " + i.lastReview + " es mayor a este " + this.timeReview);
+        console.log('revisaror   ' + i.lastReview + "  " + this.timeReview);
         this.mostRecentReviewer.push(i);
         console.log(this.mostRecentReviewer);
 
@@ -72,7 +78,7 @@ export class FindjobComponent implements OnInit, OnDestroy{
     });
 
     if (this.workerID == this.mostRecentReviewer[0].id) {
-      this.router.navigate(['inicio/revisar']);
+      this.router.navigate(['inicio/separar/', this.workerID]);
     }
   }
 
@@ -83,7 +89,7 @@ export class FindjobComponent implements OnInit, OnDestroy{
       && moment(i.lastDivider).isAfter(this.mostRecentDivider[0].lastDivider)){
 
         this.mostRecentDivider = [];
-        console.log("este valor en divider" + i.lastDivider + " es mayor a este " + this.timeDivider);
+        console.log( i.lastDivider + "   " + this.timeDivider);
         this.mostRecentDivider.push(i);
         console.log(this.mostRecentDivider);
 
@@ -94,7 +100,7 @@ export class FindjobComponent implements OnInit, OnDestroy{
     });
 
     if (this.workerID == this.mostRecentDivider[0].id) {
-      this.router.navigate(['inicio/separar']);
+      this.router.navigate(['inicio/revisar/', this.workerID]);
     }
 
   }

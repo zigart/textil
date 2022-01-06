@@ -1,3 +1,7 @@
+$deepBlue: #383F51;
+$purple: #DDDBF1;
+$oceanicBlue: #3C4F76;
+
 .container{
     width: 79vw;
     height: 98vh;
@@ -16,11 +20,16 @@
         justify-content: center;
         align-items: center;
         height: 85vh;
-        width: 79vw;
+        width: 50vw;
         button{
-            width: 200px;
-            height: 100px;
+            width: 60%;
+            height: 50px;
+            background-color: $deepBlue;
+            color: $purple;
             border-radius: 20px;
+        }
+        #finish{
+            display: none;
         }
     }
 }
