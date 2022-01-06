@@ -43,7 +43,7 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
         console.log(error);
       });
   }
-
+  date:any = moment().format('DD/MM/yyyy, HH:mm');
 
   addMachine() {
 
@@ -56,7 +56,7 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
     sum = lastItem.machineNumber + 1;
   }
   
-    let newMachine = new machine(sum, true, moment().format("l" + " "+ "LTS"), moment().format("l" + " "+ "LTS"));
+    let newMachine = new machine(sum, true, this.date, this.date);
     this.newSubscription = this.dataService.addMachine(newMachine)
     .pipe(concatMap(machines => this.dataService.getMachines()))
     .subscribe(
