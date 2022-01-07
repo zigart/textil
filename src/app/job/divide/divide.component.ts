@@ -51,7 +51,7 @@ export class DivideComponent implements OnInit {
       (error)=>{
         console.log(error);
       }
-    )
+    );
   }
 
   finishCount(){

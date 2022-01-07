@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { concatMap, last } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { machine } from 'src/app/models/machine.model';
 import { dataService } from 'src/app/services/data.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
