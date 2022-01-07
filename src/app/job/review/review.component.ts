@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MachineService } from 'src/app/services/machine/machine.service';
 
 @Component({
   selector: 'app-review',
@@ -13,10 +14,21 @@ export class ReviewComponent implements OnInit {
   private workerID!:string;
   public worker!:any;
   private updateSubscription:Subscription = new Subscription();
-  constructor(private dataService:dataService, private activeRoute:ActivatedRoute) { }
+  public machines:any;
+  public machineSubscription: Subscription = new Subscription()
+  constructor(
+    private dataService:dataService, 
+    private activeRoute:ActivatedRoute,
+    private route: Router,
+    private machineService: MachineService) { }
 
   ngOnInit(): void {
+
+    this.machineSubscription = this.machineService.machineList.subscribe(
+      (response)=>{this.machines = response});
+
     this.workerID = this.activeRoute.snapshot.params['id'];
+
     this.dataService.getWorker(this.workerID).subscribe(
     (response)=>{
       this.worker = response
@@ -24,8 +36,7 @@ export class ReviewComponent implements OnInit {
     }, 
     (error)=>{
       console.log(error);
-    }
-    );
+    });
   }
 
 
@@ -39,6 +50,7 @@ export class ReviewComponent implements OnInit {
         console.log(error);
       }
     );
+    this.route.navigate(['inicio/trabajo/' + this.workerID]);
   }
 
 }

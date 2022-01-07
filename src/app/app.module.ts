@@ -25,6 +25,7 @@ import { NavComponent } from './job/configuration/nav/nav.component';
 import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
 import { DatePipe } from '@angular/common';
+import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { DatePipe } from '@angular/common';
     NavComponent,
     FrontpageComponent,
     NotfoundcomponentComponent,
+    SmalljobsComponent,
   ],
   imports: [
     BrowserModule,

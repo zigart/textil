@@ -36,8 +36,6 @@ export class DivideComponent implements OnInit {
       console.log(error);
     }
     );
-    
-    console.log();
   }
 
   startCount(){

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {  ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { concat, pipe, Subscription } from 'rxjs';
+import { worker } from 'src/app/models/worker.model';
 import { dataService } from 'src/app/services/data.service';
 
 @Component({
@@ -35,7 +36,15 @@ export class FindjobComponent implements OnInit, OnDestroy{
  workers:Array<{id:number,lastReview:any,lastDivider:any}> = []
  timeReview:Array<any> = ['01/01/2000, 10:00'];
  timeDivider:Array<any> = ['01/01/2000, 10:00'];
- mostRecentReviewer:Array<any> = ['01/01/2000, 10:00'];
+ mostRecent:any = {
+   id: '',
+   lastDivition: '01/01/2000, 10:00',
+   lastReview: '01/01/2000, 10:00'
+ };
+
+ booleanMostRecentReview:boolean = false;
+ booleanMostRecentDivider:boolean = false;
+
  mostRecentDivider:Array<any> = ['01/01/2000, 10:00'];
  routes:Array<any> = ['inicio/revisar/', 'inicio/separar/' ]
  statusCheck() {
@@ -54,22 +63,27 @@ export class FindjobComponent implements OnInit, OnDestroy{
     this.lastReviewer();
     this.lastDivider();
 
-    if (this.workerID != this.mostRecentDivider[0].id && this.workerID != this.mostRecentReviewer[0].id) {
-      console.log();
+    if (this.booleanMostRecentReview && !this.booleanMostRecentDivider) {
+      this.router.navigate(['inicio/separar/', this.workerID]);
+    }else if(!this.booleanMostRecentReview && this.booleanMostRecentDivider){
+      this.router.navigate(['inicio/revisar/', this.workerID]);
+    }else if(this.booleanMostRecentReview && this.booleanMostRecentDivider){
+      this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
+    }else if(!this.booleanMostRecentDivider && !this.booleanMostRecentReview)
+
+    if (this.workerID != this.mostRecent.id) {
       this.router.navigate([this.routes[Math.floor(Math.random() * this.routes.length)], this.workerID]);
     }
   }
 
   lastReviewer(){
     this.workers.forEach((i:any)=>{
+    console.log(i.lastReview, moment(i.lastReview).isAfter(this.timeReview), this.timeReview, moment(i.lastReview).isAfter(this.mostRecent.lastReview), this.mostRecent)
       if (moment(i.lastReview).isAfter(this.timeReview)
-      && moment(i.lastReview).isAfter(this.mostRecentReviewer[0].lastReviewer) ){
+      && moment(i.lastReview).isAfter(this.mostRecent.lastReview)){
 
-        this.mostRecentReviewer = [];
-
-        console.log('revisaror   ' + i.lastReview + "  " + this.timeReview);
-        this.mostRecentReviewer.push(i);
-        console.log(this.mostRecentReviewer);
+        this.mostRecent = {};
+        this.mostRecent = i;
 
       }
 
@@ -77,8 +91,8 @@ export class FindjobComponent implements OnInit, OnDestroy{
 
     });
 
-    if (this.workerID == this.mostRecentReviewer[0].id) {
-      this.router.navigate(['inicio/separar/', this.workerID]);
+    if (this.workerID == this.mostRecent.id) {
+      this.booleanMostRecentReview = true;
     }
   }
 
@@ -86,21 +100,17 @@ export class FindjobComponent implements OnInit, OnDestroy{
     this.workers.forEach((i:any)=>{
 
       if (moment(i.lastDivider).isAfter(this.timeDivider)
-      && moment(i.lastDivider).isAfter(this.mostRecentDivider[0].lastDivider)){
+      && moment(i.lastDivider).isAfter(this.mostRecent.lastDivider)){
 
-        this.mostRecentDivider = [];
-        console.log( i.lastDivider + "   " + this.timeDivider);
-        this.mostRecentDivider.push(i);
-        console.log(this.mostRecentDivider);
+        this.mostRecent = {};
+        this.mostRecent = i;
 
       }
-
       this.timeDivider = i.lastDivider;
-
     });
 
-    if (this.workerID == this.mostRecentDivider[0].id) {
-      this.router.navigate(['inicio/revisar/', this.workerID]);
+    if (this.workerID == this.mostRecent.id) {
+      this.booleanMostRecentDivider = true;
     }
 
   }

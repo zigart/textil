@@ -13,6 +13,7 @@ import { LoginService } from './services/config/login.service';
 import { LoginGuard } from './job/configuration/login.guard';
 import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
+import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/menu', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes: Routes = [
     {path: 'trabajo/:id', component: FindjobComponent},
     {path: 'revisar/:id', component: ReviewComponent},
     {path: 'separar/:id', component: DivideComponent},
+    {path: 'trabajos-secundarios/:id', component: SmalljobsComponent},
     {path: 'configuracion', component: ConfigurationComponent, canActivateChild:[LoginGuard],
     children: [
       {path: 'maquinas', component: LayoutmachineComponent},
