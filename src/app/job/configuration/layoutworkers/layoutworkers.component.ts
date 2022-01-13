@@ -4,8 +4,8 @@ import { worker } from 'src/app/models/worker.model';
 import { Subscription } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
 import { WorkersService } from '../../../services/workers/workers.service';
-import * as moment from 'moment';
-import { DatePipe, formatDate } from '@angular/common';
+import {DateTime, Settings} from 'luxon'
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
@@ -18,6 +18,10 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   public newWorker: string;
   private listSubscription: Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
+
+  //FIXME: i must update this type of data to date
+ 
+ 
   
   
   @Output() nameWorker = new EventEmitter<string>();
@@ -31,50 +35,49 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
     private workerService:WorkersService, 
     private render:Renderer2,
     private datePipe: DatePipe
-    ) {
-    this.workers = [];
-    this.newWorker = '';
-  }
-  
-  
- 
-  
-  ngOnInit(): void {
-    this.getWorker();
+    ){
+      this.workers = [];
+      this.newWorker = '';
+    }
     
-  }
-  
-  ngOnDestroy(): void {
-    this.listSubscription.unsubscribe();
-    this.newSubscription.unsubscribe();
-  }
-  
-  
-  getWorker(){
-    this.listSubscription =  this.workerService.workersList.subscribe(
-      (response) =>{
-        this.workers = response;
-        
-      },
-      (error) =>{
-        console.log(error);
+    ngOnInit(): void {
+      Settings.defaultZone = 'America/Buenos_Aires';  
+      Settings.defaultLocale = 'es_AR';
+      this.getWorker();
+    }
+    
+    ngOnDestroy(): void {
+      this.listSubscription.unsubscribe();
+      this.newSubscription.unsubscribe();
+    }
+    
+    
+    getWorker(){
+      this.listSubscription =  this.workerService.workersList.subscribe(
+        (response) =>{
+          this.workers = response;
+          
+        },
+        (error) =>{
+          console.log(error);
+        }
+        )
       }
-    )
-  }
+      
+      addWorker(){
+        this.render.setStyle(this.form.nativeElement, 'display', 'flex');
+      }
 
-  addWorker(){
-    this.render.setStyle(this.form.nativeElement, 'display', 'flex');
-  }
-  
-  date:any = moment().format('DD/MM/yyyy, HH:mm');
-   add(){
-    let newWorker = new worker(this.newWorker, true, true, this.date , this.date);
-
-    this.newSubscription = this.dataService.addWorker(newWorker)
+      
+      add(){
+        let newWorker = new worker(this.newWorker, true, true, DateTime.now().toString() , DateTime.now().toString());
+        
+        this.newSubscription = this.dataService.addWorker(newWorker)
     .pipe(concatMap(worker => this.dataService.getWorkers()))
     .subscribe(
       response =>{
         this.workerService.workersList.next(response);
+        console.log(response);
       }, error =>{
         console.log(error);
       }

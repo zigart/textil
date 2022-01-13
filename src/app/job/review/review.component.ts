@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MachineService } from 'src/app/services/machine/machine.service';
 
@@ -41,7 +41,7 @@ export class ReviewComponent implements OnInit {
 
 
   refreshDate(){
-    this.worker.lastReview = moment().format('DD/MM/yyyy, HH:mm');
+    this.worker.lastReview = DateTime.now().toString();
     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe(
       (response)=>{
         console.log(response);

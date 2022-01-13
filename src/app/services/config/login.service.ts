@@ -21,8 +21,7 @@ export class LoginService implements OnDestroy{
       },
       (error)=>{
         console.log(error);
-      }
-    );
+      });
    }
 
   ngOnDestroy(): void {

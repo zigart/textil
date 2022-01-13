@@ -4,7 +4,7 @@ import { concatMap } from 'rxjs/operators';
 import { machine } from 'src/app/models/machine.model';
 import { dataService } from 'src/app/services/data.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
-import * as moment from 'moment';
+import {DateTime} from 'luxon'
 
 @Component({
   selector: 'app-layoutmachine',
@@ -15,7 +15,8 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
   public machines: Array<any>;
   private getMachinesSubscription:Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
-
+  //FIXME: i must update this type of data to date
+  private date:string = DateTime.now().toString();
   @Output() machineNumber = new EventEmitter<machine>();
   @Output() displayLayoutMachine = new EventEmitter<boolean>();
   
@@ -27,7 +28,6 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
     
     ngOnInit(): void {
       this.getMachines();
-      console.log();
   }
 
   ngOnDestroy(): void {
@@ -43,7 +43,7 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
         console.log(error);
       });
   }
-  date:any = moment().format('DD/MM/yyyy, HH:mm');
+
 
   addMachine() {
 

@@ -19,7 +19,7 @@ export class LoginGuard implements CanActivateChild {
     return this.res;
   }
 
-  getData(recived:string){
+getData(recived:string){
     this.loginServices.checkPassword(recived);
     this.loginServices.loged.subscribe(
       response => {

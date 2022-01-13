@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 
@@ -36,12 +36,14 @@ export class DivideComponent implements OnInit {
       console.log(error);
     }
     );
+    console.log(DateTime.now().toString(), ' ', this.worker);
   }
 
   startCount(){
     this.render.setStyle(this.start.nativeElement, 'display', 'none');
     this.render.setStyle(this.finish.nativeElement, 'display', 'block');
-    this.worker.lastDivition = moment().format('DD/MM/yyyy, HH:mm');
+    console.log(DateTime.now().toString(), ' ', this.worker);
+    this.worker.lastDivition = DateTime.now().toString();
     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe(
       (response)=>{
         console.log(response);
