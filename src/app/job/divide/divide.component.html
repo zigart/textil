@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="title">
-        <h1>SEPARAR MAQUINA N° X</h1>
+    <div *ngIf="this.individualMachine" class="title">
+        <h1>SEPARAR MAQUINA N° {{this.individualMachine.machineNumber}}</h1>
     </div>
     <div class="buttons">
         <button #start id="start" (click)="startCount()">COMENZAR</button>

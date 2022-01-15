@@ -16,7 +16,6 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
   private getMachinesSubscription:Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
   //FIXME: i must update this type of data to date
-  private date:string = DateTime.now().toString();
   @Output() machineNumber = new EventEmitter<machine>();
   @Output() displayLayoutMachine = new EventEmitter<boolean>();
   
@@ -56,7 +55,7 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
     sum = lastItem.machineNumber + 1;
   }
   
-    let newMachine = new machine(sum, true, this.date, this.date);
+    let newMachine = new machine(sum, true, DateTime.now().toString(), DateTime.now().toString());
     this.newSubscription = this.dataService.addMachine(newMachine)
     .pipe(concatMap(machines => this.dataService.getMachines()))
     .subscribe(

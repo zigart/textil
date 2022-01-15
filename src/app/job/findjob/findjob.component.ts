@@ -11,11 +11,23 @@ import { dataService } from 'src/app/services/data.service';
   styleUrls: ['./findjob.component.scss']
 })
 export class FindjobComponent implements OnInit, OnDestroy{
-
+  
   public workerID!:string;
   public checkboxValue : boolean = true;
   public workersReviewAndDivide:any
   private subscription: Subscription = new Subscription();
+  public  workers:Array<{id:number,lastReview:any,lastDivider:any}> = []
+  public timeReview:string = '2021-01-01T00:00:00.000-03:00';
+  public timeDivider:string = '2021-01-01T00:00:00.000-03:00';
+  public booleanMostRecentReview:boolean = false;
+  public booleanMostRecentDivider:boolean = false;
+  public mostRecentDivider:DateTime = DateTime.fromISO('2021-01-01T00:00:00.000-03:00');
+  public routes:Array<string> = ['inicio/revisar/', 'inicio/separar/' ]
+  public mostRecent:any = {
+   id: '',
+   lastDivition: '2021-01-01T00:00:00.000-03:00',
+   lastReview: '2021-01-01T00:00:00.000-03:00'
+  };
   constructor(private router: Router, private activeRoute: ActivatedRoute, private dataService:dataService) { }
   
   ngOnInit(): void {
@@ -35,18 +47,6 @@ export class FindjobComponent implements OnInit, OnDestroy{
   then it will be redirected to another function that auth if its the last divider
   if both are true he will be redirected to another component that has not been created yet
   */
-  public  workers:Array<{id:number,lastReview:any,lastDivider:any}> = []
-  public timeReview:string = '2021-01-01T00:00:00.000-03:00';
-  public timeDivider:string = '2021-01-01T00:00:00.000-03:00';
-  public booleanMostRecentReview:boolean = false;
-  public booleanMostRecentDivider:boolean = false;
-  public mostRecentDivider:DateTime = DateTime.fromISO('2021-01-01T00:00:00.000-03:00');
-  public routes:Array<string> = ['inicio/revisar/', 'inicio/separar/' ]
-  public mostRecent:any = {
-   id: '',
-   lastDivition: '2021-01-01T00:00:00.000-03:00',
-   lastReview: '2021-01-01T00:00:00.000-03:00'
- };
 
 
 

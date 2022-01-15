@@ -52,9 +52,8 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     this.getMachineSubscription = this.dataService.getMachine(this.machineID).subscribe(
       response =>{
         this.machine = response;
-        console.log(this.machine.lastReview) ;
-      }
-      )
+        console.log(this.machine.lastReview);
+      });
 
   }
 
