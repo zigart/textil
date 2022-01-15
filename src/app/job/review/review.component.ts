@@ -14,8 +14,15 @@ export class ReviewComponent implements OnInit {
   private workerID!:string;
   public worker!:any;
   private updateSubscription:Subscription = new Subscription();
-  public machines:any;
-  public machineSubscription: Subscription = new Subscription()
+  private machines:Array<object> = [];
+  public machineSubscription: Subscription = new Subscription();
+  public lastOneMachine:string = '2021-01-01T00:00:00.000-03:00';
+  public individualMachine:any =  {
+    _id: '',
+    machineNumber: 0,
+    lastDivition: '2021-01-01T00:00:00.000-03:00',
+    lastReview: '2021-01-01T00:00:00.000-03:00'
+   };
   constructor(
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
@@ -37,6 +44,8 @@ export class ReviewComponent implements OnInit {
     (error)=>{
       console.log(error);
     });
+
+    this.getMachineToReview();
   }
 
 
@@ -48,9 +57,35 @@ export class ReviewComponent implements OnInit {
       },
       (error)=>{
         console.log(error);
-      }
-    );
+      });
+      this.individualMachine.lastReview = DateTime.now().toString();
+      this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+
+
     this.route.navigate(['inicio/trabajo/' + this.workerID]);
+  }
+
+  getMachineToReview(){
+    
+    this.machines.forEach((machine:any) =>{
+      
+      if (this.individualMachine.machineNumber === 0) {
+        this.individualMachine = machine;
+        console.log(machine, 'hola');
+      }
+
+      if ( DateTime.fromISO(machine.lastReview) < DateTime.fromISO(this.lastOneMachine) 
+      && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastReview)) {
+        
+        this.individualMachine = {}
+        this.individualMachine = machine;
+
+      }
+
+      this.lastOneMachine = machine.lastReview;
+
+
+    });
   }
 
 }

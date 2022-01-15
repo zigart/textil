@@ -1,5 +1,5 @@
-<div class="container">
-    <h1>REVISION EN MAQUINA N° </h1>
+<div class="container" *ngIf="this.individualMachine">
+    <h1>REVISION EN MAQUINA N° {{this.individualMachine.machineNumber}}</h1>
     
     <form (ngSubmit)="refreshDate()" >
         <label for="colth">PAÑOS TOTALES:</label>
