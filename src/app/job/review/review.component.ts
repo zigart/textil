@@ -5,6 +5,14 @@ import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MachineService } from 'src/app/services/machine/machine.service';
 
+/**
+ * this component asign a machine to review and update the dates
+ *
+ * @export
+ * @class ReviewComponent
+ * @implements {OnInit}
+ */
+
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -22,14 +30,30 @@ export class ReviewComponent implements OnInit {
     machineNumber: 0,
     lastDivition: '2021-01-01T00:00:00.000-03:00',
     lastReview: '2021-01-01T00:00:00.000-03:00'
-   };
+  }
+  /**
+   * Creates an instance of ReviewComponent.
+   * @param {dataService} dataService
+   * @param {ActivatedRoute} activeRoute
+   * @param {Router} route
+   * @param {MachineService} machineService
+   * @memberof ReviewComponent
+   */
+
   constructor(
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
     private route: Router,
     private machineService: MachineService) { }
 
-  ngOnInit(): void {
+/**
+ * @function ngOnInit
+ * 
+ * @description obtains the machines, workers and the ID of the specific worker  
+ *
+ * @memberof ReviewComponent
+ */
+ngOnInit(): void {
 
     this.machineSubscription = this.machineService.machineList.subscribe(
       (response)=>{this.machines = response});
@@ -48,8 +72,15 @@ export class ReviewComponent implements OnInit {
     this.getMachineToReview();
   }
 
+/**
+ * @function refreshDate
+ * 
+ * @description update the saved date with the current date and redirect to findjob
+ * 
+ * @memberof ReviewComponent
+ */
 
-  refreshDate(){
+refreshDate(){
     this.worker.lastReview = DateTime.now().toString();
     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe(
       (response)=>{
@@ -64,14 +95,21 @@ export class ReviewComponent implements OnInit {
 
     this.route.navigate(['inicio/trabajo/' + this.workerID]);
   }
-
-  getMachineToReview(){
+/**
+ * @function getMachineToReview
+ * 
+ * @description get the oldes machine reviewed and asign it to review
+ *
+ * @memberof ReviewComponent
+ * 
+ * @returns machine object
+ */
+getMachineToReview(){
     
     this.machines.forEach((machine:any) =>{
       
       if (this.individualMachine.machineNumber === 0) {
         this.individualMachine = machine;
-        console.log(machine, 'hola');
       }
 
       if ( DateTime.fromISO(machine.lastReview) < DateTime.fromISO(this.lastOneMachine) 

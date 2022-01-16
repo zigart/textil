@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
 /**
- * this component asign a machine to divide
+ * this component asign a machine to divide and update the dates
  *
  * @export
  * @class DivideComponent
