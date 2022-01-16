@@ -1,10 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {  ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
-import { concat, pipe, Subscription } from 'rxjs';
-import { worker } from 'src/app/models/worker.model';
+import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
-
+/**
+ * this component asign a job
+ *
+ * @export
+ * @class FindjobComponent
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
   selector: 'app-findjob',
   templateUrl: './findjob.component.html',
@@ -29,7 +35,16 @@ export class FindjobComponent implements OnInit, OnDestroy{
    lastReview: '2021-01-01T00:00:00.000-03:00'
   };
   constructor(private router: Router, private activeRoute: ActivatedRoute, private dataService:dataService) { }
-  
+  /**
+   * @function ngOnInit
+   * 
+   * @description get workers and asign default boolean values
+   * 
+   * @param booleanMostRecentDivider
+   * @param booleanMostRecentReview
+   *
+   * @memberof FindjobComponent
+   */
   ngOnInit(): void {
     this.subscription = this.dataService.getWorkers().subscribe(
       response =>{
@@ -39,18 +54,32 @@ export class FindjobComponent implements OnInit, OnDestroy{
       this.booleanMostRecentReview = false;
     }
     
-    ngOnDestroy(): void {
+/**
+ * @function ngOnDestroy
+ * 
+ * @description 
+ * destroy the subscription
+ *
+ * @memberof FindjobComponent
+ */
+ngOnDestroy(): void {
       this.subscription.unsubscribe();
     }
 
-  /*i need get all dates and compare it, if the date of this worker its the most recent in review 
-  then it will be redirected to another function that auth if its the last divider
-  if both are true he will be redirected to another component that has not been created yet
+  /*
   */
 
 
-
- statusCheck() {
+/**
+ * @function statusCheck
+ * 
+ * @description if the date of this worker its the most recent in review then it will be redirected to another
+ function that auth if its the last divider if both are true he will be redirected to smallJobs
+ * 
+ *
+ * @memberof FindjobComponent
+ */
+statusCheck() {
 
   //get worker ID
    this.workerID =  this.activeRoute.snapshot.params['id'];
@@ -76,8 +105,17 @@ export class FindjobComponent implements OnInit, OnDestroy{
     this.redirectDependingValue()
 
   }
-
-  lastReviewer(){
+/**
+ * @function lastReviewer
+ * 
+ * @description compares the lastReviewer dates and return the last reviewer. also changes the boolean to true
+ if the workerID its the same of the lastReviewer
+ *
+ * @memberof FindjobComponent
+ * 
+ * @returns last reviewer and boolean true or false
+ */
+lastReviewer(){
     
     //FIXME: change type of value. i'm working with string type but i need work with date type
     
@@ -98,8 +136,17 @@ export class FindjobComponent implements OnInit, OnDestroy{
       this.booleanMostRecentReview = true;
     }
   }
-
-  lastDivider(){
+/**
+ * @function lastDivider
+ * 
+ * @description compares the lastDividers dates and return the last divider. also changes the boolean to true
+ if the workerID its the same of the lastDivider
+ *
+ * @memberof FindjobComponent
+ * 
+ * @returns last divider and boolean true or false
+ */
+lastDivider(){
     this.workers.forEach((i:any)=>{
       
       if ( DateTime.fromISO(i.lastDivider)  > DateTime.fromISO(this.timeDivider)  &&
@@ -114,12 +161,19 @@ export class FindjobComponent implements OnInit, OnDestroy{
 
     if (this.workerID == this.mostRecent.id) {
       this.booleanMostRecentDivider = true;
-      console.log(this.booleanMostRecentDivider, 'es el ultimo');
     }
 
   }
-
-  redirectDependingValue(){
+/**
+ * @function redirectDependingValue
+ *  
+ * @description depending of the booleans this function redirect to some section
+ * 
+ * @memberof FindjobComponent
+ * 
+ * @returns redirection
+ */
+redirectDependingValue(){
 
     if (this.booleanMostRecentReview && !this.booleanMostRecentDivider) {
       this.router.navigate(['inicio/separar/', this.workerID]);

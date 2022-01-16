@@ -322,8 +322,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="123"
-                            class="link-to-prism">src/app/job/divide/divide.component.ts:123</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="126"
+                            class="link-to-prism">src/app/job/divide/divide.component.ts:126</a></div>
                 </td>
             </tr>
 
@@ -372,8 +372,8 @@ when someone clicks the button, get the current date and replace this value</cod
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="148"
-                            class="link-to-prism">src/app/job/divide/divide.component.ts:148</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">src/app/job/divide/divide.component.ts:154</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,14 @@ when someone clicks the button, get the current date and replace this value</cod
 machine in individualMachine object</p>
 </div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>return the oldest machine</p>
 
                     </div>
                 </td>
@@ -454,8 +460,8 @@ finally run the getMachineToDivide</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">src/app/job/divide/divide.component.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/app/job/divide/divide.component.ts:98</a></div>
                 </td>
             </tr>
 
@@ -842,11 +848,14 @@ ngOnInit(): void {
 
   /**
    * @function startCount
+   * 
    * @description Refresh date in the &#x27;lastDivide&#x27; in the worker obtained by id in the url worker
+   * 
    * @example 
    * this.worker.lastDivition &#x3D; 2021-01-01T00:00:00.000-03:00, after click this date
    * its updated to current date
    * also hides the start button and show the finish button
+   * 
    * @returns update with current date of the worker
    * @memberof DivideComponent
    */
@@ -865,6 +874,7 @@ ngOnInit(): void {
         this.render.setStyle(this.finish.nativeElement, &#x27;display&#x27;, &#x27;block&#x27;);
   }
 
+
 /**
  * @function finishCount
  *  
@@ -877,7 +887,6 @@ ngOnInit(): void {
  * 
  * @memberof DivideComponent
  */
-
 finishCount(){
   this.individualMachine.lastDivition &#x3D; DateTime.now().toString();
   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe(
@@ -900,9 +909,12 @@ finishCount(){
  * @description 
  * with luxon im comparing the dates, if the machine has the most recent date this function save the
  * machine in individualMachine object
- *  
+ * 
+ * @returns return the oldest machine
+ * 
  * @memberof DivideComponent
  */
+
 getMachineToDivide(){
     
     this.machines.forEach((machine:any) &#x3D;&gt;{
