@@ -21,6 +21,8 @@ import { MachineService } from 'src/app/services/machine/machine.service';
 export class ReviewComponent implements OnInit {
   private workerID!:string;
   public worker!:any;
+  public colth!:number;
+  public failed!:number;
   private updateSubscription:Subscription = new Subscription();
   private machines:Array<object> = [];
   public machineSubscription: Subscription = new Subscription();
@@ -30,6 +32,13 @@ export class ReviewComponent implements OnInit {
     machineNumber: 0,
     lastDivition: '2021-01-01T00:00:00.000-03:00',
     lastReview: '2021-01-01T00:00:00.000-03:00'
+  }
+  public reviewForm:any = {
+    worker: {},
+    machine: {},
+    date: '',
+    colth: 0,
+    failed: 0
   }
   /**
    * Creates an instance of ReviewComponent.
@@ -71,6 +80,24 @@ ngOnInit(): void {
 
     this.getMachineToReview();
   }
+/**
+ * @function saveReviewData
+ * 
+ * @description this function save the review data in the ddbb
+ *
+ * @memberof ReviewComponent
+ */
+saveReviewData(){
+    this.reviewForm.worker = this.worker;
+    this.reviewForm.machine = this.individualMachine;
+    this.reviewForm.date = DateTime.now().toString();
+    this.reviewForm.colth = this.colth;
+    this.reviewForm.failed = this.failed;
+
+    this.dataService.sendReviewForm(this.reviewForm).subscribe();
+  }
+
+
 
 /**
  * @function refreshDate
@@ -89,6 +116,9 @@ refreshDate(){
       (error)=>{
         console.log(error);
       });
+
+     this.saveReviewData();
+      
       this.individualMachine.lastReview = DateTime.now().toString();
       this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
 

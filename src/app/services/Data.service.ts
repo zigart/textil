@@ -68,4 +68,11 @@ export class dataService{
     return this._http.put(this.url + 'maquina/'+ id, newValue, {headers:headers});
   }
 
+  //reviews
+
+  sendReviewForm(review:any): Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.post(this.url + 'revision', review, {headers:headers});
+  }
+
 }

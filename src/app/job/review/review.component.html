@@ -3,9 +3,9 @@
     
     <form (ngSubmit)="refreshDate()" >
         <label for="colth">PAÑOS TOTALES:</label>
-        <input type="number" name="colth">
+        <input type="number" name="colth" [(ngModel)]='colth'>
         <label for="failed">PAÑOS FALLADOS:</label>
-        <input type="number" name="failed">
+        <input type="number" name="failed" [(ngModel)]='failed'>
         <button type="submit">FINALIZADO</button>
     </form>
 </div>
