@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
-import { Subscription } from 'rxjs';
+import { concat, Subscription } from 'rxjs';
+import { timeout } from 'rxjs/operators';
+import { worker } from 'src/app/models/worker.model';
 import { dataService } from 'src/app/services/data.service';
+import { WorkersService } from 'src/app/services/workers/workers.service';
 /**
  * this component asign a job
  *
@@ -34,7 +37,12 @@ export class FindjobComponent implements OnInit, OnDestroy{
    lastDivition: '2021-01-01T00:00:00.000-03:00',
    lastReview: '2021-01-01T00:00:00.000-03:00'
   };
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private dataService:dataService) { }
+  public worker!:any;
+  constructor(
+    private router: Router, 
+    private activeRoute: ActivatedRoute, 
+    private dataService:dataService,
+    private workerService:WorkersService) { }
   /**
    * @function ngOnInit
    * 
@@ -46,15 +54,19 @@ export class FindjobComponent implements OnInit, OnDestroy{
    * @memberof FindjobComponent
    */
   ngOnInit(): void {
+    
     this.subscription = this.dataService.getWorkers().subscribe(
       response =>{
         this.workersReviewAndDivide = response;
       });
+      
+      
+      
       this.booleanMostRecentDivider = false;
       this.booleanMostRecentReview = false;
     }
     
-/**
+    /**
  * @function ngOnDestroy
  * 
  * @description 
@@ -70,6 +82,12 @@ ngOnDestroy(): void {
   */
 
 
+
+  getWorker(){
+    this.worker = this.workerService.worker2;
+    } 
+
+
 /**
  * @function statusCheck
  * 
@@ -79,30 +97,34 @@ ngOnDestroy(): void {
  *
  * @memberof FindjobComponent
  */
-statusCheck() {
+  statusCheck() {
 
-  //get worker ID
+   //get worker ID
    this.workerID =  this.activeRoute.snapshot.params['id'];
-
-   //Redefine the booleans
-   this.booleanMostRecentDivider = false;
-   this.booleanMostRecentReview = false;
-
-   //get workers
-    this.workersReviewAndDivide.forEach((i:any)=>{
-      this.workers.push({
-        id: i._id, 
-        lastReview: i.lastReview,
-        lastDivider: i.lastDivition
-      });
+    
+   //FIXME: i cant resolve this problem today
+  this.workerService.getWorker(this.workerID);
+  this.getWorker();
+  //Redefine the booleans
+  this.booleanMostRecentDivider = false;
+  this.booleanMostRecentReview = false;
+  
+  //get workers
+  this.workersReviewAndDivide.forEach((i:any)=>{
+    this.workers.push({
+      id: i._id, 
+      lastReview: i.lastReview,
+      lastDivider: i.lastDivition
     });
-
-    //these functions define if the worker is the last or not
-    this.lastReviewer();
-    this.lastDivider();
+    
+  });
+  
+  //these functions define if the worker is the last or not
+      this.lastReviewer();
+      this.lastDivider();
+      this.redirectDependingValue();
 
     //redirige
-    this.redirectDependingValue()
 
   }
 /**
@@ -158,12 +180,14 @@ lastDivider(){
       }
       this.timeDivider = i.lastDivider;
     });
-
+    
+    console.log(this.mostRecent);
     if (this.workerID == this.mostRecent.id) {
       this.booleanMostRecentDivider = true;
     }
-
+    
   }
+ 
 /**
  * @function redirectDependingValue
  *  
@@ -174,22 +198,41 @@ lastDivider(){
  * @returns redirection
  */
 redirectDependingValue(){
-
-    if (this.booleanMostRecentReview && !this.booleanMostRecentDivider) {
+  console.log(this.worker,  this.booleanMostRecentDivider);
+    if (this.booleanMostRecentReview && !this.booleanMostRecentDivider && this.worker.activeDivider) {
       this.router.navigate(['inicio/separar/', this.workerID]);
 
-    }else if(!this.booleanMostRecentReview && this.booleanMostRecentDivider){
-
-      this.router.navigate(['inicio/revisar/', this.workerID]);
-
-    }else if(this.booleanMostRecentReview && this.booleanMostRecentDivider){
+    }else if (this.booleanMostRecentReview && !this.booleanMostRecentDivider && !this.worker.activeDivider) {
 
       this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
 
-    }else if(!this.booleanMostRecentReview && !this.booleanMostRecentDivider){
+    }else if(!this.booleanMostRecentReview && this.booleanMostRecentDivider  && this.worker.activeReviewer){
+
+      this.router.navigate(['inicio/revisar/', this.workerID]);
+
+    }else if (!this.booleanMostRecentReview && this.booleanMostRecentDivider  && !this.worker.activeReviewer) {
+
+      this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
+
+    } else if(this.booleanMostRecentReview && this.booleanMostRecentDivider || (!this.worker.activeReviewer && !this.worker.activeDivider)){
+
+      this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
+
+    }else if (!this.booleanMostRecentReview && !this.booleanMostRecentDivider && this.worker.activeReviewer && !this.worker.activeDivider ) {
+      
+      this.router.navigate(['inicio/revisar/', this.workerID]);
+
+    }else if (!this.booleanMostRecentReview && !this.booleanMostRecentDivider && !this.worker.activeReviewer && this.worker.activeDivider ) {
+      
+      this.router.navigate(['inicio/separar/', this.workerID]);
+
+    }else if(this.worker.activeReviewer && this.worker.activeDivider){
 
       this.router.navigate([this.routes[Math.floor(Math.random() * this.routes.length)], this.workerID]);
 
     }}
-  }
+    
+    
+    
 
+    }

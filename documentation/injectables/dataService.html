@@ -115,6 +115,9 @@
                                 <a href="#getWorkers" >getWorkers</a>
                             </li>
                             <li>
+                                <a href="#sendReviewForm" >sendReviewForm</a>
+                            </li>
+                            <li>
                                 <a href="#updateActiveMachine" >updateActiveMachine</a>
                             </li>
                             <li>
@@ -580,6 +583,75 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="sendReviewForm"></a>
+                    <span class="name">
+                        <span ><b>sendReviewForm</b></span>
+                        <a href="#sendReviewForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sendReviewForm(review: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/services/data.service.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>review</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="updateActiveMachine"></a>
                     <span class="name">
                         <span ><b>updateActiveMachine</b></span>
@@ -931,6 +1003,13 @@ export class dataService{
   updateActiveMachine(id:string, newValue:boolean):Observable&lt;any&gt;{
     let headers &#x3D; new HttpHeaders();
     return this._http.put(this.url + &#x27;maquina/&#x27;+ id, newValue, {headers:headers});
+  }
+
+  //reviews
+
+  sendReviewForm(review:any): Observable&lt;any&gt;{
+    let headers &#x3D; new HttpHeaders();
+    return this._http.post(this.url + &#x27;revision&#x27;, review, {headers:headers});
   }
 
 }

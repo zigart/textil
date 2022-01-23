@@ -77,7 +77,6 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
     .subscribe(
       response =>{
         this.workerService.workersList.next(response);
-        console.log(response);
       }, error =>{
         console.log(error);
       }

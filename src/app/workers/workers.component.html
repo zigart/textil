@@ -2,6 +2,6 @@
     <h1 class="title">TRABAJADORES</h1>
     <div class="btn">
         <button class="btn--worker" (click)="redirectAttendant()">Encargado</button>
-        <button class="btn--worker" *ngFor="let worker of workers " [routerLink]="['/inicio/trabajo', worker._id]">{{worker.name}}</button>
+        <button class="btn--worker" *ngFor="let worker of workers " (click)="assignWorker(worker._id)" [routerLink]="['/inicio/trabajo', worker._id]">{{worker.name}}</button>
     </div>
 </div>

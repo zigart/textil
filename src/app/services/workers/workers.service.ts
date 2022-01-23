@@ -13,10 +13,20 @@ export class WorkersService {
 
   public worker: Subject<string[]> = new Subject<string[]>();
 
+  public worker2:object = {};
+  
   constructor(private dataService:dataService) { }
   
   async load(){
     this.workersList.next(await this.dataService.getWorkers().toPromise());
+  }
+
+  getWorker(workerID:string){
+    this.dataService.getWorker(workerID).subscribe(
+     (response)=>{
+      this.worker2 = response;
+     }
+    )
   }
 
 }
