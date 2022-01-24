@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
@@ -43,46 +43,47 @@ export class DivideComponent implements OnInit {
 
   constructor(
     private render:Renderer2,
+    private router:Router,
     private activeRoute: ActivatedRoute,
     private dataService: dataService,
     private machineService:MachineService
   ) { }
-
-
-/**
- * get the worker id from url, after subscribe to two subscribers:
- * first to observable machineList, this observable return all machines and save it in 'machines'
- * second to observable getWorker, this observable return the worker specified by id
- * @param workerID
- * finally run the getMachineToDivide
- * 
- * @memberof DivideComponent
- */
-
-ngOnInit(): void {
+  
+  
+  /**
+   * get the worker id from url, after subscribe to two subscribers:
+   * first to observable machineList, this observable return all machines and save it in 'machines'
+   * second to observable getWorker, this observable return the worker specified by id
+   * @param workerID
+   * finally run the getMachineToDivide
+   * 
+   * @memberof DivideComponent
+   */
+  
+  //FIXME: i need refresh individualMachine when you return to this component
+  ngOnInit(): void {
+    
     this.workerID = this.activeRoute.snapshot.params['id'];
     
-     this.machineService.machineList.subscribe(
-       (response)=>{
-         this.machines = response;
-       }
-     )
-
-    this.dataService.getWorker(this.workerID).subscribe(
+    this.machineService.machineList.subscribe(
       (response)=>{
-        this.worker = response;
-        console.log(this.worker);
-      }, 
-      (error)=>{
-        console.log(error);
-      }
-      );
+        this.machines = response;
+      });
       
-      this.getMachineToDivide();
-    
-  }
-
-  /**
+      this.dataService.getWorker(this.workerID).subscribe(
+        (response)=>{
+          this.worker = response;
+          console.log(this.worker);
+        }, 
+        (error)=>{
+          console.log(error);
+        });
+        
+        this.getMachineToDivide();
+        
+      }
+      
+      /**
    * @function startCount
    * 
    * @description Refresh date in the 'lastDivide' in the worker obtained by id in the url worker
@@ -159,20 +160,16 @@ getMachineToDivide(){
         this.individualMachine = machine;
       }
 
-      if ( DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.lastOneMachine) 
-      && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastDivition)) {
-        
-        this.individualMachine = {}
-        this.individualMachine = machine;
+      if(machine.activeMachine){
 
+        if ( DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.lastOneMachine) 
+        && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastDivition)) {
+          
+          this.individualMachine = {}
+          this.individualMachine = machine;
+          console.log('se pusheo')
+        }
+        this.lastOneMachine = machine.lastDivition;
       }
-
-      this.lastOneMachine = machine.lastDivition;
-
-
     });
-  }
-
-  
-
-}
+  }}
