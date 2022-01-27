@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
-import { concat, Subscription } from 'rxjs';
-import { timeout } from 'rxjs/operators';
-import { worker } from 'src/app/models/worker.model';
+import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
+import { DivideService } from 'src/app/services/divide/divide.service';
 import { WorkersService } from 'src/app/services/workers/workers.service';
+import { DivideComponent } from '../divide/divide.component';
+
 /**
  * this component asign a job
  *
@@ -122,9 +123,10 @@ ngOnDestroy(): void {
   //these functions define if the worker is the last or not
       this.lastReviewer();
       this.lastDivider();
+      
+      //redirige
+      
       this.redirectDependingValue();
-
-    //redirige
 
   }
 /**

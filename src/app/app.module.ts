@@ -26,6 +26,7 @@ import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
 import { DatePipe } from '@angular/common';
 import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
+import { DivideService } from './services/divide/divide.service';
 
 
 @NgModule({
@@ -67,6 +68,12 @@ import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
       provide: APP_INITIALIZER,
       useFactory: (machineService: MachineService ) => () => machineService.load(),
       deps:[MachineService],
+      multi: true
+     },
+     {
+      provide: APP_INITIALIZER,
+      useFactory: (divideService: DivideService ) => () => divideService.getMachineToDivide(),
+      deps:[DivideService],
       multi: true
      }],
   bootstrap: [AppComponent]

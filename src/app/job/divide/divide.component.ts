@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
+import { DivideService } from 'src/app/services/divide/divide.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
 /**
  * this component asign a machine to divide and update the dates
@@ -24,14 +25,9 @@ export class DivideComponent implements OnInit {
   public workerID!:string;
   public worker:any;
   private updateSubscription:Subscription = new Subscription();
-  private machines:Array<object> = [];
-  public lastOneMachine:string = '2021-01-01T00:00:00.000-03:00';
-  public individualMachine:any =  {
-    _id: '',
-    machineNumber: 0,
-    lastDivition: '2021-01-01T00:00:00.000-03:00',
-    lastReview: '2021-01-01T00:00:00.000-03:00'
-  }
+  private machines:Array<object> = this.divideService.machines;
+  public lastOneMachine:string = this.divideService.lastOneMachine;
+  public individualMachine:any;
   /**
    * Creates an instance of DivideComponent.
    * @param {Renderer2} render
@@ -46,40 +42,41 @@ export class DivideComponent implements OnInit {
     private router:Router,
     private activeRoute: ActivatedRoute,
     private dataService: dataService,
-    private machineService:MachineService
-  ) { }
-  
-  
-  /**
-   * get the worker id from url, after subscribe to two subscribers:
-   * first to observable machineList, this observable return all machines and save it in 'machines'
-   * second to observable getWorker, this observable return the worker specified by id
-   * @param workerID
-   * finally run the getMachineToDivide
-   * 
-   * @memberof DivideComponent
-   */
-  
-  //FIXME: i need refresh individualMachine when you return to this component
-  ngOnInit(): void {
-    
-    this.workerID = this.activeRoute.snapshot.params['id'];
-    
-    this.machineService.machineList.subscribe(
-      (response)=>{
-        this.machines = response;
-      });
+    private machineService:MachineService,
+    private divideService: DivideService
+  ) {}
       
-      this.dataService.getWorker(this.workerID).subscribe(
-        (response)=>{
-          this.worker = response;
-          console.log(this.worker);
+      
+      /**
+       * get the worker id from url, after subscribe to two subscribers:
+       * first to observable machineList, this observable return all machines and save it in 'machines'
+       * second to observable getWorker, this observable return the worker specified by id
+       * @param workerID
+       * finally run the getMachineToDivide
+       * 
+       * @memberof DivideComponent
+       */
+      
+      //FIXME: i need refresh individualMachine when you return to this component
+      ngOnInit(): void {
+        
+        this.workerID = this.activeRoute.snapshot.params['id'];
+       
+          this.dataService.getWorker(this.workerID).subscribe(
+            (response)=>{
+              this.worker = response;
         }, 
         (error)=>{
           console.log(error);
         });
-        
-        this.getMachineToDivide();
+
+
+        this.divideService.getMachineToDivide();
+        this.divideService.individualMachine2.subscribe(
+          response => this.individualMachine = response
+        );
+     
+
         
       }
       
@@ -152,24 +149,5 @@ finishCount(){
  * @memberof DivideComponent
  */
 
-getMachineToDivide(){
-    
-    this.machines.forEach((machine:any) =>{
-      
-      if (this.individualMachine.machineNumber === 0) {
-        this.individualMachine = machine;
-      }
 
-      if(machine.activeMachine){
-
-        if ( DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.lastOneMachine) 
-        && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastDivition)) {
-          
-          this.individualMachine = {}
-          this.individualMachine = machine;
-          console.log('se pusheo')
-        }
-        this.lastOneMachine = machine.lastDivition;
-      }
-    });
-  }}
+}
