@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject, Observable, concat, } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DateTime } from 'luxon';
-import { MachineService } from '../machine/machine.service';
 import { dataService } from '../data.service';
-import { concatMap, map  } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -70,7 +69,7 @@ getMachine(machines:any){
         console.log(machine);
       }
       this.lastOneMachine = machine.lastDivition;
-    }else if(!machine.activeMachine && machine.id == this.individualMachine.id ){
+    }else if(!machine.activeMachine && machine._id == this.individualMachine._id ){
       this.individualMachine.lastDivition = '2200-01-01T00:00:00.000-03:00'
     }
     

@@ -69,12 +69,6 @@ import { DivideService } from './services/divide/divide.service';
       useFactory: (machineService: MachineService ) => () => machineService.load(),
       deps:[MachineService],
       multi: true
-     },
-     {
-      provide: APP_INITIALIZER,
-      useFactory: (divideService: DivideService ) => () => divideService.getMachineToDivide(),
-      deps:[DivideService],
-      multi: true
      }],
   bootstrap: [AppComponent]
 })

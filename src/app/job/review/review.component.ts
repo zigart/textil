@@ -4,6 +4,7 @@ import { dataService } from 'src/app/services/data.service';
 import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MachineService } from 'src/app/services/machine/machine.service';
+import { ReviewService } from 'src/app/services/review/review.service';
 
 /**
  * this component asign a machine to review and update the dates
@@ -53,7 +54,8 @@ export class ReviewComponent implements OnInit {
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
     private route: Router,
-    private machineService: MachineService) { }
+    private machineService: MachineService,
+    private reviewService: ReviewService) { }
 
 /**
  * @function ngOnInit
@@ -63,9 +65,6 @@ export class ReviewComponent implements OnInit {
  * @memberof ReviewComponent
  */
 ngOnInit(): void {
-
-    this.machineSubscription = this.machineService.machineList.subscribe(
-      (response)=>{this.machines = response});
 
     this.workerID = this.activeRoute.snapshot.params['id'];
 
@@ -78,7 +77,12 @@ ngOnInit(): void {
       console.log(error);
     });
 
-    this.getMachineToReview();
+    this.reviewService.getMachineToReview();
+    this.reviewService.individualMachine2.subscribe(
+      (response) => {
+        this.individualMachine = response
+      }
+    );
   }
 /**
  * @function saveReviewData
@@ -134,26 +138,5 @@ refreshDate(){
  * 
  * @returns machine object
  */
-getMachineToReview(){
-    
-    this.machines.forEach((machine:any) =>{
-      
-      if (this.individualMachine.machineNumber === 0) {
-        this.individualMachine = machine;
-      }
-
-      if ( DateTime.fromISO(machine.lastReview) < DateTime.fromISO(this.lastOneMachine) 
-      && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastReview)) {
-        
-        this.individualMachine = {}
-        this.individualMachine = machine;
-
-      }
-
-      this.lastOneMachine = machine.lastReview;
-
-
-    });
-  }
 
 }

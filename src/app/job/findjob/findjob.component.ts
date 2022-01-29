@@ -200,7 +200,6 @@ lastDivider(){
  * @returns redirection
  */
 redirectDependingValue(){
-  console.log(this.worker,  this.booleanMostRecentDivider);
     if (this.booleanMostRecentReview && !this.booleanMostRecentDivider && this.worker.activeDivider) {
       this.router.navigate(['inicio/separar/', this.workerID]);
 
