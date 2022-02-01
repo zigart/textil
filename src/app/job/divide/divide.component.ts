@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 import { DivideService } from 'src/app/services/divide/divide.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
+import { currentWork } from '../../models/current-work.model';
 /**
  * this component asign a machine to divide and update the dates
  *
@@ -70,14 +71,14 @@ export class DivideComponent implements OnInit {
           console.log(error);
         });
 
+        this.divideService.workerID = this.workerID;
 
         this.divideService.getMachineToDivide();
         this.divideService.individualMachine2.subscribe(
-          response => this.individualMachine = response
-        );
-     
-
-        
+          (response) => {
+            this.individualMachine = response;
+          });
+           
       }
       
       /**
@@ -96,14 +97,7 @@ export class DivideComponent implements OnInit {
    startCount(){
      this.worker.lastDivition = DateTime.now().toString();
      
-     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe(
-       (response)=>{
-         console.log(response);
-        },
-        (error)=>{
-          console.log(error);
-        }
-        );
+     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
         this.render.setStyle(this.start.nativeElement, 'display', 'none');
         this.render.setStyle(this.finish.nativeElement, 'display', 'block');
   }
@@ -123,16 +117,11 @@ export class DivideComponent implements OnInit {
  */
 finishCount(){
   this.individualMachine.lastDivition = DateTime.now().toString();
-  this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe(
-    (response)=>{
-      console.log(response);
-    },
-    (error)=>{
-      console.log(error);
-    }
-    );
+  this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+  this.dataService.deleteCurrentWork(this.workerID).subscribe();
     this.render.setStyle(this.start.nativeElement, 'display', 'block');
     this.render.setStyle(this.finish.nativeElement, 'display', 'none');
+    this.router.navigate(['inicio/trabajo/', this.workerID]);
   }
 
 

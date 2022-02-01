@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
+import { concatAll, map } from 'rxjs/operators';
 import { dataService } from 'src/app/services/data.service';
 import { DivideService } from 'src/app/services/divide/divide.service';
 import { WorkersService } from 'src/app/services/workers/workers.service';
@@ -18,78 +19,99 @@ import { DivideComponent } from '../divide/divide.component';
 @Component({
   selector: 'app-findjob',
   templateUrl: './findjob.component.html',
-  styleUrls: ['./findjob.component.scss']
+  styleUrls: ['./findjob.component.scss'],
 })
-export class FindjobComponent implements OnInit, OnDestroy{
-  
-  public workerID!:string;
-  public checkboxValue : boolean = true;
-  public workersReviewAndDivide:any
+export class FindjobComponent implements OnInit, OnDestroy {
+  public workerID!: string;
+  public checkboxValue: boolean = true;
+  public workersReviewAndDivide: any;
   private subscription: Subscription = new Subscription();
-  public  workers:Array<{id:number,lastReview:any,lastDivider:any}> = []
-  public timeReview:string = '2021-01-01T00:00:00.000-03:00';
-  public timeDivider:string = '2021-01-01T00:00:00.000-03:00';
-  public booleanMostRecentReview:boolean = false;
-  public booleanMostRecentDivider:boolean = false;
-  public mostRecentDivider:DateTime = DateTime.fromISO('2021-01-01T00:00:00.000-03:00');
-  public routes:Array<string> = ['inicio/revisar/', 'inicio/separar/' ]
-  public mostRecent:any = {
-   id: '',
-   lastDivition: '2021-01-01T00:00:00.000-03:00',
-   lastReview: '2021-01-01T00:00:00.000-03:00'
+  public workers: Array<{ id: number; lastReview: any; lastDivider: any }> = [];
+  public timeReview: string = '2021-01-01T00:00:00.000-03:00';
+  public timeDivider: string = '2021-01-01T00:00:00.000-03:00';
+  public booleanMostRecentReview: boolean = false;
+  public booleanMostRecentDivider: boolean = false;
+  public mostRecentDivider: DateTime = DateTime.fromISO(
+    '2021-01-01T00:00:00.000-03:00'
+  );
+  public routes: Array<string> = ['inicio/revisar/', 'inicio/separar/'];
+  public mostRecent: any = {
+    id: '',
+    lastDivition: '2021-01-01T00:00:00.000-03:00',
+    lastReview: '2021-01-01T00:00:00.000-03:00',
   };
-  public worker!:any;
+  public worker!: any;
+  private currentWork: any = {
+    _id: '',
+    work: '',
+    machine: {},
+  };
   constructor(
-    private router: Router, 
-    private activeRoute: ActivatedRoute, 
-    private dataService:dataService,
-    private workerService:WorkersService) { }
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private dataService: dataService,
+    private workerService: WorkersService
+  ) {}
   /**
    * @function ngOnInit
-   * 
+   *
    * @description get workers and asign default boolean values
-   * 
+   *
    * @param booleanMostRecentDivider
    * @param booleanMostRecentReview
    *
    * @memberof FindjobComponent
    */
   ngOnInit(): void {
-    
-    this.subscription = this.dataService.getWorkers().subscribe(
-      response =>{
-        this.workersReviewAndDivide = response;
-      });
-      
-      
-      
-      this.booleanMostRecentDivider = false;
-      this.booleanMostRecentReview = false;
-    }
-    
-    /**
- * @function ngOnDestroy
- * 
- * @description 
- * destroy the subscription
- *
- * @memberof FindjobComponent
- */
-ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-    }
+    this.workerID = this.activeRoute.snapshot.params['id'];
+    this.subscription = this.dataService.getWorkers().subscribe((response) => {
+      this.workersReviewAndDivide = response;
+    });
 
+    this.booleanMostRecentDivider = false;
+    this.booleanMostRecentReview = false;
+  }
+
+  /**
+   * @function ngOnDestroy
+   *
+   * @description
+   * destroy the subscription
+   *
+   * @memberof FindjobComponent
+   */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   /*
-  */
+   */
 
-
-
-  getWorker(){
+  getWorker() {
     this.worker = this.workerService.worker2;
-    } 
+  }
 
 
-/**
+  //sigue mal
+  check() {
+    this.workerID = this.activeRoute.snapshot.params['id'];
+    this.dataService.getCurrentWork(this.workerID).subscribe(
+      (response) => {
+        this.currentWork = response;
+        if (this.currentWork.work == 'divide') {
+          this.router.navigate(['inicio/separar/', this.workerID]);
+        } else if (this.currentWork.work == 'review') {
+          this.router.navigate(['inicio/revisar/', this.workerID]);
+        }
+      },
+      (error) => {
+        if(error.status == 404){
+          this.statusCheck();
+        }
+      }
+    );
+  }
+
+  /**
  * @function statusCheck
  * 
  * @description if the date of this worker its the most recent in review then it will be redirected to another
@@ -99,37 +121,33 @@ ngOnDestroy(): void {
  * @memberof FindjobComponent
  */
   statusCheck() {
+    //get worker ID
 
-   //get worker ID
-   this.workerID =  this.activeRoute.snapshot.params['id'];
-    
-   //FIXME: i cant resolve this problem today
-  this.workerService.getWorker(this.workerID);
-  this.getWorker();
-  //Redefine the booleans
-  this.booleanMostRecentDivider = false;
-  this.booleanMostRecentReview = false;
-  
-  //get workers
-  this.workersReviewAndDivide.forEach((i:any)=>{
-    this.workers.push({
-      id: i._id, 
-      lastReview: i.lastReview,
-      lastDivider: i.lastDivition
+    //FIXME: i cant resolve this problem today
+    this.workerService.getWorker(this.workerID);
+    this.getWorker();
+    //Redefine the booleans
+    this.booleanMostRecentDivider = false;
+    this.booleanMostRecentReview = false;
+
+    //get workers
+    this.workersReviewAndDivide.forEach((i: any) => {
+      this.workers.push({
+        id: i._id,
+        lastReview: i.lastReview,
+        lastDivider: i.lastDivition,
+      });
     });
-    
-  });
-  
-  //these functions define if the worker is the last or not
-      this.lastReviewer();
-      this.lastDivider();
-      
-      //redirige
-      
-      this.redirectDependingValue();
 
+    //these functions define if the worker is the last or not
+    this.lastReviewer();
+    this.lastDivider();
+
+    //redirige
+
+    this.redirectDependingValue();
   }
-/**
+  /**
  * @function lastReviewer
  * 
  * @description compares the lastReviewer dates and return the last reviewer. also changes the boolean to true
@@ -139,28 +157,27 @@ ngOnDestroy(): void {
  * 
  * @returns last reviewer and boolean true or false
  */
-lastReviewer(){
-    
+  lastReviewer() {
     //FIXME: change type of value. i'm working with string type but i need work with date type
-    
-    this.workers.forEach((i:any)=>{
 
- 
-     if ( DateTime.fromISO(i.lastReview)  > DateTime.fromISO(this.timeReview)  &&
-     DateTime.fromISO(i.lastReview) > DateTime.fromISO(this.mostRecent.lastReview)){
+    this.workers.forEach((i: any) => {
+      if (
+        DateTime.fromISO(i.lastReview) > DateTime.fromISO(this.timeReview) &&
+        DateTime.fromISO(i.lastReview) >
+          DateTime.fromISO(this.mostRecent.lastReview)
+      ) {
         this.mostRecent = {};
         this.mostRecent = i;
       }
 
       this.timeReview = i.lastReview;
-
     });
 
     if (this.workerID == this.mostRecent.id) {
       this.booleanMostRecentReview = true;
     }
   }
-/**
+  /**
  * @function lastDivider
  * 
  * @description compares the lastDividers dates and return the last divider. also changes the boolean to true
@@ -170,70 +187,82 @@ lastReviewer(){
  * 
  * @returns last divider and boolean true or false
  */
-lastDivider(){
-    this.workers.forEach((i:any)=>{
-      
-      if ( DateTime.fromISO(i.lastDivider)  > DateTime.fromISO(this.timeDivider)  &&
-      DateTime.fromISO(i.lastDivider) > DateTime.fromISO(this.mostRecent.lastDivider)){
-
+  lastDivider() {
+    this.workers.forEach((i: any) => {
+      if (
+        DateTime.fromISO(i.lastDivider) > DateTime.fromISO(this.timeDivider) &&
+        DateTime.fromISO(i.lastDivider) >
+          DateTime.fromISO(this.mostRecent.lastDivider)
+      ) {
         this.mostRecent = {};
         this.mostRecent = i;
-
       }
       this.timeDivider = i.lastDivider;
     });
     
-    console.log(this.mostRecent);
     if (this.workerID == this.mostRecent.id) {
       this.booleanMostRecentDivider = true;
     }
-    
   }
- 
-/**
- * @function redirectDependingValue
- *  
- * @description depending of the booleans this function redirect to some section
- * 
- * @memberof FindjobComponent
- * 
- * @returns redirection
- */
-redirectDependingValue(){
-    if (this.booleanMostRecentReview && !this.booleanMostRecentDivider && this.worker.activeDivider) {
+
+  /**
+   * @function redirectDependingValue
+   *
+   * @description depending of the booleans this function redirect to some section
+   *
+   * @memberof FindjobComponent
+   *
+   * @returns redirection
+   */
+  redirectDependingValue() {
+    if (
+      this.booleanMostRecentReview &&
+      !this.booleanMostRecentDivider &&
+      this.worker.activeDivider
+    ) {
       this.router.navigate(['inicio/separar/', this.workerID]);
-
-    }else if (this.booleanMostRecentReview && !this.booleanMostRecentDivider && !this.worker.activeDivider) {
-
+    } else if (
+      this.booleanMostRecentReview &&
+      !this.booleanMostRecentDivider &&
+      !this.worker.activeDivider
+    ) {
       this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
-
-    }else if(!this.booleanMostRecentReview && this.booleanMostRecentDivider  && this.worker.activeReviewer){
-
+    } else if (
+      !this.booleanMostRecentReview &&
+      this.booleanMostRecentDivider &&
+      this.worker.activeReviewer
+    ) {
       this.router.navigate(['inicio/revisar/', this.workerID]);
-
-    }else if (!this.booleanMostRecentReview && this.booleanMostRecentDivider  && !this.worker.activeReviewer) {
-
+    } else if (
+      !this.booleanMostRecentReview &&
+      this.booleanMostRecentDivider &&
+      !this.worker.activeReviewer
+    ) {
       this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
-
-    } else if(this.booleanMostRecentReview && this.booleanMostRecentDivider || (!this.worker.activeReviewer && !this.worker.activeDivider)){
-
+    } else if (
+      (this.booleanMostRecentReview && this.booleanMostRecentDivider) ||
+      (!this.worker.activeReviewer && !this.worker.activeDivider)
+    ) {
       this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
-
-    }else if (!this.booleanMostRecentReview && !this.booleanMostRecentDivider && this.worker.activeReviewer && !this.worker.activeDivider ) {
-      
+    } else if (
+      !this.booleanMostRecentReview &&
+      !this.booleanMostRecentDivider &&
+      this.worker.activeReviewer &&
+      !this.worker.activeDivider
+    ) {
       this.router.navigate(['inicio/revisar/', this.workerID]);
-
-    }else if (!this.booleanMostRecentReview && !this.booleanMostRecentDivider && !this.worker.activeReviewer && this.worker.activeDivider ) {
-      
+    } else if (
+      !this.booleanMostRecentReview &&
+      !this.booleanMostRecentDivider &&
+      !this.worker.activeReviewer &&
+      this.worker.activeDivider
+    ) {
       this.router.navigate(['inicio/separar/', this.workerID]);
-
-    }else if(this.worker.activeReviewer && this.worker.activeDivider){
-
-      this.router.navigate([this.routes[Math.floor(Math.random() * this.routes.length)], this.workerID]);
-
-    }}
-    
-    
-    
-
+    } else if (this.worker.activeReviewer && this.worker.activeDivider) {
+      this.router.navigate([
+        this.routes[Math.floor(Math.random() * this.routes.length)],
+        this.workerID,
+      ]);
     }
+  }
+}

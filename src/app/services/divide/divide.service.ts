@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DateTime } from 'luxon';
 import { dataService } from '../data.service';
+import { currentWork } from 'src/app/models/current-work.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DivideService {
+
+  public workerID!: string;
 
   public machines:Array<object> = [];
 
@@ -31,9 +34,11 @@ constructor(private dataService:dataService) {}
    this.dataService.getMachines().subscribe(
      (response)=>{
        this.machines = response;
-       console.log(this.machines);
        this.getMachine(response);
-       
+       this.dataService.getCurrentWork(this.workerID).subscribe(
+         response => {},
+         error=>{this.saveCurrentWork()}
+       );
      }
    );
 
@@ -42,15 +47,10 @@ getMachine(machines:any){
     
   machines.forEach((machine:any) =>{
     
-    console.log('deberia ser el segundo e iterar')
     
     if (this.individualMachine.machineNumber === 0) {
       this.individualMachine = machine;
-      console.log ('se le asigna ' + this.individualMachine);
     }
-    
-
-    console.log(this.individualMachine.lastDivition, ' ', machine.lastDivition);
     
 
 
@@ -62,11 +62,8 @@ getMachine(machines:any){
       if ( DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.lastOneMachine) 
       && DateTime.fromISO(machine.lastDivition) < DateTime.fromISO(this.individualMachine.lastDivition)) {
         
-        console.log('paso la prueba', machine);
         this.individualMachine = {}
         this.individualMachine = machine;
-
-        console.log(machine);
       }
       this.lastOneMachine = machine.lastDivition;
     }else if(!machine.activeMachine && machine._id == this.individualMachine._id ){
@@ -76,7 +73,11 @@ getMachine(machines:any){
     this.individualMachine2.next(this.individualMachine);
   }
   );
-  console.log(this.individualMachine);
+}
+
+saveCurrentWork(){
+  let inProgress = new currentWork(this.workerID, "divide", this.individualMachine);
+  this.dataService.saveCurrentWork(inProgress).subscribe();
 }
 }
 

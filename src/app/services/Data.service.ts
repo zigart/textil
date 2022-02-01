@@ -75,4 +75,26 @@ export class dataService{
     return this._http.post(this.url + 'revision', review, {headers:headers});
   }
 
+  //current work
+
+  saveCurrentWork(work:any):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.post(this.url + 'trabajo-actual', work, {headers: headers});
+  }
+
+  getCurrentWorks(){
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'trabajo-actual', {headers:headers});
+  }
+
+  getCurrentWork(workerID:string){
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'trabajo-actual/' + workerID, {headers:headers});
+  }
+
+  deleteCurrentWork(workerID:string){
+    let headers = new HttpHeaders();
+    return this._http.delete(this.url + 'trabajo-actual/' + workerID, {headers:headers});
+  }
+
 }

@@ -31,7 +31,6 @@ getMachineToReview(){
  this.dataService.getMachines().subscribe(
    (response)=>{
      this.machines = response;
-     console.log(this.machines);
      this.getMachine(response);
      
    }
@@ -55,10 +54,8 @@ machines.forEach((machine:any) =>{
   generates a problem, to resolve this i asign a future value to individualmachine and the logic continue. 
   this solution its provisory because its inefficient*/
 
-  console.log(this.individualMachine);
-  console.log(this.machines);
+
   if(machine.activeMachine){
-    console.log(machine.machineNumber);
     
     if ( DateTime.fromISO(machine.lastReview) < DateTime.fromISO(this.lastOneMachine) 
     && DateTime.fromISO(machine.lastReview) < DateTime.fromISO(this.individualMachine.lastReview)) {
@@ -72,7 +69,6 @@ machines.forEach((machine:any) =>{
 
     //queda guardado el valor del 2200 erroneamente
   }else if(!machine.activeMachine && machine._id == this.individualMachine._id ){
-    console.log(machine.machineNumber);
     this.individualMachine.lastReview = '2200-01-01T00:00:00.000-03:00'
   }
   

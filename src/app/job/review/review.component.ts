@@ -71,7 +71,6 @@ ngOnInit(): void {
     this.dataService.getWorker(this.workerID).subscribe(
     (response)=>{
       this.worker = response
-      console.log(this.worker);
     }, 
     (error)=>{
       console.log(error);
@@ -113,13 +112,7 @@ saveReviewData(){
 
 refreshDate(){
     this.worker.lastReview = DateTime.now().toString();
-    this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe(
-      (response)=>{
-        console.log(response);
-      },
-      (error)=>{
-        console.log(error);
-      });
+    this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
 
      this.saveReviewData();
       
