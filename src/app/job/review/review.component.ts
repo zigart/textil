@@ -76,7 +76,9 @@ ngOnInit(): void {
       console.log(error);
     });
 
+    this.reviewService.workerID = this.workerID;
     this.reviewService.getMachineToReview();
+
     this.reviewService.individualMachine2.subscribe(
       (response) => {
         this.individualMachine = response
@@ -98,6 +100,7 @@ saveReviewData(){
     this.reviewForm.failed = this.failed;
 
     this.dataService.sendReviewForm(this.reviewForm).subscribe();
+    this.dataService.deleteCurrentWork(this.workerID).subscribe();
   }
 
 

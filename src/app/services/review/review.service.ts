@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subject } from 'rxjs';
+import { currentWork } from 'src/app/models/current-work.model';
 import { dataService } from '../data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
+
+  public workerID!:string;
   
   public machines:Array<object> = [];
   
@@ -32,6 +35,11 @@ getMachineToReview(){
    (response)=>{
      this.machines = response;
      this.getMachine(response);
+
+     this.dataService.getCurrentWork(this.workerID).subscribe(
+      response => {},
+      error=>{this.saveCurrentWork()}
+    );
      
    }
  );
@@ -74,5 +82,12 @@ machines.forEach((machine:any) =>{
   
   this.individualMachine2.next(this.individualMachine);
 }
+
 );
-}}
+}
+
+saveCurrentWork(){
+  let inProgress = new currentWork(this.workerID, "review", this.individualMachine);
+  this.dataService.saveCurrentWork(inProgress).subscribe();
+}
+}
