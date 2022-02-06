@@ -5,15 +5,33 @@ $oceanicBlue: #3C4F76;
 .container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 79.8vw;
     height: 99.7vh;
 
-    form{
+
+    .startContainer{
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 50vw;
         height: 50vh;
-        display: flex;
+        .start{
+            width: 60%;
+            height: 50px;
+            background-color: $deepBlue;
+            color: $purple;
+            border-radius: 20px;
+        }
+    }
+
+    form{
+
+        width: 50vw;
+        height: 50vh;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;

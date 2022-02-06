@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Renderer2,  } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 import { DateTime } from 'luxon';
@@ -20,6 +20,10 @@ import { ReviewService } from 'src/app/services/review/review.service';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit {
+
+  @ViewChild('startView') startView!:ElementRef;
+  @ViewChild('send') send!:ElementRef;
+  
   private workerID!:string;
   public worker!:any;
   public colth!:number;
@@ -51,10 +55,10 @@ export class ReviewComponent implements OnInit {
    */
 
   constructor(
+    private render:Renderer2,
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
     private route: Router,
-    private machineService: MachineService,
     private reviewService: ReviewService) { }
 
 /**
@@ -85,6 +89,21 @@ ngOnInit(): void {
       }
     );
   }
+  
+  start(){
+    console.log(this.startView);
+
+    this.render.setStyle(this.startView.nativeElement, 'display', 'none');
+    this.render.setStyle(this.send.nativeElement, 'display', 'flex');
+
+    this.worker.lastReview = DateTime.now().toString();
+    this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
+    
+    this.individualMachine.lastReview = DateTime.now().toString();
+    this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+  }
+
+
 /**
  * @function saveReviewData
  * 
@@ -101,38 +120,9 @@ saveReviewData(){
 
     this.dataService.sendReviewForm(this.reviewForm).subscribe();
     this.dataService.deleteCurrentWork(this.workerID).subscribe();
-  }
-
-
-
-/**
- * @function refreshDate
- * 
- * @description update the saved date with the current date and redirect to findjob
- * 
- * @memberof ReviewComponent
- */
-
-refreshDate(){
-    this.worker.lastReview = DateTime.now().toString();
-    this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
-
-     this.saveReviewData();
-      
-      this.individualMachine.lastReview = DateTime.now().toString();
-      this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
-
 
     this.route.navigate(['inicio/trabajo/' + this.workerID]);
   }
-/**
- * @function getMachineToReview
- * 
- * @description get the oldes machine reviewed and asign it to review
- *
- * @memberof ReviewComponent
- * 
- * @returns machine object
- */
+
 
 }
