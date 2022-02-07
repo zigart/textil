@@ -1,0 +1,7 @@
+<div class="container">
+    <form (ngSubmit)="addToDo()">
+        <label for="toDO">Actividad</label>
+        <input type="text" id="toDO" [(ngModel)]="toDoInput" name="toDo">
+        <button type="submit">Agregar</button>
+    </form>
+</div>

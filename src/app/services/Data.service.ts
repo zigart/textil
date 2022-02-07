@@ -97,4 +97,11 @@ export class dataService{
     return this._http.delete(this.url + 'trabajo-actual/' + workerID, {headers:headers});
   }
 
+// trabajos secundarios
+
+  addToDo(toDo:object):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.post(this.url + 'trabajos-secundarios', toDo, {headers:headers});
+  }
+
 }

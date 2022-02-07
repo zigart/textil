@@ -27,6 +27,7 @@ import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponen
 import { DatePipe } from '@angular/common';
 import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 import { DivideService } from './services/divide/divide.service';
+import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljobscfg.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DivideService } from './services/divide/divide.service';
     FrontpageComponent,
     NotfoundcomponentComponent,
     SmalljobsComponent,
+    SmalljobscfgComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
-import { concatAll, map } from 'rxjs/operators';
 import { dataService } from 'src/app/services/data.service';
-import { DivideService } from 'src/app/services/divide/divide.service';
 import { WorkersService } from 'src/app/services/workers/workers.service';
-import { DivideComponent } from '../divide/divide.component';
+
 
 /**
  * this component asign a job
@@ -70,6 +68,12 @@ export class FindjobComponent implements OnInit, OnDestroy {
 
     this.booleanMostRecentDivider = false;
     this.booleanMostRecentReview = false;
+
+    this.dataService.getWorker(this.workerID).subscribe(
+      response => {
+        this.worker = response;
+      }
+    )
   }
 
   /**
@@ -83,15 +87,8 @@ export class FindjobComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  /*
-   */
+ 
 
-  getWorker() {
-    this.worker = this.workerService.worker2;
-  }
-
-
-  //sigue mal
   check() {
     this.workerID = this.activeRoute.snapshot.params['id'];
     this.dataService.getCurrentWork(this.workerID).subscribe(
@@ -125,7 +122,6 @@ export class FindjobComponent implements OnInit, OnDestroy {
 
     //FIXME: i cant resolve this problem today
     this.workerService.getWorker(this.workerID);
-    this.getWorker();
     //Redefine the booleans
     this.booleanMostRecentDivider = false;
     this.booleanMostRecentReview = false;
