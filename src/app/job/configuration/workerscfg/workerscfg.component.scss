@@ -31,7 +31,7 @@ $oceanicBlue: #3C4F76;
     }
     .information{
         width: 79vw;
-        height: 90vh;
+        height: 70vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -68,9 +68,17 @@ $oceanicBlue: #3C4F76;
             }
         }
     }
-    form{
-        display: none;
+    
+    button{
+        width: 90px;
+        height: 40px;
+        border-radius: 20px;
+        margin-left: 20px;
+        background-color: $deepBlue;
+        color: red;
     }
+
+    
 
 
 }

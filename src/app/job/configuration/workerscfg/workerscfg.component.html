@@ -11,4 +11,5 @@
             <input #activeDivider type="checkbox" name="separator" [checked]="individualWorker.activeDivider" (click)="changeDividerState($event)">
         </div>
     </div>
+    <button (click)="deleteWorker(individualWorker._id)">Eliminar trabajador</button>
 </div>

@@ -46,6 +46,11 @@ export class dataService{
     return this._http.put(this.url + 'trabajador/'+ id, update, {headers:headers});
   }
 
+  deleteWorker(workerID:string){
+    let headers = new HttpHeaders();
+    return this._http.delete(this.url + 'trabajador/' + workerID, {headers:headers});
+  }
+
   //machines
 
   getMachines() : Observable<any>{

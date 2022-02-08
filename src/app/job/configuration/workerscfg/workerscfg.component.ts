@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { concat, Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { dataService } from 'src/app/services/data.service';
@@ -23,7 +23,8 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
   constructor(
     private dataService:dataService,
     private workersService: WorkersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private routeNav: Router
   ) { }
   
   ngOnInit(): void {
@@ -68,6 +69,22 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
       );
   }
   
+
+  deleteWorker(workerID:string){
+
+    if(window.confirm('Este trabajador sera irrecuperable')){
+
+      this.dataService.deleteWorker(workerID)
+      .pipe(concatMap(worker=>this.dataService.getWorkers()))
+      .subscribe(
+        (response)=>{
+          this.workersService.workersList.next(response);
+          this.routeNav.navigate(['inicio/configuracion/trabajadores']);
+        }
+      )
+    }
+ 
+  }
 
 
 
