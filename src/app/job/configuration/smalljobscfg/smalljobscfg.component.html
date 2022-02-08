@@ -2,7 +2,15 @@
 
     <h1>Trabajos secundarios</h1>
 
-    <div *ngFor="let job of jobs" id="listActivities">
+    <div  class="listActivities">
+        <p >Estado</p>
+        <p>Trabajo</p>
+        <p>Eliminar</p>
+        
+    </div>
+
+
+    <div *ngFor="let job of jobs" class="listActivities">
         <p class="completed" *ngIf="job.done" >Realizado</p>
         <p class="waiting" *ngIf="!job.done">Sin realizar</p>
         <p>{{job.toDo}}</p>
