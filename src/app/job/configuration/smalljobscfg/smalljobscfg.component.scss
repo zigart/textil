@@ -5,8 +5,46 @@ $oceanicBlue: #3C4F76;
 .container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 79.8vw;
     height: 99.7vh;
+
+    #listActivities{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #383f5194;
+        font-size: 20px;
+        p{
+            border-right: 1px solid black;
+        }
+        img{
+            width: 40px;
+        }
+        .completed{
+            color: green;
+        }
+        .waiting{
+            color: red;
+        }
+    }
+    form{
+        display: none;
+        justify-content: center;
+        align-items: center;
+        label{
+            margin-right: 20px;
+        }
+        button{
+            width: 80px;
+            height: 30px;
+            border-radius: 20px;
+            margin-left: 20px;
+            background-color: $deepBlue;
+            color: $purple;
+        }
+    }
 }

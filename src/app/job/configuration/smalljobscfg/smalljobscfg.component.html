@@ -1,5 +1,17 @@
 <div class="container">
-    <form (ngSubmit)="addToDo()">
+
+    <h1>Trabajos secundarios</h1>
+
+    <div *ngFor="let job of jobs" id="listActivities">
+        <p class="completed" *ngIf="job.done" >Realizado</p>
+        <p class="waiting" *ngIf="!job.done">Sin realizar</p>
+        <p>{{job.toDo}}</p>
+        <img src="../../../../assets/images/icons8-remove-48.png" alt="remove">
+        
+    </div>
+
+    <button #btnShowForm type="button" (click)="showForm()">Agregar trabajo</button>
+    <form #form (ngSubmit)="addToDo()">
         <label for="toDO">Actividad</label>
         <input type="text" id="toDO" [(ngModel)]="toDoInput" name="toDo">
         <button type="submit">Agregar</button>

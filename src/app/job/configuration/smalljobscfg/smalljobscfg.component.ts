@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { toDo } from 'src/app/models/todo.model';
 import { dataService } from 'src/app/services/data.service';
 
@@ -9,24 +9,47 @@ import { dataService } from 'src/app/services/data.service';
 })
 export class SmalljobscfgComponent implements OnInit {
 
-  public toDoInput:string = '';
+  @ViewChild('btnShowForm') btnShowForm!:ElementRef;
+  @ViewChild('form') form!:ElementRef;
 
+  public toDoInput:string = '';
+  public jobs:Array<toDo> = [];
   constructor(
-    public dataService:dataService
+    public dataService:dataService,
+    public render:Renderer2
   ) { }
 
   ngOnInit(): void {
+    this.getToDo();
   }
+  getToDo(){
+    this.dataService.getToDo().subscribe(
+      response => this.jobs = response
+    );
+  }
+
+
+  showForm(){
+    this.render.setStyle(this.btnShowForm.nativeElement, 'display', 'none');
+    this.render.setStyle(this.form.nativeElement, 'display', 'flex');
+  }
+
+
 
   addToDo(){
 
     let todo = new toDo(this.toDoInput,false);
 
     this.dataService.addToDo(todo).subscribe(
-      response => console.log(response),
-      error => console.log(error)
+      response => {
+        this.getToDo();
+      }
     );
+
+
   }
+
+
 
 
 }

@@ -99,6 +99,11 @@ export class dataService{
 
 // trabajos secundarios
 
+  getToDo():Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'trabajos-secundarios', {headers:headers});
+  }
+
   addToDo(toDo:object):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.post(this.url + 'trabajos-secundarios', toDo, {headers:headers});
