@@ -45,20 +45,13 @@ export class SmalljobscfgComponent implements OnInit {
         this.getToDo();
       }
     );
-
-
   }
 
 
   deleteToDo(id:any){
     console.log(id);
     this.dataService.deleteToDo(id).subscribe(
-      response => console.log(response),
-      error => console.log(error)
+      response => this.getToDo()
     )
   }
-
-
-
-
 }

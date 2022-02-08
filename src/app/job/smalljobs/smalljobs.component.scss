@@ -9,4 +9,23 @@ $oceanicBlue: #3C4F76;
     align-items: center;
     width: 79.8vw;
     height: 99.7vh;
+
+    .jobsContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 79vw;
+        height: 85vh;
+
+        .toDo{
+            font-size: 20px;
+            margin: 30px;
+            width: 60vw;
+            input{
+                margin-right: 20px;
+            }
+        }
+    
+    }
+    
 }

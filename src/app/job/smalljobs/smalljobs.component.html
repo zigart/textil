@@ -1,3 +1,10 @@
 <div class="container">
-    <p>smalljobs works!</p>
+  <h1>Trabajos secundarios</h1>
+  <div class="jobsContainer" >
+      <div class="toDo" *ngFor="let job of jobs">
+        <input *ngIf="!job.done" (click)="updateValue(job._id, job)" type="checkbox" name="toDO" />
+        <input *ngIf="job.done" (click)="updateValue(job._id, job)" type="checkbox" name="toDO" checked />
+        <label for="toDo">{{ job.toDo }}</label>
+    </div>
+  </div>
 </div>

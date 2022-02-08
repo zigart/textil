@@ -82,17 +82,17 @@ export class dataService{
     return this._http.post(this.url + 'trabajo-actual', work, {headers: headers});
   }
 
-  getCurrentWorks(){
+  getCurrentWorks():Observable<any>{
     let headers = new HttpHeaders();
     return this._http.get(this.url + 'trabajo-actual', {headers:headers});
   }
 
-  getCurrentWork(workerID:string){
+  getCurrentWork(workerID:string):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.get(this.url + 'trabajo-actual/' + workerID, {headers:headers});
   }
 
-  deleteCurrentWork(workerID:string){
+  deleteCurrentWork(workerID:string):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.delete(this.url + 'trabajo-actual/' + workerID, {headers:headers});
   }
@@ -112,6 +112,11 @@ export class dataService{
   deleteToDo(toDo:string):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.delete(this.url + 'trabajos-secundarios/' + toDo, {headers: headers}); 
+  }
+
+  updateToDo(toDoID:string, newValue:any):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'trabajos-secundarios/' + toDoID, newValue, {headers:headers});
   }
 
 }
