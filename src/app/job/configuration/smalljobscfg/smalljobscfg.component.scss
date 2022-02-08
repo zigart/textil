@@ -21,8 +21,11 @@ $oceanicBlue: #3C4F76;
         p{
             border-right: 1px solid black;
         }
-        img{
-            width: 40px;
+        a{
+            cursor: pointer;
+            img{
+                width: 40px;
+            }
         }
         .completed{
             color: rgb(0, 209, 0);

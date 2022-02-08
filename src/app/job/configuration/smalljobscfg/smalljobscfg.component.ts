@@ -13,7 +13,7 @@ export class SmalljobscfgComponent implements OnInit {
   @ViewChild('form') form!:ElementRef;
 
   public toDoInput:string = '';
-  public jobs:Array<toDo> = [];
+  public jobs:Array<any> = [];
   constructor(
     public dataService:dataService,
     public render:Renderer2
@@ -47,6 +47,15 @@ export class SmalljobscfgComponent implements OnInit {
     );
 
 
+  }
+
+
+  deleteToDo(id:any){
+    console.log(id);
+    this.dataService.deleteToDo(id).subscribe(
+      response => console.log(response),
+      error => console.log(error)
+    )
   }
 
 

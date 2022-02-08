@@ -3,7 +3,7 @@
     <h1>Trabajos secundarios</h1>
 
     <div  class="listActivities">
-        <p >Estado</p>
+        <p>Estado</p>
         <p>Trabajo</p>
         <p>Eliminar</p>
         
@@ -14,7 +14,7 @@
         <p class="completed" *ngIf="job.done" >Realizado</p>
         <p class="waiting" *ngIf="!job.done">Sin realizar</p>
         <p>{{job.toDo}}</p>
-        <img src="../../../../assets/images/icons8-remove-48.png" alt="remove">
+        <a (click)="deleteToDo(job._id)"><img src="../../../../assets/images/icons8-remove-48.png" alt="remove"></a>
         
     </div>
 

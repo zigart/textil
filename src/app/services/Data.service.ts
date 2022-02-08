@@ -109,4 +109,9 @@ export class dataService{
     return this._http.post(this.url + 'trabajos-secundarios', toDo, {headers:headers});
   }
 
+  deleteToDo(toDo:string):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.delete(this.url + 'trabajos-secundarios/' + toDo, {headers: headers}); 
+  }
+
 }
