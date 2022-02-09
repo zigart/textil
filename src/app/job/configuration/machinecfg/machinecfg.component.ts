@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { machine } from 'src/app/models/machine.model';
 import { dataService } from 'src/app/services/data.service';
+import { MachineService } from 'src/app/services/machine/machine.service';
 
 @Component({
   selector: 'app-machinecfg',
@@ -26,7 +28,8 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
   public valueToEdit!:string;
   
   constructor(private route:ActivatedRoute, private render:Renderer2,
-    private dataService:dataService) { 
+    private dataService:dataService, private routerNav:Router,
+    private machineService:MachineService) { 
     //initializations
     this.review = false;  
     this.newDate = ""; // two way data binding
@@ -68,6 +71,22 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
       }
     )
   }
+
+  deleteMachine(id:string){
+
+    if(window.confirm('Esta maquina se eliminara de forma permanente')){
+
+      this.dataService.deleteMachine(id)
+      .pipe(concatMap(machines => this.dataService.getMachines()))
+      .subscribe(
+        response => {
+          this.machineService.machineList.next(response);
+          this.routerNav.navigate(['inicio/configuracion/maquinas']);
+        }
+        )
+      }
+    }
+
   //this function find the html element when somebody click the button
    editForm(value:string){
     this.valueToEdit = value;
@@ -77,7 +96,7 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     }else{
       this.newDate = this.machine.lastDivition;
     }
-    
+
     this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 

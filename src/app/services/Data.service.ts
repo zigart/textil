@@ -73,6 +73,11 @@ export class dataService{
     return this._http.put(this.url + 'maquina/'+ id, newValue, {headers:headers});
   }
 
+  deleteMachine(id:string): Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.delete(this.url + 'maquina/' + id, {headers:headers});
+  }
+
   //reviews
 
   sendReviewForm(review:any): Observable<any>{
