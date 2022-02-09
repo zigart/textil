@@ -23,6 +23,7 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
   private getMachineSubscription: Subscription = new Subscription();
   public machine:any;
   private updateSubscribe:Subscription = new Subscription();
+  public valueToEdit!:string;
   
   constructor(private route:ActivatedRoute, private render:Renderer2,
     private dataService:dataService) { 
@@ -68,16 +69,33 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     )
   }
   //this function find the html element when somebody click the button
-   editForm(e:any){
-    let paragraph = e.path[1].childNodes[0];
-    this.toModify = paragraph;
+   editForm(value:string){
+    this.valueToEdit = value;
+
+    if(this.valueToEdit == 'review'){
+      this.newDate = this.machine.lastReview;
+    }else{
+      this.newDate = this.machine.lastDivition;
+    }
+    
     this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 
   //button for final edit 
   edit(){
+
+    console.log(this.machine);
+
+    
+
     if(window.confirm('Esta informacion sera irrecuperable')){
-      this.render.setProperty(this.toModify, 'innerText', "ultima revision: " + this.newDate);
+
+      if(this.valueToEdit == 'review'){
+        this.machine.lastReview = this.newDate;
+      }else{
+        this.machine.lastDivition = this.newDate;
+      }
+      this.dataService.updateActiveMachine(this.machineID, this.machine).subscribe()
       this.render.setStyle(this.form.nativeElement, 'display', 'none');
     }
   }

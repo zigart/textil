@@ -8,17 +8,16 @@
             <input #activeMachine type="checkbox" name="machine" [checked]="machine.activeMachine" (click)="changeState($event)">
         </div>
         <div class="information--review">
-            <p id="review" ([ngModel])="reviewDate">Ultima revision: {{machine.lastReview}} </p>
-            <button (click)="editForm($event)">EDITAR REVISION</button>
+            <p id="review">Ultima revision: {{machine.lastReview | date: 'short'}} </p>
+            <button (click)="editForm('review')">EDITAR REVISION</button>
         </div>
         <div class="divide">
-            <p>Ultima separacion: {{machine.lastDivition}} </p>
-            <button (click)="editForm($event)">EDITAR SEPARACION</button>
+            <p>Ultima separacion: {{machine.lastDivition | date: 'short'}} </p>
+            <button (click)="editForm('divide')">EDITAR SEPARACION</button>
         </div>
     </div>
-    <div class="buttons">
-    </div>
-    <!--seguir viendo el displey none a arreglar-->
+
+    <!--seguir viendo el display none a arreglar-->
     <form id="form" #form>
         <label for="date">FECHA Y HORARIO:</label>
         <input type="text" name="date" [(ngModel)]="newDate">
