@@ -15,10 +15,12 @@ $oceanicBlue: #3C4F76;
     .title{
         display: flex;
         justify-content: center;
+        align-items: center;
         background-color: $oceanicBlue;
         color: $purple;
         width: 100%;
         height: 50px;
+        font-size: 30px;
         border-bottom: 13px double $deepBlue;
     }
     .btn{

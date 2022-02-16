@@ -3,9 +3,19 @@ $purple: #DDDBF1;
 $oceanicBlue: #3C4F76;
 
 .container{
-    display: flex;
-    flex-direction: row;
+    width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'workers jobs';
     background-color: #383F51;
-   
 }
 
+.workers{
+    grid-area: workers;
+}
+
+.outlet{
+    grid-area: jobs;
+}

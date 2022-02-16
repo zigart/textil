@@ -91,7 +91,6 @@ ngOnInit(): void {
   }
   
   start(){
-    console.log(this.startView);
 
     this.render.setStyle(this.startView.nativeElement, 'display', 'none');
     this.render.setStyle(this.send.nativeElement, 'display', 'flex');

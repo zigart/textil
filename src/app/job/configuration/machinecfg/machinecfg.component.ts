@@ -87,7 +87,7 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
       }
     }
 
-  //this function find the html element when somebody click the button
+  //this function assigns the value to use in the next step
    editForm(value:string){
     this.valueToEdit = value;
 
