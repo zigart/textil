@@ -9,7 +9,8 @@ import { machine } from '../models/machine.model';
   
 })
 export class dataService{
-  private url:string = 'http://localhost:3700/';
+  //private url:string = 'http://192.168.0.99:3700/';
+  private url:string = 'http://192.168.0.99:3700/';
 
   constructor(private _http:HttpClient) {} 
   //attandant
@@ -69,6 +70,11 @@ export class dataService{
   }
 
   updateActiveMachine(id:string, newValue:boolean):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'maquina/'+ id, newValue, {headers:headers});
+  }
+
+  updateMachine(id:string, newValue:any){
     let headers = new HttpHeaders();
     return this._http.put(this.url + 'maquina/'+ id, newValue, {headers:headers});
   }

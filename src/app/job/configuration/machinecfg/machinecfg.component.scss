@@ -3,15 +3,15 @@ $purple: #dddbf1;
 $oceanicBlue: #3c4f76;
 
 .container {
-    width: 93%;
+    width: 100%;
     height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
   .title {
-    width: 79vw;
-    height: 10vh;
+    width: 100%;
+    height: 10%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -19,19 +19,32 @@ $oceanicBlue: #3c4f76;
     h1 {
       width: 100%;
       text-align: center;
+      margin-left: 20px;
     }
-    #back {
-      margin: 20px;
-      border-radius: 20px;
-      width: 50px;
+    a{
+      cursor: pointer;
+      img{
+        width: 30px;
+        margin-right: 20px;
+      }
+    }
+    input{
+      display: none;
+    }
+    button{
+      display: none;
+      font-size: 10px;
+      width: 60px;
       height: 30px;
+      border-radius: 20px;
+      margin-left: 20px;
       background-color: $deepBlue;
       color: $purple;
     }
   }
   .information {
-    width: 79vw;
-    height: 90vh;
+    width: 100%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;

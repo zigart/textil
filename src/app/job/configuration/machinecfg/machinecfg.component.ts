@@ -14,6 +14,9 @@ import { MachineService } from 'src/app/services/machine/machine.service';
 export class MachinecfgComponent implements OnInit, OnDestroy {
 
   @ViewChild('form') form!:ElementRef;
+  @ViewChild('titleInput') titleInput!:ElementRef;
+  @ViewChild('buttonEdit') buttonEdit!:ElementRef;
+  @ViewChild('buttonCancel') buttonCancel!:ElementRef;
 
   public numberMachine:number;
   public date =  Date.now();
@@ -26,6 +29,7 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
   public machine:any;
   private updateSubscribe:Subscription = new Subscription();
   public valueToEdit!:string;
+  public title:any;
   
   constructor(private route:ActivatedRoute, private render:Renderer2,
     private dataService:dataService, private routerNav:Router,
@@ -123,4 +127,27 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     this.render.setStyle(this.form.nativeElement, 'display', 'none');
   }
   
+
+
+  updateMachineTitle(){
+    this.title = this.machine.machineNumber;
+    this.render.setStyle(this.titleInput.nativeElement, 'display', 'flex');
+    this.render.setStyle(this.buttonEdit.nativeElement, 'display', 'block');
+    this.render.setStyle(this.buttonCancel.nativeElement, 'display', 'block');
+  }
+
+  editTitle(){
+    this.machine.machineNumber = this.title;
+    this.dataService.updateMachine(this.machineID, this.machine).subscribe();
+    this.render.setStyle(this.titleInput.nativeElement, 'display', 'none');
+    this.render.setStyle(this.buttonEdit.nativeElement, 'display', 'none');
+    this.render.setStyle(this.buttonCancel.nativeElement, 'display', 'none');
+  }
+
+  cancelEdit(){
+    this.title = '';
+    this.render.setStyle(this.titleInput.nativeElement, 'display', 'none');
+    this.render.setStyle(this.buttonEdit.nativeElement, 'display', 'none');
+    this.render.setStyle(this.buttonCancel.nativeElement, 'display', 'none');
+  }
 }
