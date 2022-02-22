@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit, Renderer2,  } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { concat, Subscription } from 'rxjs';
 import { dataService } from 'src/app/services/data.service';
 import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,6 +38,23 @@ export class ReviewComponent implements OnInit {
     lastDivition: '2021-01-01T00:00:00.000-03:00',
     lastReview: '2021-01-01T00:00:00.000-03:00'
   }
+
+
+  public individualMachineCurrent:any =  {
+    _id: '',
+    machineNumber: 0,
+    lastDivition: '',
+    lastReview: ''
+  }
+
+  public individualMachineObtained:any =  {
+    _id: '',
+    machineNumber: 0,
+    lastDivition: '',
+    lastReview: ''
+  }
+
+
   public reviewForm:any = {
     worker: {},
     machine: {},
@@ -82,13 +99,29 @@ ngOnInit(): void {
 
     this.reviewService.workerID = this.workerID;
     this.reviewService.getMachineToReview();
-
+    
+    
+    
     this.reviewService.individualMachine2.subscribe(
-      (response) => {
-        this.individualMachine = response
-      }
-    );
-  }
+      response => {
+        this.individualMachineObtained = response;
+      });   
+
+    this.dataService.getCurrentWork(this.workerID).subscribe(
+      response => {
+        this.individualMachine = response.machine;
+        this.dataService.updateActiveMachine(response.machine._id, response.machine).subscribe();
+        
+      },
+      error => {
+        this.individualMachine = this.individualMachineObtained;
+        this.individualMachine.lastReview = DateTime.now().toString();
+        this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
+        }
+      );
+      
+  
+    }
   
   start(){
 
@@ -98,19 +131,19 @@ ngOnInit(): void {
     this.worker.lastReview = DateTime.now().toString();
     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
     
-    this.individualMachine.lastReview = DateTime.now().toString();
-    this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+    
   }
-
-
-/**
- * @function saveReviewData
- * 
- * @description this function save the review data in the ddbb
- *
- * @memberof ReviewComponent
- */
-saveReviewData(){
+  
+  
+  /**
+   * @function saveReviewData
+   * 
+   * @description this function save the review data in the ddbb
+   *
+   * @memberof ReviewComponent
+   */
+  saveReviewData(){
+    this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
     this.reviewForm.worker = this.worker;
     this.reviewForm.machine = this.individualMachine;
     this.reviewForm.date = DateTime.now().toString();
