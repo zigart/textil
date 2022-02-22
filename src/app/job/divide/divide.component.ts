@@ -29,6 +29,22 @@ export class DivideComponent implements OnInit {
   private machines:Array<object> = this.divideService.machines;
   public lastOneMachine:string = this.divideService.lastOneMachine;
   public individualMachine:any;
+
+
+  public individualMachineCurrent:any =  {
+    _id: '',
+    machineNumber: 0,
+    lastDivition: '',
+    lastReview: ''
+  }
+
+  public individualMachineObtained:any =  {
+    _id: '',
+    machineNumber: 0,
+    lastDivition: '',
+    lastReview: ''
+  }
+
   /**
    * Creates an instance of DivideComponent.
    * @param {Renderer2} render
@@ -72,12 +88,29 @@ export class DivideComponent implements OnInit {
         });
 
         this.divideService.workerID = this.workerID;
-
         this.divideService.getMachineToDivide();
+        
         this.divideService.individualMachine2.subscribe(
-          (response) => {
-            this.individualMachine = response;
+          response => {
+            this.individualMachineObtained = response;
           });
+
+        this.dataService.getCurrentWork(this.workerID).subscribe(
+          response => {
+            this.individualMachine = response.machine;
+            this.individualMachine.lastDivition = DateTime.now().toString();
+            this.dataService.updateActiveMachine(response.machine._id, response.machine).subscribe();
+            
+          },
+          error => {
+            this.individualMachine = this.individualMachineObtained;
+            this.individualMachine.lastDivition = DateTime.now().toString();
+            this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
+            }
+          );
+
+
+
            
       }
       

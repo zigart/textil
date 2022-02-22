@@ -143,6 +143,8 @@ ngOnInit(): void {
    * @memberof ReviewComponent
    */
   saveReviewData(){
+    this.individualMachine.lastReview = DateTime.now().toString();
+        this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
     this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
     this.reviewForm.worker = this.worker;
     this.reviewForm.machine = this.individualMachine;
