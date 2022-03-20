@@ -86,6 +86,4 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
  
   }
 
-
-
 }

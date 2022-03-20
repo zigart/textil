@@ -5,8 +5,9 @@ export class reviews {
     constructor(
         public worker:worker,
         public machine: machine,
+        public status: boolean,
         public date:string,
-        public colth: number,
-        public failed: number
+        public problems:string
+        
     ){}
 }

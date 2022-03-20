@@ -130,14 +130,14 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
 
 
   updateMachineTitle(){
-    this.title = this.machine.machineNumber;
+    this.title = this.machine.machineName;
     this.render.setStyle(this.titleInput.nativeElement, 'display', 'flex');
     this.render.setStyle(this.buttonEdit.nativeElement, 'display', 'block');
     this.render.setStyle(this.buttonCancel.nativeElement, 'display', 'block');
   }
 
   editTitle(){
-    this.machine.machineNumber = this.title;
+    this.machine.machineName = this.title;
     
     this.dataService.updateMachine(this.machineID, this.machine)
     .pipe(concatMap(value => this.dataService.getMachines()))

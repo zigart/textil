@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MachineService } from 'src/app/services/machine/machine.service';
 import { ReviewService } from 'src/app/services/review/review.service';
+import { reviews } from 'src/app/models/reviews.model'
 
 /**
  * this component asign a machine to review and update the dates
@@ -22,8 +23,9 @@ import { ReviewService } from 'src/app/services/review/review.service';
 export class ReviewComponent implements OnInit {
 
   @ViewChild('startView') startView!:ElementRef;
-  @ViewChild('send') send!:ElementRef;
-  
+  @ViewChild('status') status!:ElementRef;
+  @ViewChild('problemsView') problemsView!:ElementRef;
+
   private workerID!:string;
   public worker!:any;
   public colth!:number;
@@ -32,6 +34,7 @@ export class ReviewComponent implements OnInit {
   private machines:Array<object> = [];
   public machineSubscription: Subscription = new Subscription();
   public lastOneMachine:string = '2021-01-01T00:00:00.000-03:00';
+  public problems!:string;
   public individualMachine:any =  {
     _id: '',
     machineNumber: 0,
@@ -75,7 +78,7 @@ export class ReviewComponent implements OnInit {
     private render:Renderer2,
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
-    private route: Router,
+    private router: Router,
     private reviewService: ReviewService) { }
 
 /**
@@ -126,8 +129,7 @@ ngOnInit(): void {
   start(){
 
     this.render.setStyle(this.startView.nativeElement, 'display', 'none');
-    this.render.setStyle(this.send.nativeElement, 'display', 'flex');
-
+    this.render.setStyle(this.status.nativeElement, 'display', 'flex');
     this.worker.lastReview = DateTime.now().toString();
     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
     
@@ -142,21 +144,32 @@ ngOnInit(): void {
    *
    * @memberof ReviewComponent
    */
-  saveReviewData(){
-    this.individualMachine.lastReview = DateTime.now().toString();
-        this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
-    this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
-    this.reviewForm.worker = this.worker;
-    this.reviewForm.machine = this.individualMachine;
-    this.reviewForm.date = DateTime.now().toString();
-    this.reviewForm.colth = this.colth;
-    this.reviewForm.failed = this.failed;
-
-    this.dataService.sendReviewForm(this.reviewForm).subscribe();
-    this.dataService.deleteCurrentWork(this.workerID).subscribe();
-
-    this.route.navigate(['inicio/trabajo/' + this.workerID]);
+  
+  like(){
+  let review = new reviews(this.worker,this.individualMachine, true, DateTime.now().toString(), '');
+  this.individualMachine.lastReview = DateTime.now().toString();
+  this.dataService.sendReview(review).subscribe();
+  this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
+  this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+  this.dataService.deleteCurrentWork(this.workerID).subscribe();
+  this.render.setStyle(this.status.nativeElement, 'display', 'none');
+  this.router.navigate(['inicio/trabajo/' + this.workerID]);
   }
 
+  dislike(){
+    this.render.setStyle(this.problemsView.nativeElement, 'display', 'flex');
+    this.render.setStyle(this.status.nativeElement, 'display', 'none');
+    
+  }
+
+  saveProblem(){
+    let review = new reviews(this.worker,this.individualMachine, false, DateTime.now().toString(), this.problems);
+    this.individualMachine.lastReview = DateTime.now().toString();
+    this.dataService.sendReview(review).subscribe();
+    this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
+    this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+    this.dataService.deleteCurrentWork(this.workerID).subscribe();
+    this.router.navigate(['inicio/trabajo/' + this.workerID]);
+  }
 
 }

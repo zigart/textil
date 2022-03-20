@@ -86,9 +86,15 @@ export class dataService{
 
   //reviews
 
-  sendReviewForm(review:any): Observable<any>{
+  sendReview(review:any): Observable<any>{
     let headers = new HttpHeaders();
-    return this._http.post(this.url + 'revision', review, {headers:headers});
+    return this._http.post(this.url + 'revisar', review, {headers:headers});
+  }
+  //divide
+
+  sendDivideForm(divide:any): Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.post(this.url + 'separar', divide, {headers:headers});
   }
 
   //current work

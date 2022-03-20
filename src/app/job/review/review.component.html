@@ -1,15 +1,18 @@
 <div class="container" >
-    <h1 *ngIf="this.individualMachine">REVISION EN MAQUINA N° {{this.individualMachine.machineNumber}}</h1>
+    <h1 *ngIf="this.individualMachine.machineName">REVISAR: {{this.individualMachine.machineName}}</h1>
 
     <div #startView id="startView" class="startContainer">
         <button  class="start" (click)="start()">COMENZAR</button>
     </div>
     
-    <form (ngSubmit)="saveReviewData()" #send >
-        <label for="colth">PAÑOS TOTALES:</label>
-        <input type="number" name="colth" [(ngModel)]='colth'>
-        <label for="failed">PAÑOS FALLADOS:</label>
-        <input type="number" name="failed" [(ngModel)]='failed'>
-        <button type="submit">FINALIZADO</button>
+    <div #status class="status" >
+        <a (click)="like()"><img src="./../../../assets/images/like.png" alt=""></a>
+        <a (click)="dislike()"><img src="./../../../assets/images/dislike.png" alt=""></a>
+    </div>
+
+    <form #problemsView class="problems" (ngSubmit)="saveProblem()">
+        <label for="error">Problema</label>
+        <textarea id="error" name="error" type="text" [(ngModel)]="problems" ></textarea>
+        <button type="submit">Enviar</button>
     </form>
 </div>

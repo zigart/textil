@@ -3,33 +3,52 @@ $purple: #DDDBF1;
 $oceanicBlue: #3C4F76;
 
 .container{
-    width: 79vw;
-    height: 98vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    .title{
+    width: 79.8vw;
+    height: 99.7vh;
+
+
+    .startContainer{
+        
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 15vh;
-    }
-    .buttons{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 85vh;
         width: 50vw;
-        button{
+        height: 50vh;
+        .start{
             width: 60%;
             height: 50px;
             background-color: $deepBlue;
             color: $purple;
             border-radius: 20px;
         }
-        #finish{
-            display: none;
+    }
+
+    form{
+
+        width: 50vw;
+        height: 50vh;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        input{
+            margin-bottom: 30px;
+            width: 60%;
+            height: 20px;
+        }
+        label{
+            margin-bottom: 10px;
+        }
+        button{
+            width: 60%;
+            height: 50px;
+            background-color: $deepBlue;
+            color: $purple;
+            border-radius: 20px;
         }
     }
 }

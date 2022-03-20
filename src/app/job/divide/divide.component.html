@@ -1,9 +1,18 @@
 <div class="container" >
     <div *ngIf="this.individualMachine" class="title">
-        <h1>SEPARAR MAQUINA N° {{this.individualMachine.machineNumber}}</h1>
+        <h1>SEPARAR: {{this.individualMachine.machineName}}</h1>
     </div>
-    <div class="buttons">
-        <button #start id="start" (click)="startCount()">COMENZAR</button>
-        <button #finish id="finish" (click)="finishCount()">FINALIZAR</button>
+
+
+    <div #startView id="startView" class="startContainer">
+        <button  class="start" (click)="start()">COMENZAR</button>
     </div>
+    
+    <form (ngSubmit)="saveReviewData()" #send >
+        <label for="colth">PAÑOS TOTALES:</label>
+        <input type="number" name="colth" [(ngModel)]='colth'>
+        <label for="failed">PAÑOS FALLADOS:</label>
+        <input type="number" name="failed" [(ngModel)]='failed'>
+        <button type="submit">FINALIZADO</button>
+    </form>
 </div>

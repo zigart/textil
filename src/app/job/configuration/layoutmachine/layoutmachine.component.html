@@ -1,7 +1,12 @@
 <app-nav></app-nav>
 <div class="container">
     <ul>
-        <li class="machines" *ngFor="let machine of machines"><a [routerLink]="['../maquina/', machine._id]">Maquina N° {{machine.machineNumber}}</a></li>
+        <li class="machines" *ngFor="let machine of machines"><a [routerLink]="['../maquina/', machine._id]">{{machine.machineName}}</a></li>
     </ul>
+    <form #form>
+        <label for="name">Nombre:</label>
+        <input id="name" name="name" type="text" [(ngModel)]="name">
+        <button (click)="add(); ">Agregar</button>
+    </form>
     <button (click)="addMachine()">Agregar Maquina</button>
 </div>

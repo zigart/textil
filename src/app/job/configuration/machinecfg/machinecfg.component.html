@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <div class="container" *ngIf="machine">
     <div class="title">
-        <h1>MAQUINA N° {{machine.machineNumber}}</h1>
+        <h1>{{machine.machineName}}</h1>
         <input type="text" #titleInput [(ngModel)]="title">
         <button (click)="editTitle()" #buttonEdit>Editar</button>
         <button (click)="cancelEdit()" #buttonCancel >Cancelar</button>

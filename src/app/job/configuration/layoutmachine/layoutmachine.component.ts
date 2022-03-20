@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { machine } from 'src/app/models/machine.model';
@@ -15,13 +15,16 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
   public machines: Array<any>;
   private getMachinesSubscription:Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
+  public name:string =  "";
   //FIXME: i must update this type of data to date
   @Output() machineNumber = new EventEmitter<machine>();
   @Output() displayLayoutMachine = new EventEmitter<boolean>();
+  @ViewChild("form") form!: ElementRef;
   
   constructor(
     private machineService:MachineService,
-    private dataService: dataService) { 
+    private dataService: dataService,
+    private render:Renderer2) { 
       this.machines = [];
     }
     
@@ -46,16 +49,13 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
 
   addMachine() {
 
-    
-  let lastItem = this.machines[this.machines.length - 1];
-  let sum;
-  if (!lastItem) {
-    sum = 1;
-  }else{
-    sum = lastItem.machineNumber + 1;
-  }
+    console.log(this.form);
+        this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   
-    let newMachine = new machine(sum, true, DateTime.now().toString(), DateTime.now().toString());
+  }
+
+  add(){
+     let newMachine = new machine(this.name, true, DateTime.now().toString(), DateTime.now().toString());
     this.newSubscription = this.dataService.addMachine(newMachine)
     .pipe(concatMap(machines => this.dataService.getMachines()))
     .subscribe(
@@ -66,7 +66,9 @@ export class LayoutmachineComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     )
-  }
+  this.name = "";
+  this.render.setStyle(this.form.nativeElement, 'display', 'none'); 
+}
 
   redirect(machine:machine){
     this.machineNumber.emit(machine);

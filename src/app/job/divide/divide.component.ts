@@ -20,8 +20,9 @@ import { currentWork } from '../../models/current-work.model';
 })
 export class DivideComponent implements OnInit {
 
-  @ViewChild('start') start!:ElementRef;
+  @ViewChild('startView') startView!:ElementRef;
   @ViewChild('finish') finish!:ElementRef;
+  @ViewChild('send') send!:ElementRef;
 
   public workerID!:string;
   public worker:any;
@@ -30,6 +31,16 @@ export class DivideComponent implements OnInit {
   public lastOneMachine:string = this.divideService.lastOneMachine;
   public individualMachine:any;
 
+  public colth!:number;
+  public failed!:number;
+
+  public divideForm:any = {
+    worker: {},
+    machine: {},
+    date: '',
+    colth: 0,
+    failed: 0
+  }
 
   public individualMachineCurrent:any =  {
     _id: '',
@@ -108,68 +119,34 @@ export class DivideComponent implements OnInit {
             this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
             }
           );
-
-
-
-           
       }
-      
-      /**
-   * @function startCount
-   * 
-   * @description Refresh date in the 'lastDivide' in the worker obtained by id in the url worker
-   * 
-   * @example 
-   * this.worker.lastDivition = 2021-01-01T00:00:00.000-03:00, after click this date
-   * its updated to current date
-   * also hides the start button and show the finish button
-   * 
-   * @returns update with current date of the worker
-   * @memberof DivideComponent
-   */
-   startCount(){
-     this.worker.lastDivition = DateTime.now().toString();
-     
-     this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
-        this.render.setStyle(this.start.nativeElement, 'display', 'none');
-        this.render.setStyle(this.finish.nativeElement, 'display', 'block');
-  }
 
+ start(){
 
-/**
- * @function finishCount
- *  
- * @description Refresh date of the machine obtained by function getMachineToDivide executed in the onInit 
- * 
- * @example getMachineToDivide return the machine 1 with lastDivition value: 2021-01-01T00:00:00.000-03:00
- * when someone clicks the button, get the current date and replace this value
- * 
- * @returns update with current date of the machine.lastDivition
- * 
- * @memberof DivideComponent
- */
-finishCount(){
-  this.individualMachine.lastDivition = DateTime.now().toString();
+  this.render.setStyle(this.startView.nativeElement, 'display', 'none');
+  this.render.setStyle(this.send.nativeElement, 'display', 'flex');
+
+  this.worker.lastReview = DateTime.now().toString();
+  this.updateSubscription = this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
+  
+  
+}
+
+ saveReviewData(){
+  this.individualMachine.lastReview = DateTime.now().toString();
+  this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+  this.divideForm.worker = this.worker;
+  this.divideForm.machine = this.individualMachine;
+  this.divideForm.date = DateTime.now().toString();
+  this.divideForm.colth = this.colth;
+  this.divideForm.failed = this.failed;
+
+  this.dataService.sendDivideForm(this.divideForm).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
-    this.render.setStyle(this.start.nativeElement, 'display', 'block');
-    this.render.setStyle(this.finish.nativeElement, 'display', 'none');
-    this.router.navigate(['inicio/trabajo/', this.workerID]);
-  }
 
-
-
-/**
- * @function getMachineToDivide 
- * 
- * @description 
- * with luxon im comparing the dates, if the machine has the most recent date this function save the
- * machine in individualMachine object
- * 
- * @returns return the oldest machine
- * 
- * @memberof DivideComponent
- */
+  this.router.navigate(['inicio/trabajo/' + this.workerID]);
+}
 
 
 }
