@@ -1,9 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
-import { machine } from 'src/app/models/machine.model';
 import { LoginService } from 'src/app/services/config/login.service';
 import { LoginGuard } from './login.guard';
 
@@ -17,7 +15,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   @ViewChild('login') login!: ElementRef;
   
   public password!:string;
-  public loged:boolean;
   private loginSubscription:Subscription = new Subscription();
 
   constructor(
@@ -27,7 +24,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private loginGuard: LoginGuard,
     private datePipe: DatePipe) { 
-    this.loged = false;
+
   }
   
   ngOnInit(): void {
@@ -40,7 +37,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   
   signIn(){
 
-    //the password its taken from two way data binding
+    //the password is taken from two way data binding
     this.loginGuard.getData(this.password);
 
     this.loginService.loged.subscribe(
@@ -52,7 +49,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
       }
     );
 
-    //i must fix this, if I click on attandand next to login this is not showing again
     if (this.loginService.logedChild == true) {
       this.router.navigate(['maquinas'], {relativeTo: this.activatedRouter});
       this.loginService.showLogin = false;

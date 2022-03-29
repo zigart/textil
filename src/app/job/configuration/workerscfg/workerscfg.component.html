@@ -10,6 +10,11 @@
             <label for="separator">Separador Activo</label>
             <input #activeDivider type="checkbox" name="separator" [checked]="individualWorker.activeDivider" (click)="changeDividerState($event)">
         </div>
+        <form (ngSubmit)="changePassword()">
+            <label for="password"></label>
+            <input type="text" name="password" id="password" [(ngModel)]="password">
+            <button type="submit">Cambiar contraseña</button>
+        </form>
     </div>
-    <button (click)="deleteWorker(individualWorker._id)">Eliminar trabajador</button>
+    <button class="deleteWorker" (click)="deleteWorker(individualWorker._id)">Eliminar trabajador</button>
 </div>

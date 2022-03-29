@@ -43,11 +43,15 @@ export class WorkersComponent implements OnInit, OnDestroy {
 
   assignWorker(worker:any){
     this.workersServices.getWorker(worker);
+    this.dataService.getWorker(worker).subscribe(
+      response => this.loginService.worker = response
+    );
+    this.loginService.showLoginWorker = true;
   }
 
   redirectAttendant(){
+    this.router.navigate(['/inicio/configuracion'])
     this.loginService.showLogin = true;
-    this.router.navigate(['/inicio/configuracion']);
   }
 
 

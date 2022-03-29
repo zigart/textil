@@ -9,27 +9,34 @@ import { LayoutmachineComponent } from './job/configuration/layoutmachine/layout
 import { MachinecfgComponent } from './job/configuration/machinecfg/machinecfg.component';
 import { LayoutworkersComponent } from './job/configuration/layoutworkers/layoutworkers.component';
 import { WorkerscfgComponent } from './job/configuration/workerscfg/workerscfg.component';
-import { LoginService } from './services/config/login.service';
 import { LoginGuard } from './job/configuration/login.guard';
 import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
 import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljobscfg.component';
+import { PasswordsComponent } from './job/configuration/passwords/passwords.component';
+import { LoginworkerComponent } from './loginworker/loginworker.component';
+import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/menu', pathMatch: 'full'},
   {path: 'menu', component: FrontpageComponent},
   {path: 'inicio', component: JobComponent,
   children: [
-    {path: 'trabajo/:id', component: FindjobComponent},
-    {path: 'revisar/:id', component: ReviewComponent},
-    {path: 'separar/:id', component: DivideComponent},
-    {path: 'trabajos-secundarios/:id', component: SmalljobsComponent},
+    //i need fix this, the findjobcomponent isn't working. maybe the problem can be in the guard or service
+    {path: 'password/:id', component: LoginworkerComponent, canActivateChild:[WorkerpasswordGuard], 
+    children: [
+      {path: 'trabajo', component: FindjobComponent},
+      {path: 'revisar/:id', component: ReviewComponent},
+      {path: 'separar/:id', component: DivideComponent},
+      {path: 'trabajos-secundarios/:id', component: SmalljobsComponent},  
+    ]},
     {path: 'configuracion', component: ConfigurationComponent, canActivateChild:[LoginGuard],
     children: [
       {path: 'maquinas', component: LayoutmachineComponent},
       {path: 'maquina/:id', component: MachinecfgComponent},
       {path: 'trabajadores', component: LayoutworkersComponent},
+      {path: 'passwords', component: PasswordsComponent},
       {path: 'trabajador/:id', component: WorkerscfgComponent},
       {path: 'trabajos-secundarios', component: SmalljobscfgComponent}
     ]},

@@ -20,6 +20,11 @@ export class dataService{
     return this._http.get(this.url + 'encargado', {headers:headers});
   }
 
+  updateAttandant(attandantID:string){
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'encargado/' + attandantID, {headers:headers})
+  }
+
   //workers
 
   getWorkers() : Observable<any>{

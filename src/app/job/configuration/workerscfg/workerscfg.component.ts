@@ -19,6 +19,7 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
   public individualWorker!:any;
   private getWorker: Subscription = new Subscription();
   private updateSubscribe:Subscription = new Subscription();
+  public password!:string;
 
   constructor(
     private dataService:dataService,
@@ -65,6 +66,7 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
     this.getWorker = this.dataService.getWorker(this.workerID).subscribe(
       response =>{
         this.individualWorker = response;
+        this.password = this.individualWorker.password;
       }
       );
   }
@@ -84,6 +86,14 @@ export class WorkerscfgComponent implements OnInit, OnDestroy {
       )
     }
  
+  }
+
+  changePassword(){
+
+    if(window.confirm('Desea modificar la contraseña?')){
+      this.individualWorker.password = this.password;
+      this.dataService.updateWorker(this.workerID, this.individualWorker).subscribe();
+    }
   }
 
 }

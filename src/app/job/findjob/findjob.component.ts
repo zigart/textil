@@ -61,6 +61,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
    * @memberof FindjobComponent
    */
   ngOnInit(): void {
+    console.log('inicia?');
     this.workerID = this.activeRoute.snapshot.params['id'];
     this.subscription = this.dataService.getWorkers().subscribe((response) => {
       this.workersReviewAndDivide = response;

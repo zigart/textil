@@ -4,6 +4,7 @@ export class worker{
         public activeDivider:boolean, 
         public activeReviewer:boolean, 
         public lastDivition:string, 
-        public lastReview:string
+        public lastReview:string,
+        public password:string
     ){}
 }
