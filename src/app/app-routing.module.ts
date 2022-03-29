@@ -27,9 +27,9 @@ const routes: Routes = [
     {path: 'password/:id', component: LoginworkerComponent, canActivateChild:[WorkerpasswordGuard], 
     children: [
       {path: 'trabajo', component: FindjobComponent},
-      {path: 'revisar/:id', component: ReviewComponent},
-      {path: 'separar/:id', component: DivideComponent},
-      {path: 'trabajos-secundarios/:id', component: SmalljobsComponent},  
+      {path: 'revisar', component: ReviewComponent},
+      {path: 'separar', component: DivideComponent},
+      {path: 'trabajos-secundarios', component: SmalljobsComponent},  
     ]},
     {path: 'configuracion', component: ConfigurationComponent, canActivateChild:[LoginGuard],
     children: [

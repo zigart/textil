@@ -61,8 +61,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
    * @memberof FindjobComponent
    */
   ngOnInit(): void {
-    console.log('inicia?');
-    this.workerID = this.activeRoute.snapshot.params['id'];
+    this.workerID = this.activeRoute.parent?.snapshot.params['id'];
     this.subscription = this.dataService.getWorkers().subscribe((response) => {
       this.workersReviewAndDivide = response;
     });
@@ -91,12 +90,12 @@ export class FindjobComponent implements OnInit, OnDestroy {
  
 
   check() {
-    this.workerID = this.activeRoute.snapshot.params['id'];
+    this.workerID = this.activeRoute.parent?.snapshot.params['id'];
     this.dataService.getCurrentWork(this.workerID).subscribe(
       (response) => {
         this.currentWork = response;
         if (this.currentWork.work == 'divide') {
-          this.router.navigate(['inicio/separar/', this.workerID]);
+          this.router.navigate(['inicio/password/' + this.workerID+ '/separar']);
         } else if (this.currentWork.work == 'review') {
           this.router.navigate(['inicio/revisar/', this.workerID]);
         }
@@ -217,7 +216,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
       !this.booleanMostRecentDivider &&
       this.worker.activeDivider
     ) {
-      this.router.navigate(['inicio/separar/', this.workerID]);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/separar']);
     } else if (
       this.booleanMostRecentReview &&
       !this.booleanMostRecentDivider &&
@@ -235,12 +234,12 @@ export class FindjobComponent implements OnInit, OnDestroy {
       this.booleanMostRecentDivider &&
       !this.worker.activeReviewer
     ) {
-      this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
+      this.router.navigate(['trabajos-secundarios', {relativeTo: this.activeRoute }]);
     } else if (
       (this.booleanMostRecentReview && this.booleanMostRecentDivider) ||
       (!this.worker.activeReviewer && !this.worker.activeDivider)
     ) {
-      this.router.navigate(['inicio/trabajos-secundarios/', this.workerID]);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/trabajos-secundarios']);
     } else if (
       !this.booleanMostRecentReview &&
       !this.booleanMostRecentDivider &&
@@ -254,7 +253,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
       !this.worker.activeReviewer &&
       this.worker.activeDivider
     ) {
-      this.router.navigate(['inicio/separar/', this.workerID]);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/separar']);
     } else if (this.worker.activeReviewer && this.worker.activeDivider) {
       this.router.navigate([
         this.routes[Math.floor(Math.random() * this.routes.length)],

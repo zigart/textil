@@ -88,7 +88,7 @@ export class DivideComponent implements OnInit {
       //FIXME: i need refresh individualMachine when you return to this component
       ngOnInit(): void {
         
-        this.workerID = this.activeRoute.snapshot.params['id'];
+        this.workerID = this.activeRoute.parent?.snapshot.params['id'];
        
           this.dataService.getWorker(this.workerID).subscribe(
             (response)=>{
@@ -145,7 +145,7 @@ export class DivideComponent implements OnInit {
   this.dataService.sendDivideForm(this.divideForm).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
 
-  this.router.navigate(['inicio/trabajo/' + this.workerID]);
+  this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
 }
 
 
