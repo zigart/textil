@@ -89,7 +89,7 @@ export class DivideComponent implements OnInit {
       ngOnInit(): void {
         
         this.workerID = this.activeRoute.parent?.snapshot.params['id'];
-       
+        console.log(this.activeRoute.parent?.snapshot.params['id']);
           this.dataService.getWorker(this.workerID).subscribe(
             (response)=>{
               this.worker = response;

@@ -32,7 +32,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
   public mostRecentDivider: DateTime = DateTime.fromISO(
     '2021-01-01T00:00:00.000-03:00'
   );
-  public routes: Array<string> = ['inicio/revisar/', 'inicio/separar/'];
+  public routes: Array<string> = ['inicio/password/'+ this.workerID + '/revisar', 'inicio/password/' +this.workerID +'/separar'];
   public mostRecent: any = {
     id: '',
     lastDivition: '2021-01-01T00:00:00.000-03:00',
@@ -97,7 +97,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
         if (this.currentWork.work == 'divide') {
           this.router.navigate(['inicio/password/' + this.workerID+ '/separar']);
         } else if (this.currentWork.work == 'review') {
-          this.router.navigate(['inicio/revisar/', this.workerID]);
+          this.router.navigate(['inicio/password/' + this.workerID+ '/revisar']);
         }
       },
       (error) => {
@@ -228,7 +228,7 @@ export class FindjobComponent implements OnInit, OnDestroy {
       this.booleanMostRecentDivider &&
       this.worker.activeReviewer
     ) {
-      this.router.navigate(['inicio/revisar/', this.workerID]);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/revisar']);
     } else if (
       !this.booleanMostRecentReview &&
       this.booleanMostRecentDivider &&
@@ -239,26 +239,23 @@ export class FindjobComponent implements OnInit, OnDestroy {
       (this.booleanMostRecentReview && this.booleanMostRecentDivider) ||
       (!this.worker.activeReviewer && !this.worker.activeDivider)
     ) {
-      this.router.navigate(['inicio/password/' + this.workerID+ '/trabajos-secundarios']);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/revisar']);
     } else if (
       !this.booleanMostRecentReview &&
       !this.booleanMostRecentDivider &&
       this.worker.activeReviewer &&
       !this.worker.activeDivider
     ) {
-      this.router.navigate(['inicio/revisar/', this.workerID]);
+      this.router.navigate(['inicio/password/' + this.workerID+ '/revisar']);
     } else if (
       !this.booleanMostRecentReview &&
       !this.booleanMostRecentDivider &&
       !this.worker.activeReviewer &&
       this.worker.activeDivider
     ) {
-      this.router.navigate(['inicio/password/' + this.workerID+ '/separar']);
-    } else if (this.worker.activeReviewer && this.worker.activeDivider) {
-      this.router.navigate([
-        this.routes[Math.floor(Math.random() * this.routes.length)],
-        this.workerID,
-      ]);
+      this.router.navigate(['inicio/password/' + this.workerID + '/separar']);
+    } else if (this.worker.activeReviewer && this.worker.activeDivider && !this.worker.lastDivider && this.worker.lastReview) {
+      this.router.navigate(['inicio/password/' + this.workerID + '/revisar']);
     }
   }
 }

@@ -90,7 +90,7 @@ export class ReviewComponent implements OnInit {
  */
 ngOnInit(): void {
 
-    this.workerID = this.activeRoute.snapshot.params['id'];
+  this.workerID = this.activeRoute.parent?.snapshot.params['id'];
 
     this.dataService.getWorker(this.workerID).subscribe(
     (response)=>{
@@ -99,7 +99,7 @@ ngOnInit(): void {
     (error)=>{
       console.log(error);
     });
-
+    
     this.reviewService.workerID = this.workerID;
     this.reviewService.getMachineToReview();
     
@@ -169,7 +169,7 @@ ngOnInit(): void {
     this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
     this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
     this.dataService.deleteCurrentWork(this.workerID).subscribe();
-    this.router.navigate(['inicio/trabajo/' + this.workerID]);
+    this.router.navigate(['inicio/password/' + this.workerID+ '/trabajo']);
   }
 
 }
