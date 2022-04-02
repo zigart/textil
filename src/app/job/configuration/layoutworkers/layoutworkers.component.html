@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 <div class="container">
     <ul>
+        <li *ngFor="let attendant of attendantsPublicData"><a [routerLink]= "['../encargado', attendant[0]]">{{attendant[1]}}</a></li>
         <li *ngFor="let worker of workers"><a [routerLink]= "['../trabajador', worker._id]" (click)="redirect(worker._id)">{{worker.name}}</a></li>
     </ul>
     <button id="openForm" (click)="addWorker()">Agregar Persona</button>

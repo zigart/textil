@@ -62,7 +62,6 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
         this.machine = response;
         console.log(this.machine.lastReview);
       });
-
   }
 
 

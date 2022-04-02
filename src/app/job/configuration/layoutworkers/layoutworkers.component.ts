@@ -1,11 +1,12 @@
 import { Component, EventEmitter, OnInit, OnDestroy ,Output, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { dataService } from '../../../services/data.service';
 import { worker } from 'src/app/models/worker.model';
-import { Subscription } from 'rxjs'
+import { BehaviorSubject, Subject, Subscription } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
 import { WorkersService } from '../../../services/workers/workers.service';
 import {DateTime, Settings} from 'luxon'
 import { DatePipe } from '@angular/common';
+import { attendant } from '../.././../models/attendant.model';
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
@@ -13,7 +14,11 @@ import { DatePipe } from '@angular/common';
 })
 export class LayoutworkersComponent implements OnInit, OnDestroy {
   
-  
+  private attendants!:Array<attendant>;
+
+  private attendant!:attendant;
+  public attendantsPublicData!:Array<any>;
+  // public attendantName:string = this.attendant.name
   public workers: Array<any>;
   public newWorker: string;
   private listSubscription: Subscription = new Subscription();
@@ -44,6 +49,8 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
       Settings.defaultZone = 'America/Buenos_Aires';  
       Settings.defaultLocale = 'es_AR';
       this.getWorker();
+      this.getAttendant();
+      
     }
     
     ngOnDestroy(): void {
@@ -51,6 +58,24 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
       this.newSubscription.unsubscribe();
     }
     
+    
+    //check this code
+    getAttendant(){
+      this.dataService.getAttendants().subscribe(
+        response => {
+          this.attendants = response;
+          let attendantsPublicData:Array<any> = [];
+          this.attendants.forEach(attendant => {
+            attendantsPublicData.push([attendant._id, attendant.name]);
+            this.attendantsPublicData = attendantsPublicData;
+            
+          });
+          this.attendantsPublicData = attendantsPublicData;
+          //FIXME: this part of code is limiting the possibility of add other attendant
+          this.attendant = this.attendants[0];
+        }
+      )
+    }
     
     getWorker(){
       this.listSubscription =  this.workerService.workersList.subscribe(

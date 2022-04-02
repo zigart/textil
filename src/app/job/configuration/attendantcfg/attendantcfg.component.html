@@ -1,0 +1,13 @@
+<app-nav></app-nav>
+<div class="container" *ngIf="attendant">
+    <div class="title" >
+        <h1>{{attendant.name}}</h1>
+    </div>
+    <div class="information">
+        <form (ngSubmit)="changePassword()">
+            <label for="password"></label>
+            <input type="text" name="password" id="password" [(ngModel)]="password">
+            <button type="submit">Cambiar contraseña</button>
+        </form>
+    </div>
+</div>

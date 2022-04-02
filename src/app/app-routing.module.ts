@@ -14,9 +14,9 @@ import { FrontpageComponent } from './job/frontpage/frontpage.component';
 import { NotfoundcomponentComponent } from './notfoundcomponent/notfoundcomponent.component';
 import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljobscfg.component';
-import { PasswordsComponent } from './job/configuration/passwords/passwords.component';
 import { LoginworkerComponent } from './loginworker/loginworker.component';
 import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
+import { AttendantcfgComponent } from './job/configuration/attendantcfg/attendantcfg.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/menu', pathMatch: 'full'},
@@ -36,8 +36,8 @@ const routes: Routes = [
       {path: 'maquinas', component: LayoutmachineComponent},
       {path: 'maquina/:id', component: MachinecfgComponent},
       {path: 'trabajadores', component: LayoutworkersComponent},
-      {path: 'passwords', component: PasswordsComponent},
       {path: 'trabajador/:id', component: WorkerscfgComponent},
+      {path: 'encargado/:id', component: AttendantcfgComponent},
       {path: 'trabajos-secundarios', component: SmalljobscfgComponent}
     ]},
     {path: '**', component: NotfoundcomponentComponent}

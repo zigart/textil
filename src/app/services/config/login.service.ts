@@ -10,7 +10,7 @@ import { dataService } from '../data.service';
 export class LoginService implements OnDestroy{
 
   public attendant:any;
-  public password!:string;
+  private password!:string;
   public logedChild!:boolean;
   public logedChildWorker!:boolean;
   private subscription: Subscription = new Subscription();
@@ -28,15 +28,7 @@ export class LoginService implements OnDestroy{
     
       //Attandant
 
-      this.subscription = this.dataService.getAttandant().subscribe(
-        (response)=>{
-          this.attendant = response;
-          this.password = this.attendant[0].password;
-        },
-        (error)=>{
-          console.log(error);
-        });
-      
+    this.getAttendant();
       
         
       
@@ -45,6 +37,17 @@ export class LoginService implements OnDestroy{
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.subscriptionWorker.unsubscribe();
+  }
+
+  getAttendant(){
+    this.subscription = this.dataService.getAttendants().subscribe(
+      (response)=>{
+        this.attendant = response;
+        this.password = this.attendant[0].password;
+      },
+      (error)=>{
+        console.log(error);
+      });
   }
   
    checkPassword(password:string){

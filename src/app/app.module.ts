@@ -28,9 +28,9 @@ import { DatePipe } from '@angular/common';
 import { SmalljobsComponent } from './job/smalljobs/smalljobs.component';
 import { DivideService } from './services/divide/divide.service';
 import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljobscfg.component';
-import { PasswordsComponent } from './job/configuration/passwords/passwords.component';
 import { LoginworkerComponent } from './loginworker/loginworker.component';
 import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
+import { AttendantcfgComponent } from './job/configuration/attendantcfg/attendantcfg.component';
 
 
 @NgModule({
@@ -51,8 +51,8 @@ import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
     NotfoundcomponentComponent,
     SmalljobsComponent,
     SmalljobscfgComponent,
-    PasswordsComponent,
     LoginworkerComponent,
+    AttendantcfgComponent,
   ],
   imports: [
     BrowserModule,

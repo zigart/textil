@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { worker } from '../models/worker.model';
 import { machine } from '../models/machine.model';
+import { attendant } from '../models/attendant.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,14 +16,24 @@ export class dataService{
   constructor(private _http:HttpClient) {} 
   //attandant
 
-  getAttandant(){
+  getAttendants():Observable<any>{
     let headers = new HttpHeaders();
-    return this._http.get(this.url + 'encargado', {headers:headers});
+    return this._http.get(this.url + 'encargados', {headers:headers});
   }
 
-  updateAttandant(attandantID:string){
+  getAttendant(attendantID:string){
     let headers = new HttpHeaders();
-    return this._http.put(this.url + 'encargado/' + attandantID, {headers:headers})
+    return this._http.get(this.url + 'encargado/' + attendantID, {headers:headers});
+  }
+
+  addAttendant(attendant:attendant):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.post(this.url + 'encargado', attendant, {headers:headers});
+  }
+
+  updateAttendant(attendantID:string, newValues:any):Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.put(this.url + 'encargado/' + attendantID, newValues ,{headers:headers})
   }
 
   //workers
