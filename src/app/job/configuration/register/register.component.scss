@@ -1,0 +1,47 @@
+$deepBlue: #383F51;
+$purple: #DDDBF1;
+$oceanicBlue: #3C4F76;
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    .titles{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+       list-style: none;
+       li{
+           margin: 5px 0 5px 0;
+           width: 100%;
+           background-color: $oceanicBlue;
+           color: $purple;
+       }
+    }
+    ul{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+       list-style: none;
+       div{
+           width: 100%;
+           li{
+               margin: 5px 0 5px 0;
+               display: flex;
+               flex-direction: row;
+               justify-content: flex-start;
+               align-items: center;
+               width: 100%;
+               background-color: $oceanicBlue;
+               color: $purple;
+           }
+       }
+    }
+}

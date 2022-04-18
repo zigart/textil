@@ -146,14 +146,14 @@ ngOnInit(): void {
    */
   
   like(){
-  let review = new reviews(this.worker,this.individualMachine, true, DateTime.now().toString(), '');
+  let review = new reviews('review', this.worker,this.individualMachine, true, DateTime.now().toString(), '');
   this.individualMachine.lastReview = DateTime.now().toString();
   this.dataService.sendReview(review).subscribe();
   this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
   this.render.setStyle(this.status.nativeElement, 'display', 'none');
-  this.router.navigate(['inicio/trabajo/' + this.workerID]);
+  this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
   }
 
   dislike(){
@@ -163,7 +163,7 @@ ngOnInit(): void {
   }
 
   saveProblem(){
-    let review = new reviews(this.worker,this.individualMachine, false, DateTime.now().toString(), this.problems);
+    let review = new reviews('review', this.worker,this.individualMachine, false, DateTime.now().toString(), this.problems);
     this.individualMachine.lastReview = DateTime.now().toString();
     this.dataService.sendReview(review).subscribe();
     this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();

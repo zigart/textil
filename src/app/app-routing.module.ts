@@ -17,13 +17,14 @@ import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljob
 import { LoginworkerComponent } from './loginworker/loginworker.component';
 import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
 import { AttendantcfgComponent } from './job/configuration/attendantcfg/attendantcfg.component';
+import { RegisterComponent } from './job/configuration/register/register.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/menu', pathMatch: 'full'},
   {path: 'menu', component: FrontpageComponent},
   {path: 'inicio', component: JobComponent,
   children: [
-    //i need fix this, the findjobcomponent isn't working. maybe the problem can be in the guard or service
+    
     {path: 'password/:id', component: LoginworkerComponent, canActivateChild:[WorkerpasswordGuard], 
     children: [
       {path: 'trabajo', component: FindjobComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
       {path: 'trabajadores', component: LayoutworkersComponent},
       {path: 'trabajador/:id', component: WorkerscfgComponent},
       {path: 'encargado/:id', component: AttendantcfgComponent},
+      {path: 'registro', component: RegisterComponent},  
       {path: 'trabajos-secundarios', component: SmalljobscfgComponent}
     ]},
     {path: '**', component: NotfoundcomponentComponent}

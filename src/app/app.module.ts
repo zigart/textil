@@ -31,6 +31,7 @@ import { SmalljobscfgComponent } from './job/configuration/smalljobscfg/smalljob
 import { LoginworkerComponent } from './loginworker/loginworker.component';
 import { WorkerpasswordGuard } from './loginworker/workerpassword.guard';
 import { AttendantcfgComponent } from './job/configuration/attendantcfg/attendantcfg.component';
+import { RegisterComponent } from './job/configuration/register/register.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AttendantcfgComponent } from './job/configuration/attendantcfg/attendan
     SmalljobscfgComponent,
     LoginworkerComponent,
     AttendantcfgComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

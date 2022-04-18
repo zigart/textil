@@ -1,0 +1,28 @@
+<app-nav></app-nav>
+
+<div class="container">
+    <form #filters = 'ngForm'>
+        <div>
+            <input type="radio" id="all" name="work" value="all" (click)="RadioButtonFilter('all')" checked>
+            <label for="all">TODOS</label>
+            <input type="radio" id="review" name="work" value="review" (click)="RadioButtonFilter('review')" >
+            <label for="review">REVISION</label>
+            <input type="radio" id="divide" name="work" value="divide" (click)="RadioButtonFilter('divide')" >
+            <label for="divide">SEPARACION</label>
+        </div>
+    </form>
+    <ul class="titles">
+        <li>TRABAJADOR</li>
+        <li>MAQUINA</li>
+        <li>ESTADO</li>
+        <li>FECHA</li>
+    </ul>
+    <ul *ngIf="this.register">
+        <div *ngFor="let register of this.register">
+            <!-- BUSCAR LA MANERA DE USAR SOLO UNA LINEA DE CODIGO PARA ESTO-->
+            <li *ngIf="register.colth" >SEPARACION | {{register.worker.name}} | {{register.machine.machineName}} | PRENDAS: {{register.colth}} | FALLAS: {{register.failed}} | {{register.date | date: "d/M/yy, h:mm a"}}</li>
+            <li *ngIf="register.status" > REVISION | {{register.worker.name}} | {{register.machine.machineName}} | CORRECTO | {{register.date | date: "d/M/yy, h:mm a"}}</li>
+            <li *ngIf="!register.status && !register.colth" > REVISION | {{register.worker.name}} | {{register.machine.machineName}} | INCORRECTO | {{register.problems}} | {{register.date | date: "d/M/yy, h:mm a"}}</li>
+        </div>
+    </ul>
+</div>

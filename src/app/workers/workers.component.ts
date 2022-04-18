@@ -11,16 +11,14 @@ import { WorkersService } from '../services/workers/workers.service';
   styleUrls: ['./workers.component.scss']
 })
 export class WorkersComponent implements OnInit, OnDestroy {
-  public workers:Array<any>;
+  public workers:Array<any> = [];
   private listSubscription:Subscription = new Subscription();
 
   constructor(
     private router:Router, 
     private dataService: dataService, 
     private workersServices: WorkersService,
-    private loginService:LoginService ) {
-    this.workers = [];
-  }
+    private loginService:LoginService ) {}
   
   ngOnInit(): void {
     this.getWorker();
@@ -32,10 +30,10 @@ export class WorkersComponent implements OnInit, OnDestroy {
   
   getWorker(){
    this.listSubscription =  this.workersServices.workersList.subscribe(
-      (response) =>{
+      response => {
         this.workers = response;
       },
-      (error) =>{
+      error => {
         console.log(error);
       }
     );

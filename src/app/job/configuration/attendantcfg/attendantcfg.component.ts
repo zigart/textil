@@ -12,7 +12,7 @@ import { dataService } from 'src/app/services/data.service';
 export class AttendantcfgComponent implements OnInit {
 
 
-  //FIXME: check de data type
+  //FIXME: check the data type
   private attendantID!:string;
   public attendant!:any;
   public password!:string;
@@ -22,6 +22,13 @@ export class AttendantcfgComponent implements OnInit {
     this.getAttendant();
   }
 
+  /**
+   *Get the attendantid and subscribe to getAttendant
+   *
+   * @memberof AttendantcfgComponent
+   * @returns workers objects
+   */
+  
   getAttendant(){
     this.attendantID = this.activeRoute.snapshot.params['id'];
     this.dataService.getAttendant(this.attendantID).subscribe(
@@ -32,7 +39,6 @@ export class AttendantcfgComponent implements OnInit {
     )
   }
 
-  //FIXME: find why if i update the password i need to press f5
   changePassword(){
     if(window.confirm('Desea modificar la contraseña?')){
       this.attendant.password = this.password;

@@ -1,14 +1,14 @@
 import { machine } from "./machine.model";
 import { worker } from "./worker.model";
 
-export class reviews {
+export class divide {
     constructor(
         public work:string,
         public worker:worker,
         public machine: machine,
-        public status: boolean,
         public date:string,
-        public problems:string
+        public colth: number,
+        public failed:number
         
     ){}
 }

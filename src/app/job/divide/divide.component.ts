@@ -6,6 +6,7 @@ import { dataService } from 'src/app/services/data.service';
 import { DivideService } from 'src/app/services/divide/divide.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
 import { currentWork } from '../../models/current-work.model';
+import { divide } from 'src/app/models/divide.model';
 /**
  * this component asign a machine to divide and update the dates
  *
@@ -34,13 +35,6 @@ export class DivideComponent implements OnInit {
   public colth!:number;
   public failed!:number;
 
-  public divideForm:any = {
-    worker: {},
-    machine: {},
-    date: '',
-    colth: 0,
-    failed: 0
-  }
 
   public individualMachineCurrent:any =  {
     _id: '',
@@ -136,13 +130,11 @@ export class DivideComponent implements OnInit {
   this.individualMachine.lastReview = DateTime.now().toString();
   this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
-  this.divideForm.worker = this.worker;
-  this.divideForm.machine = this.individualMachine;
-  this.divideForm.date = DateTime.now().toString();
-  this.divideForm.colth = this.colth;
-  this.divideForm.failed = this.failed;
+  
+  let divideForm = new divide('divide', this.worker, this.individualMachine, DateTime.now().toString(), this.colth, this.failed )
 
-  this.dataService.sendDivideForm(this.divideForm).subscribe();
+
+  this.dataService.sendDivideForm(divideForm).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
 
   this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);

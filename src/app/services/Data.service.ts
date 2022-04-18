@@ -102,12 +102,22 @@ export class dataService{
 
   //reviews
 
+
+  getReview():Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'revision', {headers:headers});
+  }
+
   sendReview(review:any): Observable<any>{
     let headers = new HttpHeaders();
     return this._http.post(this.url + 'revisar', review, {headers:headers});
   }
   //divide
 
+  getDivide():Observable<any>{
+    let headers = new HttpHeaders();
+    return this._http.get(this.url + 'division', {headers:headers});
+  }
   sendDivideForm(divide:any): Observable<any>{
     let headers = new HttpHeaders();
     return this._http.post(this.url + 'separar', divide, {headers:headers});
@@ -156,5 +166,8 @@ export class dataService{
     let headers = new HttpHeaders();
     return this._http.put(this.url + 'trabajos-secundarios/' + toDoID, newValue, {headers:headers});
   }
+
+  //register
+
 
 }
