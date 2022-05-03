@@ -95,7 +95,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
 
       
       add(){
-        let newWorker = new worker(this.newWorker, true, true, DateTime.now().toString() , DateTime.now().toString(), '');
+        let newWorker = new worker(this.newWorker, true, true, 'divide', DateTime.now().toString() , DateTime.now().toString(), '');
         
         this.newSubscription = this.dataService.addWorker(newWorker)
     .pipe(concatMap(worker => this.dataService.getWorkers()))

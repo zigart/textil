@@ -7,6 +7,7 @@ import { DivideService } from 'src/app/services/divide/divide.service';
 import { MachineService } from 'src/app/services/machine/machine.service';
 import { currentWork } from '../../models/current-work.model';
 import { divide } from 'src/app/models/divide.model';
+import { worker } from 'src/app/models/worker.model';
 /**
  * this component asign a machine to divide and update the dates
  *
@@ -26,7 +27,7 @@ export class DivideComponent implements OnInit {
   @ViewChild('send') send!:ElementRef;
 
   public workerID!:string;
-  public worker:any;
+  public worker!:worker;
   private updateSubscription:Subscription = new Subscription();
   private machines:Array<object> = this.divideService.machines;
   public lastOneMachine:string = this.divideService.lastOneMachine;
@@ -136,6 +137,10 @@ export class DivideComponent implements OnInit {
 
   this.dataService.sendDivideForm(divideForm).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
+
+  this.worker.lastWork = 'divide';
+  this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
+
 
   this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
 }

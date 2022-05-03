@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MachineService } from 'src/app/services/machine/machine.service';
 import { ReviewService } from 'src/app/services/review/review.service';
 import { reviews } from 'src/app/models/reviews.model'
+import { worker } from 'src/app/models/worker.model';
 
 /**
  * this component asign a machine to review and update the dates
@@ -27,7 +28,7 @@ export class ReviewComponent implements OnInit {
   @ViewChild('problemsView') problemsView!:ElementRef;
 
   private workerID!:string;
-  public worker!:any;
+  public worker!:worker;
   public colth!:number;
   public failed!:number;
   private updateSubscription:Subscription = new Subscription();
@@ -153,6 +154,8 @@ ngOnInit(): void {
   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
   this.dataService.deleteCurrentWork(this.workerID).subscribe();
   this.render.setStyle(this.status.nativeElement, 'display', 'none');
+  this.worker.lastWork = 'review';
+  this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
   this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
   }
 
@@ -169,6 +172,8 @@ ngOnInit(): void {
     this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
     this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
     this.dataService.deleteCurrentWork(this.workerID).subscribe();
+    this.worker.lastWork = 'review';
+    this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
     this.router.navigate(['inicio/password/' + this.workerID+ '/trabajo']);
   }
 
