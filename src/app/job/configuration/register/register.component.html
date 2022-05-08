@@ -2,7 +2,7 @@
 
 <div class="container">
     <form #filters = 'ngForm'>
-        <div>
+        <div class="radio">
             <input type="radio" id="all" name="work" value="all" (click)="RadioButtonFilter('all')" checked>
             <label for="all">TODOS</label>
             <input type="radio" id="review" name="work" value="review" (click)="RadioButtonFilter('review')" >
@@ -11,8 +11,8 @@
             <label for="divide">SEPARACION</label>
         </div>
         
-        <div>
-            <p>Filtrado por fechas:</p>
+        <div class="filtersByDate">
+            <p>FILTRADO POR FECHAS</p>
             <label for="initialDate">DEL:</label>
             <input type="datetime-local" name="initialDate" [(ngModel)]="initialDate">
             <label for="finalDate">AL:</label>
