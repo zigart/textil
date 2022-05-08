@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
 public register!:Array<any> ;
 public divideRegister!:Array<any>;
 public filteredRegister!:Array<any>;
+public initialDate!:Date
+public finalDate!:Date
 private fileName: string = 'datos.xlsx';
 
 @ViewChild("filters") filters!: ElementRef;
@@ -86,6 +88,14 @@ private fileName: string = 'datos.xlsx';
        });
      }
 
+     filterByDate(){
+      console.log(DateTime.fromISO(this.initialDate.toString()));
+     this.register = this.register.filter(a => {
+        return (<any>DateTime.fromISO(a.date) >=  DateTime.fromISO(this.initialDate.toString()) && DateTime.fromISO(this.finalDate.toString())>= <any>DateTime.fromISO(a.date));
+      });
+      console.log(this.register);
+     }
+
      exportExcel(){
 
       /* table id is passed over here */   
@@ -99,6 +109,8 @@ private fileName: string = 'datos.xlsx';
       /* save to file */
       XLSX.writeFile(wb, this.fileName);
      }
+
+
       
     }
     

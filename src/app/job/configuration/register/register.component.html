@@ -9,6 +9,15 @@
             <label for="review">REVISION</label>
             <input type="radio" id="divide" name="work" value="divide" (click)="RadioButtonFilter('divide')" >
             <label for="divide">SEPARACION</label>
+        </div>
+        
+        <div>
+            <p>Filtrado por fechas:</p>
+            <label for="initialDate">DEL:</label>
+            <input type="datetime-local" name="initialDate" [(ngModel)]="initialDate">
+            <label for="finalDate">AL:</label>
+            <input type="datetime-local" name="finalDate" [(ngModel)]="finalDate" >
+            <button (click)="filterByDate()">filtrar</button>
             <button (click)="exportExcel()">Descargar</button>
         </div>
     </form>
