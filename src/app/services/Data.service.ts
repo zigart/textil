@@ -16,21 +16,50 @@ export class dataService{
   constructor(private _http:HttpClient) {} 
   //attandant
 
+
+  /**
+   * @function getAttendant
+   * give an attendant
+   * @return {*}  {Observable<any>}
+   * @memberof dataService
+   */
   getAttendants():Observable<any>{
     let headers = new HttpHeaders();
     return this._http.get(this.url + 'encargados', {headers:headers});
   }
 
-  getAttendant(attendantID:string){
+/**
+ * @function getAttendant
+ * this observable'll give an attendant
+ * @param {string} attendantID
+ * @return {*}  {Observable<any>}
+ * @memberof dataService
+ */
+getAttendant(attendantID:string):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.get(this.url + 'encargado/' + attendantID, {headers:headers});
   }
 
+  /**
+   * @function attendant
+   * used to create a new attendant
+   * @param {attendant} attendant
+   * @return {*}  {Observable<any>}
+   * @memberof dataService
+   */
   addAttendant(attendant:attendant):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.post(this.url + 'encargado', attendant, {headers:headers});
   }
 
+  /**
+   * @function updateAttendant
+   * 
+   * @param {string} attendantID
+   * @param {*} newValues
+   * @return {*}  {Observable<any>}
+   * @memberof dataService
+   */
   updateAttendant(attendantID:string, newValues:any):Observable<any>{
     let headers = new HttpHeaders();
     return this._http.put(this.url + 'encargado/' + attendantID, newValues ,{headers:headers})

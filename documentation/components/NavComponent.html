@@ -242,7 +242,9 @@ export class NavComponent implements OnInit {
         <pre class="line-numbers"><code class="language-html">&lt;nav id&#x3D;&quot;nav&quot;&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/inicio/configuracion/maquinas&#x27;]&quot;&gt;Maquinas&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/inicio/configuracion/trabajadores&#x27;]&quot;&gt;Personal &lt;/a&gt; &lt;/li&gt;
+        &lt;li&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/inicio/configuracion/trabajos-secundarios&#x27;]&quot;&gt;Trabajos secundarios&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/inicio/configuracion/trabajadores&#x27;]&quot;&gt;Personal&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a [routerLink]&#x3D;&quot;[&#x27;/inicio/configuracion/registro&#x27;]&quot;&gt;Registro&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
     </div>
@@ -258,7 +260,7 @@ nav{
     display: flex;
     background-color: $oceanicBlue;
     color: $purple;
-    width: 79vw;
+    width: 100%;
     height: 50px;
 
     ul{
@@ -308,8 +310,8 @@ nav{
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><nav id="nav">    <ul>        <li><a [routerLink]="[\'/inicio/configuracion/maquinas\']">Maquinas</a></li>        <li><a [routerLink]="[\'/inicio/configuracion/trabajadores\']">Personal </a> </li>    </ul></nav></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
+        var COMPONENT_TEMPLATE = '<div><nav id="nav">    <ul>        <li><a [routerLink]="[\'/inicio/configuracion/maquinas\']">Maquinas</a></li>        <li><a [routerLink]="[\'/inicio/configuracion/trabajos-secundarios\']">Trabajos secundarios</a></li>        <li><a [routerLink]="[\'/inicio/configuracion/trabajadores\']">Personal</a></li>        <li><a [routerLink]="[\'/inicio/configuracion/registro\']">Registro</a></li>    </ul></nav></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttendantcfgComponent', 'selector': 'app-attendantcfg'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'LoginworkerComponent', 'selector': 'app-loginworker'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobscfgComponent', 'selector': 'app-smalljobscfg'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'NavComponent'};
 </script>

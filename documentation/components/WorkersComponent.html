@@ -155,6 +155,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#assignWorker" >assignWorker</a>
+                            </li>
+                            <li>
                                 <a href="#getWorker" >getWorker</a>
                             </li>
                             <li>
@@ -276,6 +279,79 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="assignWorker"></a>
+                    <span class="name">
+                        <span ><b>assignWorker</b></span>
+                        <a href="#assignWorker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>assignWorker(worker: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/app/workers/workers.component.ts:64</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>this function call the getworker function from dataservice and assign the value to a variable of loginservice
+after that if the boolean &quot;showlogin&quot; in loginservice it&#39;s true then the login its shown</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>worker</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Give the worker to the service</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getWorker"></a>
                     <span class="name">
                         <span ><b>getWorker</b></span>
@@ -292,8 +368,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/app/workers/workers.component.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/workers/workers.component.ts:45</a></div>
                 </td>
             </tr>
 
@@ -301,8 +377,14 @@
             <tr>
                 <td class="col-md-4">
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Array with the workers list</p>
 
                     </div>
                 </td>
@@ -329,14 +411,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/app/workers/workers.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/app/workers/workers.component.ts:35</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>unsubscribe all</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -366,14 +450,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/app/workers/workers.component.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/workers/workers.component.ts:27</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>call to getworker function</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -403,17 +489,25 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/app/workers/workers.component.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/app/workers/workers.component.ts:77</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>redirect the attendant to his route and show the login</p>
+</div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>redirect</p>
 
                     </div>
                 </td>
@@ -476,6 +570,11 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/workers/workers.component.ts:14</a></div>
@@ -504,39 +603,72 @@ import { WorkersService } from &#x27;../services/workers/workers.service&#x27;;
   styleUrls: [&#x27;./workers.component.scss&#x27;]
 })
 export class WorkersComponent implements OnInit, OnDestroy {
-  public workers:Array&lt;any&gt;;
+  public workers:Array&lt;any&gt; &#x3D; [];
   private listSubscription:Subscription &#x3D; new Subscription();
 
   constructor(
     private router:Router, 
     private dataService: dataService, 
     private workersServices: WorkersService,
-    private loginService:LoginService ) {
-    this.workers &#x3D; [];
-  }
+    private loginService:LoginService ) {}
   
+    /**
+     * @function ngOnInit
+     * call to getworker function
+     */
   ngOnInit(): void {
     this.getWorker();
   }
  
+  /**
+   * @function ngOnDestroy
+   * unsubscribe all
+   */
   ngOnDestroy(): void {
     this.listSubscription.unsubscribe();
   }
   
-  getWorker(){
+
+/**
+ * @function getWorker
+ * @returns Array with the workers list
+ */
+
+getWorker(){
    this.listSubscription &#x3D;  this.workersServices.workersList.subscribe(
-      (response) &#x3D;&gt;{
+      response &#x3D;&gt; {
         this.workers &#x3D; response;
       },
-      (error) &#x3D;&gt;{
+      error &#x3D;&gt; {
         console.log(error);
       }
     );
   }
 
+
+  /**
+   * @function assignWorker
+   * this function call the getworker function from dataservice and assign the value to a variable of loginservice
+   * after that if the boolean &quot;showlogin&quot; in loginservice it&#x27;s true then the login its shown
+   * @param worker 
+   * @returns Give the worker to the service
+   */
+  assignWorker(worker:string){
+    this.dataService.getWorker(worker).subscribe(
+      response &#x3D;&gt; this.loginService.worker &#x3D; response
+    );
+    this.loginService.showLoginWorker &#x3D; true;
+  }
+
+
+  /**
+   * @function redirectAttendant
+   * redirect the attendant to his route and show the login
+   * @returns redirect
+   */
   redirectAttendant(){
+    this.router.navigate([&#x27;/inicio/configuracion&#x27;])
     this.loginService.showLogin &#x3D; true;
-    this.router.navigate([&#x27;/inicio/configuracion&#x27;]);
   }
 
 
@@ -549,7 +681,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
     &lt;h1 class&#x3D;&quot;title&quot;&gt;TRABAJADORES&lt;/h1&gt;
     &lt;div class&#x3D;&quot;btn&quot;&gt;
         &lt;button class&#x3D;&quot;btn--worker&quot; (click)&#x3D;&quot;redirectAttendant()&quot;&gt;Encargado&lt;/button&gt;
-        &lt;button class&#x3D;&quot;btn--worker&quot; *ngFor&#x3D;&quot;let worker of workers &quot; [routerLink]&#x3D;&quot;[&#x27;/inicio/trabajo&#x27;, worker._id]&quot;&gt;{{worker.name}}&lt;/button&gt;
+        &lt;button class&#x3D;&quot;btn--worker&quot; *ngFor&#x3D;&quot;let worker of workers &quot; (click)&#x3D;&quot;assignWorker(worker._id)&quot; [routerLink]&#x3D;&quot;[&#x27;/inicio/password&#x27;, worker._id]&quot;&gt;{{worker.name}}&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
     </div>
@@ -575,10 +707,12 @@ $oceanicBlue: #3C4F76;
     .title{
         display: flex;
         justify-content: center;
+        align-items: center;
         background-color: $oceanicBlue;
         color: $purple;
         width: 100%;
         height: 50px;
+        font-size: 30px;
         border-bottom: 13px double $deepBlue;
     }
     .btn{
@@ -626,8 +760,8 @@ $oceanicBlue: #3C4F76;
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container">    <h1 class="title">TRABAJADORES</h1>    <div class="btn">        <button class="btn--worker" (click)="redirectAttendant()">Encargado</button>        <button class="btn--worker" *ngFor="let worker of workers " [routerLink]="[\'/inicio/trabajo\', worker._id]">{{worker.name}}</button>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container">    <h1 class="title">TRABAJADORES</h1>    <div class="btn">        <button class="btn--worker" (click)="redirectAttendant()">Encargado</button>        <button class="btn--worker" *ngFor="let worker of workers " (click)="assignWorker(worker._id)" [routerLink]="[\'/inicio/password\', worker._id]">{{worker.name}}</button>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttendantcfgComponent', 'selector': 'app-attendantcfg'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'LoginworkerComponent', 'selector': 'app-loginworker'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobscfgComponent', 'selector': 'app-smalljobscfg'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'WorkersComponent'};
 </script>

@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >WorkersService</li>
+  <li >DivideService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -58,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/workers/workers.service.ts</code>
+            <code>src/app/services/divide/divide.service.ts</code>
         </p>
 
 
@@ -79,15 +79,23 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#worker" >worker</a>
+                                <a href="#individualMachine" >individualMachine</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#worker2" >worker2</a>
+                                <a href="#individualMachine2" >individualMachine2</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#workersList" >workersList</a>
+                                <a href="#lastOneMachine" >lastOneMachine</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#machines" >machines</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#workerID" >workerID</a>
                             </li>
                         </ul>
                     </td>
@@ -102,11 +110,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getWorker" >getWorker</a>
+                                <a href="#getMachine" >getMachine</a>
                             </li>
                             <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#load" >load</a>
+                                <a href="#getMachineToDivide" >getMachineToDivide</a>
+                            </li>
+                            <li>
+                                <a href="#saveCurrentWork" >saveCurrentWork</a>
                             </li>
                         </ul>
                     </td>
@@ -131,7 +141,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/workers/workers.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/services/divide/divide.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -178,24 +188,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getWorker"></a>
+                    <a name="getMachine"></a>
                     <span class="name">
-                        <span ><b>getWorker</b></span>
-                        <a href="#getWorker"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getMachine</b></span>
+                        <a href="#getMachine"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getWorker(workerID: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>getMachine(machines: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/app/services/workers/workers.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/app/services/divide/divide.service.ts:46</a></div>
                 </td>
             </tr>
 
@@ -216,9 +226,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>workerID</td>
+                                    <td>machines</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                     </td>
 
                                     <td>
@@ -247,26 +257,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="load"></a>
+                    <a name="getMachineToDivide"></a>
                     <span class="name">
-                        <span class="modifier">Async</span>
-                        <span ><b>load</b></span>
-                        <a href="#load"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getMachineToDivide</b></span>
+                        <a href="#getMachineToDivide"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>load()</code>
+<code>getMachineToDivide()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/services/workers/workers.service.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/services/divide/divide.service.ts:32</a></div>
                 </td>
             </tr>
 
@@ -275,7 +283,44 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveCurrentWork"></a>
+                    <span class="name">
+                        <span ><b>saveCurrentWork</b></span>
+                        <a href="#saveCurrentWork"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveCurrentWork()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/app/services/divide/divide.service.ts:78</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                 </td>
@@ -292,28 +337,33 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="worker"></a>
+                    <a name="individualMachine"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                        <span ><b>worker</b></span>
-                        <a href="#worker"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>individualMachine</b></span>
+                        <a href="#individualMachine"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>Subject&lt;string[]&gt;</code>
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>new Subject&lt;string[]&gt;()</code>
+                        <i>Default value : </i><code>{
+    _id: &#x27;&#x27;,
+    machineNumber: 0,
+    lastDivition: &#x27;2021-01-01T00:00:00.000-03:00&#x27;,
+    lastReview: &#x27;2021-01-01T00:00:00.000-03:00&#x27;
+  }</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/workers/workers.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/services/divide/divide.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -324,28 +374,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="worker2"></a>
+                    <a name="individualMachine2"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                        <span ><b>worker2</b></span>
-                        <a href="#worker2"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>individualMachine2</b></span>
+                        <a href="#individualMachine2"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+                        <i>Type : </i>    <code>Subject&lt;object&gt;</code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>{}</code>
+                        <i>Default value : </i><code>new Subject&lt;object&gt;()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/workers/workers.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/services/divide/divide.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -356,28 +406,87 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="workersList"></a>
+                    <a name="lastOneMachine"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
-                        <span ><b>workersList</b></span>
-                        <a href="#workersList"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>lastOneMachine</b></span>
+                        <a href="#lastOneMachine"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../classes/worker.html" target="_self" >BehaviorSubject&lt;worker[]&gt;</a></code>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>new BehaviorSubject&lt;worker[]&gt;([])</code>
+                        <i>Default value : </i><code>&#x27;2021-01-01T00:00:00.000-03:00&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/workers/workers.service.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/divide/divide.service.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="machines"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>machines</b></span>
+                        <a href="#machines"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Array&lt;object&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/divide/divide.service.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="workerID"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>workerID</b></span>
+                        <a href="#workerID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/divide/divide.service.ts:12</a></div>
                         </td>
                     </tr>
 
@@ -391,38 +500,87 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { BehaviorSubject, Subject } from &#x27;rxjs&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+import { DateTime } from &#x27;luxon&#x27;;
 import { dataService } from &#x27;../data.service&#x27;;
-import { worker } from &#x27;src/app/models/worker.model&#x27;;
-
+import { currentWork } from &#x27;src/app/models/current-work.model&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
-export class WorkersService {
+export class DivideService {
 
-  public workersList: BehaviorSubject&lt;worker[]&gt; &#x3D; new BehaviorSubject&lt;worker[]&gt;([]);
+  public workerID!: string;
 
-  public worker: Subject&lt;string[]&gt; &#x3D; new Subject&lt;string[]&gt;();
+  public machines:Array&lt;object&gt; &#x3D; [];
 
-  public worker2:object &#x3D; {};
-  
-  constructor(private dataService:dataService) { }
-  
-  async load(){
-    this.workersList.next(await this.dataService.getWorkers().toPromise());
+  public lastOneMachine:string &#x3D; &#x27;2021-01-01T00:00:00.000-03:00&#x27;;
+
+  public individualMachine:any &#x3D;  {
+    _id: &#x27;&#x27;,
+    machineNumber: 0,
+    lastDivition: &#x27;2021-01-01T00:00:00.000-03:00&#x27;,
+    lastReview: &#x27;2021-01-01T00:00:00.000-03:00&#x27;
   }
 
-  getWorker(workerID:string){
-    this.dataService.getWorker(workerID).subscribe(
+  public individualMachine2: Subject&lt;object&gt; &#x3D; new Subject&lt;object&gt;();
+constructor(private dataService:dataService) {}
+
+
+
+
+
+  getMachineToDivide(){
+
+   this.dataService.getMachines().subscribe(
      (response)&#x3D;&gt;{
-      this.worker2 &#x3D; response;
+       this.machines &#x3D; response;
+       this.getMachine(response);
+       this.dataService.getCurrentWork(this.workerID).subscribe(
+         response &#x3D;&gt; {},
+         error&#x3D;&gt;{this.saveCurrentWork()}
+       );
      }
-    )
-  }
+   );
 
 }
+getMachine(machines:any){
+    
+  machines.forEach((machine:any) &#x3D;&gt;{
+    
+    
+    if (this.individualMachine.machineNumber &#x3D;&#x3D;&#x3D; 0) {
+      this.individualMachine &#x3D; machine;
+    }
+    
 
+
+    /*this conditional verify if the machine is active and if its the oldest machine. if isn&#x27;t active it 
+    generates a problem, to resolve this i asign a future value to individualmachine and the logic continue. 
+    this solution its provisory because its inefficient*/
+    if(machine.activeMachine){
+      
+      if ( DateTime.fromISO(machine.lastDivition) &lt; DateTime.fromISO(this.lastOneMachine) 
+      &amp;&amp; DateTime.fromISO(machine.lastDivition) &lt; DateTime.fromISO(this.individualMachine.lastDivition)) {
+        
+        this.individualMachine &#x3D; {}
+        this.individualMachine &#x3D; machine;
+      }
+      this.lastOneMachine &#x3D; machine.lastDivition;
+    }else if(!machine.activeMachine &amp;&amp; machine._id &#x3D;&#x3D; this.individualMachine._id ){
+      this.individualMachine.lastDivition &#x3D; &#x27;2200-01-01T00:00:00.000-03:00&#x27;
+    }
+    
+    this.individualMachine2.next(this.individualMachine);
+  }
+  );
+}
+
+saveCurrentWork(){
+  let inProgress &#x3D; new currentWork(this.workerID, &quot;divide&quot;, this.individualMachine);
+  this.dataService.saveCurrentWork(inProgress).subscribe();
+}
+}
 
 </code></pre>
     </div>
@@ -466,7 +624,7 @@ export class WorkersService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'WorkersService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'DivideService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

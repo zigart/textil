@@ -1,8 +1,21 @@
-<nav id="nav">
+<nav class="nav">
     <ul>
         <li><a [routerLink]="['/inicio/configuracion/maquinas']">Maquinas</a></li>
         <li><a [routerLink]="['/inicio/configuracion/trabajos-secundarios']">Trabajos secundarios</a></li>
         <li><a [routerLink]="['/inicio/configuracion/trabajadores']">Personal</a></li>
         <li><a [routerLink]="['/inicio/configuracion/registro']">Registro</a></li>
     </ul>
+</nav>
+
+<nav class="nav--phone">
+    <a id="burger" #burger (click)="showMenu()"><img src="../../../../assets/images/menu.png" alt=""></a>
+    <a id="close" #close (click)="hideMenu()"><img src="../../../../assets/images/close.png" alt=""></a>
+    <div class="section" #section>
+        <ul>
+            <li><a [routerLink]="['/inicio/configuracion/maquinas']">Maquinas</a></li>
+            <li><a [routerLink]="['/inicio/configuracion/trabajos-secundarios']">Trabajos secundarios</a></li>
+            <li><a [routerLink]="['/inicio/configuracion/trabajadores']">Personal</a></li>
+            <li><a [routerLink]="['/inicio/configuracion/registro']">Registro</a></li>
+        </ul>
+    </div>
 </nav>

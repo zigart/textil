@@ -207,7 +207,9 @@ export class AppComponent {
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
   &lt;app-workers class&#x3D;&quot;workers&quot;&gt;&lt;/app-workers&gt;
-  &lt;router-outlet class&#x3D;&quot;outlet&quot;&gt;&lt;/router-outlet&gt;
+  &lt;div class&#x3D;&quot;outlet&quot;&gt;
+    &lt;router-outlet &gt;&lt;/router-outlet&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
@@ -221,12 +223,22 @@ $purple: #DDDBF1;
 $oceanicBlue: #3C4F76;
 
 .container{
-    display: flex;
-    flex-direction: row;
+    width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: &#x27;workers jobs&#x27;;
     background-color: #383F51;
-   
 }
 
+.workers{
+    grid-area: workers;
+}
+
+.outlet{
+    grid-area: jobs;
+}
 </code></pre>
     </div>
 
@@ -255,8 +267,8 @@ $oceanicBlue: #3C4F76;
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container">  <app-workers class="workers"></app-workers>  <router-outlet class="outlet"></router-outlet></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container">  <app-workers class="workers"></app-workers>  <div class="outlet">    <router-outlet ></router-outlet>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AttendantcfgComponent', 'selector': 'app-attendantcfg'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'DivideComponent', 'selector': 'app-divide'},{'name': 'FindjobComponent', 'selector': 'app-findjob'},{'name': 'FrontpageComponent', 'selector': 'app-frontpage'},{'name': 'JobComponent', 'selector': 'app-job'},{'name': 'LayoutmachineComponent', 'selector': 'app-layoutmachine'},{'name': 'LayoutworkersComponent', 'selector': 'app-layoutworkers'},{'name': 'LoginworkerComponent', 'selector': 'app-loginworker'},{'name': 'MachinecfgComponent', 'selector': 'app-machinecfg'},{'name': 'NavComponent', 'selector': 'app-nav'},{'name': 'NotfoundcomponentComponent', 'selector': 'app-notfoundcomponent'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ReviewComponent', 'selector': 'app-review'},{'name': 'SmalljobscfgComponent', 'selector': 'app-smalljobscfg'},{'name': 'SmalljobsComponent', 'selector': 'app-smalljobs'},{'name': 'WorkerscfgComponent', 'selector': 'app-workerscfg'},{'name': 'WorkersComponent', 'selector': 'app-workers'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

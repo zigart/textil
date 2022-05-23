@@ -83,27 +83,38 @@ import { LayoutmachineComponent } from &#x27;./job/configuration/layoutmachine/l
 import { MachinecfgComponent } from &#x27;./job/configuration/machinecfg/machinecfg.component&#x27;;
 import { LayoutworkersComponent } from &#x27;./job/configuration/layoutworkers/layoutworkers.component&#x27;;
 import { WorkerscfgComponent } from &#x27;./job/configuration/workerscfg/workerscfg.component&#x27;;
-import { LoginService } from &#x27;./services/config/login.service&#x27;;
 import { LoginGuard } from &#x27;./job/configuration/login.guard&#x27;;
 import { FrontpageComponent } from &#x27;./job/frontpage/frontpage.component&#x27;;
 import { NotfoundcomponentComponent } from &#x27;./notfoundcomponent/notfoundcomponent.component&#x27;;
 import { SmalljobsComponent } from &#x27;./job/smalljobs/smalljobs.component&#x27;;
+import { SmalljobscfgComponent } from &#x27;./job/configuration/smalljobscfg/smalljobscfg.component&#x27;;
+import { LoginworkerComponent } from &#x27;./loginworker/loginworker.component&#x27;;
+import { WorkerpasswordGuard } from &#x27;./loginworker/workerpassword.guard&#x27;;
+import { AttendantcfgComponent } from &#x27;./job/configuration/attendantcfg/attendantcfg.component&#x27;;
+import { RegisterComponent } from &#x27;./job/configuration/register/register.component&#x27;;
 
 const routes: Routes &#x3D; [
   {path: &#x27;&#x27;, redirectTo: &#x27;/menu&#x27;, pathMatch: &#x27;full&#x27;},
   {path: &#x27;menu&#x27;, component: FrontpageComponent},
   {path: &#x27;inicio&#x27;, component: JobComponent,
   children: [
-    {path: &#x27;trabajo/:id&#x27;, component: FindjobComponent},
-    {path: &#x27;revisar/:id&#x27;, component: ReviewComponent},
-    {path: &#x27;separar/:id&#x27;, component: DivideComponent},
-    {path: &#x27;trabajos-secundarios/:id&#x27;, component: SmalljobsComponent},
+    
+    {path: &#x27;password/:id&#x27;, component: LoginworkerComponent, canActivateChild:[WorkerpasswordGuard], 
+    children: [
+      {path: &#x27;trabajo&#x27;, component: FindjobComponent},
+      {path: &#x27;revisar&#x27;, component: ReviewComponent},
+      {path: &#x27;separar&#x27;, component: DivideComponent},
+      {path: &#x27;trabajos-secundarios&#x27;, component: SmalljobsComponent},  
+    ]},
     {path: &#x27;configuracion&#x27;, component: ConfigurationComponent, canActivateChild:[LoginGuard],
     children: [
       {path: &#x27;maquinas&#x27;, component: LayoutmachineComponent},
       {path: &#x27;maquina/:id&#x27;, component: MachinecfgComponent},
       {path: &#x27;trabajadores&#x27;, component: LayoutworkersComponent},
-      {path: &#x27;trabajador/:id&#x27;, component: WorkerscfgComponent}
+      {path: &#x27;trabajador/:id&#x27;, component: WorkerscfgComponent},
+      {path: &#x27;encargado/:id&#x27;, component: AttendantcfgComponent},
+      {path: &#x27;registro&#x27;, component: RegisterComponent},  
+      {path: &#x27;trabajos-secundarios&#x27;, component: SmalljobscfgComponent}
     ]},
     {path: &#x27;**&#x27;, component: NotfoundcomponentComponent}
   ]},

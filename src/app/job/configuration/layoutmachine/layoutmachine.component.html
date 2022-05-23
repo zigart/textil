@@ -1,7 +1,8 @@
 <app-nav></app-nav>
 <div class="container">
+    <h1>MAQUINAS</h1>
     <ul>
-        <li class="machines" *ngFor="let machine of machines"><a [routerLink]="['../maquina/', machine._id]">{{machine.machineName}}</a></li>
+        <li class="machines" *ngFor="let machine of machines" [routerLink]="['../maquina/', machine._id]"><a [routerLink]="['../maquina/', machine._id]">{{machine.machineName}}</a></li>
     </ul>
     <form #form>
         <label for="name">Nombre:</label>

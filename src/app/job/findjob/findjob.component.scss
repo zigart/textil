@@ -19,3 +19,13 @@ $oceanicBlue: #3C4F76;
         font-size: 18px;
     }
 }
+
+@media only screen and (max-width: 600px){
+    .btn{
+        width: 50%;
+        height: 40px !important;
+        border-radius: 20px;
+        background-color: $deepBlue;
+        color: $purple;
+    }
+}
