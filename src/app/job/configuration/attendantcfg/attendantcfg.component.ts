@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { concatMap } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/config/login.service';
@@ -15,8 +16,11 @@ export class AttendantcfgComponent implements OnInit {
   //FIXME: check the data type
   private attendantID!:string;
   public attendant!:any;
-  public password!:string;
-  constructor(private dataService:dataService, private activeRoute:ActivatedRoute, private loginService:LoginService) { }
+  public attendantForm!:FormGroup;
+  
+  constructor(private dataService:dataService, private activeRoute:ActivatedRoute, private loginService:LoginService) { 
+    this.buildForm();
+  }
 
   ngOnInit(): void {
     this.getAttendant();
@@ -34,22 +38,29 @@ export class AttendantcfgComponent implements OnInit {
     this.dataService.getAttendant(this.attendantID).subscribe(
       response => {
         this.attendant = response;
-        this.password = this.attendant.password;
       }
     )
   }
 
-  changePassword(){
+  changePassword(event:Event){
+    event.preventDefault();
+    const value = this.attendantForm.value;
+
     if(window.confirm('Desea modificar la contraseña?')){
-      this.attendant.password = this.password;
+      this.attendant.password = value.password;
       this.dataService.updateAttendant(this.attendantID, this.attendant).subscribe(
         Response => {
-          console.log(Response);
           this.loginService.getAttendant();
         },
         error => console.log(error)
       );
     }
+  }
+
+  buildForm(){
+    this.attendantForm = new FormGroup({
+    password: new FormControl('', [Validators.required])
+  });
   }
 
 }

@@ -7,6 +7,7 @@ import { WorkersService } from '../../../services/workers/workers.service';
 import {DateTime, Settings} from 'luxon'
 import { DatePipe } from '@angular/common';
 import { attendant } from '../.././../models/attendant.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-layoutworkers',
   templateUrl: './layoutworkers.component.html',
@@ -21,6 +22,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   // public attendantName:string = this.attendant.name
   public workers: Array<any>;
   public newWorker: string;
+  public newWorkerForm!:FormGroup;
   private listSubscription: Subscription = new Subscription();
   private newSubscription: Subscription = new Subscription();
 
@@ -43,6 +45,7 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
     ){
       this.workers = [];
       this.newWorker = '';
+      this.buildForm();
     }
     
     ngOnInit(): void {
@@ -94,8 +97,11 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
       }
 
       
-      add(){
-        let newWorker = new worker(this.newWorker, true, true, 'divide', DateTime.now().toString() , DateTime.now().toString(), '');
+      add(event:Event){
+        event.preventDefault();
+        const value = this.newWorkerForm.value;
+
+        let newWorker = new worker(value.name, true, true, 'divide', DateTime.now().toString() , DateTime.now().toString(), '');
         
         this.newSubscription = this.dataService.addWorker(newWorker)
     .pipe(concatMap(worker => this.dataService.getWorkers()))
@@ -106,7 +112,6 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-      this.newWorker = "";
       this.render.setStyle(this.form.nativeElement, 'display', 'none'); 
   }
 
@@ -114,5 +119,11 @@ export class LayoutworkersComponent implements OnInit, OnDestroy {
   redirect(worker:string[]){
     this.workerService.worker.next(worker);
     this.displayLayoutWorkers.emit(false);
+  }
+
+  buildForm(){
+    this.newWorkerForm = new FormGroup({
+      name: new FormControl('',[Validators.required])
+    });
   }
 }

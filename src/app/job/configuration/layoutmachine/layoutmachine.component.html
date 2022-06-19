@@ -4,10 +4,10 @@
     <ul>
         <li class="machines" *ngFor="let machine of machines" [routerLink]="['../maquina/', machine._id]"><a [routerLink]="['../maquina/', machine._id]">{{machine.machineName}}</a></li>
     </ul>
-    <form #form>
+    <form #form [formGroup]="layoutMachineForm" (ngSubmit)="add($event)">
         <label for="name">Nombre:</label>
-        <input id="name" name="name" type="text" [(ngModel)]="name">
-        <button (click)="add(); ">Agregar</button>
+        <input id="name" name="name" type="text" formControlName="name">
+        <button type="submit" [disabled]="layoutMachineForm.invalid">Agregar</button>
     </form>
     <button (click)="addMachine()">Agregar Maquina</button>
 </div>

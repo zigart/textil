@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { LayoutmachineComponent } from './layoutmachine.component';
 
 describe('LayoutmachineComponent', () => {
@@ -8,6 +9,7 @@ describe('LayoutmachineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientModule, RouterTestingModule],
       declarations: [ LayoutmachineComponent ]
     })
     .compileComponents();
@@ -19,7 +21,36 @@ describe('LayoutmachineComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should exist', () => {
+    const fixture = TestBed.createComponent(LayoutmachineComponent);
+    const layoutmachineComponent = fixture.componentInstance;
+    expect(layoutmachineComponent).toBeTruthy();
   });
+
+  it('should be valid', ()=>{
+    const fixture = TestBed.createComponent(LayoutmachineComponent);
+    const layoutMachineComponent = fixture.componentInstance;
+
+    const form = layoutMachineComponent.layoutMachineForm.controls['name'];
+    form.setValue('maquina 2');
+    expect(layoutMachineComponent.layoutMachineForm.invalid).toBeFalse();
+  });
+
+  it('should be valid', ()=>{
+    const fixture = TestBed.createComponent(LayoutmachineComponent);
+    const layoutMachineComponent = fixture.componentInstance;
+
+    const form = layoutMachineComponent.layoutMachineForm.controls['name'];
+    form.setValue(1);
+    expect(layoutMachineComponent.layoutMachineForm.invalid).toBeFalse();
+  });
+
+  it('should be valid', ()=>{
+    const fixture = TestBed.createComponent(LayoutmachineComponent);
+    const layoutMachineComponent = fixture.componentInstance;
+
+    const form = layoutMachineComponent.layoutMachineForm.controls['name'];
+    form.setValue('');
+    expect(layoutMachineComponent.layoutMachineForm.invalid).toBeTrue();
+  })
 });

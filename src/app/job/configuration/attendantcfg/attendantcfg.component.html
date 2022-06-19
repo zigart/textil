@@ -4,10 +4,10 @@
         <h1>{{attendant.name}}</h1>
     </div>
     <div class="information">
-        <form (ngSubmit)="changePassword()">
+        <form [formGroup]="attendantForm" (ngSubmit)="changePassword($event)">
             <label for="password"></label>
-            <input type="text" name="password" id="password" [(ngModel)]="password">
-            <button type="submit">Cambiar contraseña</button>
+            <input type="text" name="password" id="password" formControlName="password">
+            <button type="submit" [disabled]="attendantForm.invalid">Cambiar contraseña</button>
         </form>
     </div>
 </div>

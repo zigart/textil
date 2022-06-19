@@ -5,9 +5,9 @@
         <li *ngFor="let worker of workers"><a [routerLink]= "['../trabajador', worker._id]" (click)="redirect(worker._id)">{{worker.name}}</a></li>
     </ul>
     <button id="openForm" (click)="addWorker()">Agregar Persona</button>
-    <form #addNewWorker id="addNewWorker">
+    <form #addNewWorker id="addNewWorker" [formGroup]="newWorkerForm" (ngSubmit)="add($event)">
         <label for="name">Nombre</label>
-        <input  type="text" name="newWorker" [(ngModel)]="newWorker">
-        <button (click)="add()">Agregar</button>
+        <input  type="text" name="name" formControlName="name">
+        <button type="submit" >Agregar</button>
     </form>
 </div>
