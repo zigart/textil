@@ -50,3 +50,43 @@ $oceanicBlue: #3c4f76;
     }
   }
 }
+
+@media screen and (max-width:600px){
+  form{
+
+    .radio{
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      margin: 30px 0 30px 10px;
+      .all, .divide, .review{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .filtersByDate{
+      display: flex;
+      flex-direction: column;
+      .start, .end{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        input{
+          width: 70%;
+        }
+      }
+      .buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  #excel-table{
+    display: none;
+  }
+}

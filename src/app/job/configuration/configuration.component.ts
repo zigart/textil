@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/config/login.service';
 import { LoginGuard } from './login.guard';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-configuration',
@@ -16,6 +17,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   
   public password!:string;
   private loginSubscription:Subscription = new Subscription();
+  public loginForm!:FormGroup;
 
   constructor(
     private router: Router, 
@@ -24,6 +26,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private loginGuard: LoginGuard,
     private datePipe: DatePipe) { 
+
+      this.buildForm();
 
   }
   
@@ -35,10 +39,12 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
    this.loginSubscription.unsubscribe();
   }
   
-  signIn(){
+  signIn(event:Event){
+    event.preventDefault();
+    const value = this.loginForm.value
 
     //the password is taken from two way data binding
-    this.loginGuard.getData(this.password);
+    this.loginGuard.getData(value.passwordTyped);
 
     this.loginService.loged.subscribe(
       (response)=>{
@@ -65,4 +71,13 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
        return 'none';
      }
    }
+
+
+   private buildForm(){
+    this.loginForm = new FormGroup({
+      passwordTyped: new FormControl('', [Validators.required])
+    });
+  }
+  
+   get passwords(){return this.loginForm.get('passwordTyped')}
 }

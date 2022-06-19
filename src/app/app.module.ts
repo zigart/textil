@@ -9,7 +9,7 @@ import { JobComponent } from './job/job.component';
 import { ReviewComponent } from './job/review/review.component';
 import { FindjobComponent } from './job/findjob/findjob.component';
 import { DivideComponent } from './job/divide/divide.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigurationComponent } from './job/configuration/configuration.component';
 import { MachinecfgComponent } from './job/configuration/machinecfg/machinecfg.component';
 import { LayoutmachineComponent } from './job/configuration/layoutmachine/layoutmachine.component';
@@ -60,7 +60,8 @@ import { RegisterComponent } from './job/configuration/register/register.compone
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [dataService,
     WorkersService,

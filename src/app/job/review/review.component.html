@@ -6,13 +6,13 @@
     </div>
     
     <div #status class="status" >
-        <a (click)="like()"><img src="./../../../assets/images/like.png" alt=""></a>
-        <a (click)="dislike()"><img src="./../../../assets/images/dislike.png" alt=""></a>
+        <a (click)="like()"><img src="./../../../assets/images/like.png" alt="anda"></a>
+        <a (click)="dislike()"><img src="./../../../assets/images/dislike.png" alt="problemas"></a>
     </div>
 
-    <form #problemsView class="problems" (ngSubmit)="saveProblem()">
+    <form #problemsView [formGroup]="reviewDataForm" class="problems" (ngSubmit)="saveProblem($event)">
         <label for="error">Problema</label>
-        <textarea id="error" name="error" type="text" [(ngModel)]="problems" ></textarea>
-        <button type="submit">Enviar</button>
+        <textarea id="error" name="error" type="text" formControlName="problem"></textarea>
+        <button type="submit" [disabled]="reviewDataForm.invalid">Enviar</button>
     </form>
 </div>

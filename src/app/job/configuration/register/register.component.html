@@ -3,22 +3,34 @@
 <div class="container">
     <form #filters = 'ngForm'>
         <div class="radio">
-            <input type="radio" id="all" name="work" value="all" (click)="RadioButtonFilter('all')" checked>
-            <label for="all">TODOS</label>
-            <input type="radio" id="review" name="work" value="review" (click)="RadioButtonFilter('review')" >
-            <label for="review">REVISION</label>
-            <input type="radio" id="divide" name="work" value="divide" (click)="RadioButtonFilter('divide')" >
-            <label for="divide">SEPARACION</label>
+            <div class="all">
+                <input type="radio" id="all" name="work" value="all" (click)="RadioButtonFilter('all')" checked>
+                <label for="all">TODOS</label>
+            </div>
+            <div class="review">
+                <input type="radio" id="review" name="work" value="review" (click)="RadioButtonFilter('review')" >
+                <label for="review">REVISION</label>
+            </div>
+            <div class="divide">
+                <input type="radio" id="divide" name="work" value="divide" (click)="RadioButtonFilter('divide')" >
+                <label for="divide">SEPARACION</label>
+            </div>
         </div>
         
         <div class="filtersByDate">
             <p>FILTRADO POR FECHAS</p>
-            <label for="initialDate">DEL:</label>
-            <input type="datetime-local" name="initialDate" [(ngModel)]="initialDate">
-            <label for="finalDate">AL:</label>
-            <input type="datetime-local" name="finalDate" [(ngModel)]="finalDate" >
-            <button (click)="filterByDate()">filtrar</button>
-            <button (click)="exportExcel()">Descargar</button>
+            <div class="start">
+                <label for="initialDate">DEL:</label>
+                <input type="datetime-local" name="initialDate" [(ngModel)]="initialDate">
+            </div>
+            <div class="end">
+                <label for="finalDate">AL:</label>
+                <input type="datetime-local" name="finalDate" [(ngModel)]="finalDate" >
+            </div>
+            <div class="buttons">
+                <button (click)="filterByDate()">filtrar</button>
+                <button (click)="exportExcel()">Descargar</button>
+            </div>
         </div>
     </form>
     <table id="excel-table">

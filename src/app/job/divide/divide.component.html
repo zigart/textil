@@ -8,11 +8,11 @@
         <button  class="start" (click)="start()">COMENZAR</button>
     </div>
     
-    <form (ngSubmit)="saveReviewData()" #send >
-        <label for="colth">PAÑOS TOTALES:</label>
-        <input type="number" name="colth" [(ngModel)]='colth'>
+    <form [formGroup]="divideDataForm" (ngSubmit)="saveDivideData($event)" #send >
+        <label  for="colth">PAÑOS TOTALES:</label>
+        <input  type="number" formControlName="colth" name="colth">
         <label for="failed">PAÑOS FALLADOS:</label>
-        <input type="number" name="failed" [(ngModel)]='failed'>
-        <button type="submit">FINALIZADO</button>
+        <input type="number" formControlName="failed" name="failed">
+        <button type="submit" [disabled]="divideDataForm.invalid">FINALIZADO</button>
     </form>
 </div>

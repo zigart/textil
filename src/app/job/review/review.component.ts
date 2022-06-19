@@ -7,6 +7,8 @@ import { MachineService } from 'src/app/services/machine/machine.service';
 import { ReviewService } from 'src/app/services/review/review.service';
 import { reviews } from 'src/app/models/reviews.model'
 import { worker } from 'src/app/models/worker.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 /**
  * this component asign a machine to review and update the dates
@@ -36,6 +38,7 @@ export class ReviewComponent implements OnInit {
   public machineSubscription: Subscription = new Subscription();
   public lastOneMachine:string = '2021-01-01T00:00:00.000-03:00';
   public problems!:string;
+  public reviewDataForm!:FormGroup;
   public individualMachine:any =  {
     _id: '',
     machineNumber: 0,
@@ -80,7 +83,9 @@ export class ReviewComponent implements OnInit {
     private dataService:dataService, 
     private activeRoute:ActivatedRoute,
     private router: Router,
-    private reviewService: ReviewService) { }
+    private reviewService: ReviewService) { 
+      this.buildForm();
+    }
 
 /**
  * @function ngOnInit
@@ -165,8 +170,11 @@ ngOnInit(): void {
     
   }
 
-  saveProblem(){
-    let review = new reviews('review', this.worker,this.individualMachine, false, DateTime.now().toString(), this.problems);
+  saveProblem(event:Event){
+    event.preventDefault();
+    const value = this.reviewDataForm.value;
+
+    let review = new reviews('review', this.worker,this.individualMachine, false, DateTime.now().toString(), value.problem);
     this.individualMachine.lastReview = DateTime.now().toString();
     this.dataService.sendReview(review).subscribe();
     this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
@@ -176,5 +184,13 @@ ngOnInit(): void {
     this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
     this.router.navigate(['inicio/password/' + this.workerID+ '/trabajo']);
   }
+
+  private buildForm(){
+    this.reviewDataForm = new FormGroup({
+    problem: new FormControl('', [Validators.required])
+  });
+  }
+
+
 
 }

@@ -1,9 +1,9 @@
 <div class="container" >
-    <form  id="login" #login = "ngForm" [ngStyle]="{'display': displayOrNot()}" (ngSubmit)="signIn();">
+    <form  id="login" [formGroup]="loginForm"  #login [ngStyle]="{'display': displayOrNot()}" (ngSubmit)="signIn($event);">
         <label for="password">Contraseña</label>
-        <input type="password" [(ngModel)]="password" name="password" required>
-        <em *ngIf="login.controls.password?.invalid && login.controls.password?.touched">REQUERIDO</em>
-        <button class="btn" [disabled]="login.invalid" type="submit">Ingresar</button>
+        <input type="password" formControlName="passwordTyped" name="password">
+        <em *ngIf="passwords?.invalid && passwords?.touched">REQUERIDO</em>
+        <button class="btn" [disabled]="loginForm.invalid" type="submit">Ingresar</button>
     </form>
     <router-outlet></router-outlet>
 </div>

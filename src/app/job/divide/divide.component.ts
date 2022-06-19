@@ -8,6 +8,7 @@ import { MachineService } from 'src/app/services/machine/machine.service';
 import { currentWork } from '../../models/current-work.model';
 import { divide } from 'src/app/models/divide.model';
 import { worker } from 'src/app/models/worker.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 /**
  * this component asign a machine to divide and update the dates
  *
@@ -32,10 +33,10 @@ export class DivideComponent implements OnInit {
   private machines:Array<object> = this.divideService.machines;
   public lastOneMachine:string = this.divideService.lastOneMachine;
   public individualMachine:any;
+  public divideDataForm!: FormGroup;
 
-  public colth!:number;
-  public failed!:number;
 
+  
 
   public individualMachineCurrent:any =  {
     _id: '',
@@ -67,7 +68,9 @@ export class DivideComponent implements OnInit {
     private dataService: dataService,
     private machineService:MachineService,
     private divideService: DivideService
-  ) {}
+  ) {
+    this.buildForm();
+  }
       
       
       /**
@@ -127,23 +130,33 @@ export class DivideComponent implements OnInit {
   
 }
 
- saveReviewData(){
-  this.individualMachine.lastReview = DateTime.now().toString();
-  this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
-  this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
-  
-  let divideForm = new divide('divide', this.worker, this.individualMachine, DateTime.now().toString(), this.colth, this.failed )
-
-
-  this.dataService.sendDivideForm(divideForm).subscribe();
-  this.dataService.deleteCurrentWork(this.workerID).subscribe();
-
-  this.worker.lastWork = 'divide';
-  this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
-
-
-  this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
+private buildForm(){
+  this.divideDataForm = new FormGroup({
+    colth: new FormControl('', [Validators.required]),
+    failed:new FormControl('', [Validators.required])
+  });
 }
 
+saveDivideData(event:Event){
+  event.preventDefault();
+  const value = this.divideDataForm.value;
+ 
+   this.individualMachine.lastReview = DateTime.now().toString();
+   this.dataService.updateActiveMachine(this.individualMachineObtained._id, this.individualMachineObtained).subscribe();
+   this.dataService.updateActiveMachine(this.individualMachine._id, this.individualMachine).subscribe();
+   
+   let divideForm = new divide('divide', this.worker, this.individualMachine, DateTime.now().toString(), value.colth, value.failed )
+ 
+ 
+   this.dataService.sendDivideForm(divideForm).subscribe();
+   this.dataService.deleteCurrentWork(this.workerID).subscribe();
+ 
+   this.worker.lastWork = 'divide';
+   this.dataService.updateWorker2(this.workerID, this.worker).subscribe();
+ 
+ 
+   this.router.navigate(['inicio/password/' + this.workerID + '/trabajo']);
+}
 
+  
 }
