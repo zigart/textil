@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
@@ -30,6 +31,7 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
   private updateSubscribe:Subscription = new Subscription();
   public valueToEdit!:string;
   public title:any;
+  public editFormValues!:FormGroup;
   
   constructor(private route:ActivatedRoute, private render:Renderer2,
     private dataService:dataService, private routerNav:Router,
@@ -39,9 +41,11 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     this.newDate = ""; // two way data binding
     this.reviewDate = "";
     this.toModify;
-    //------------------------------------------------------------
+    
     let routerActiv:any = this.route.snapshot.paramMap.get('machine');
     this.numberMachine = routerActiv;
+
+    this.buildForm();
   }
   
   @ViewChild('activeMachine') activeMachine!:ElementRef;
@@ -93,29 +97,29 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
   //this function assigns the value to use in the next step
    editForm(value:string){
     this.valueToEdit = value;
-
+    const values = this.editFormValues.value;
     if(this.valueToEdit == 'review'){
-      this.newDate = this.machine.lastReview;
+      this.editFormValues.controls['newDate'].setValue(this.machine.lastReview)
     }else{
-      this.newDate = this.machine.lastDivition;
+      this.editFormValues.controls['newDate'].setValue(this.machine.lastDivition)
     }
 
     this.render.setStyle(this.form.nativeElement, 'display', 'flex');
   }
 
   //button for final edit 
-  edit(){
-
-    console.log(this.machine);
+  edit(event:Event){
+  event.preventDefault();
+  const values = this.editFormValues.value;
 
     
 
     if(window.confirm('Esta informacion sera irrecuperable')){
 
       if(this.valueToEdit == 'review'){
-        this.machine.lastReview = this.newDate;
+        this.machine.lastReview = values.newDate;
       }else{
-        this.machine.lastDivition = this.newDate;
+        this.machine.lastDivition = values.newDate;
       }
       this.dataService.updateActiveMachine(this.machineID, this.machine).subscribe()
       this.render.setStyle(this.form.nativeElement, 'display', 'none');
@@ -156,4 +160,11 @@ export class MachinecfgComponent implements OnInit, OnDestroy {
     this.render.setStyle(this.buttonEdit.nativeElement, 'display', 'none');
     this.render.setStyle(this.buttonCancel.nativeElement, 'display', 'none');
   }
+
+  buildForm(){
+    this.editFormValues = new FormGroup({
+      newDate: new FormControl('',[Validators.required])
+    });
+  }
+
 }

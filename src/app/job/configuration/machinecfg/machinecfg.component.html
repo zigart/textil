@@ -25,10 +25,10 @@
     <button class="delete" (click)="deleteMachine(machine._id)">Eliminar maquina</button>
 
     <!--seguir viendo el display none a arreglar-->
-    <form id="form" #form>
+    <form id="form" #form [formGroup]="editFormValues" (ngSubmit)="edit($event)">
         <label for="date">FECHA Y HORARIO:</label>
-        <input type="text" name="date" [(ngModel)]="newDate">
-        <button (click)="edit()">Editar</button>
+        <input type="text" name="date" formControlName="newDate">
+        <button type="submit">Editar</button>
         <button (click)="cancel()">Cancelar</button>
     </form>
 </div>

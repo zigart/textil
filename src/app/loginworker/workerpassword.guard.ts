@@ -26,7 +26,6 @@ getData(recived:string){
     this.loginServices.logedWorker.subscribe(
       response => {
         this.res = response;
-        console.log(this.res, response);
       }
     )
   }

@@ -155,11 +155,36 @@ statusCheck() {
     }
 
     if (
-      ( this.worker.activeReviewer && this.worker.lastWork == 'divide') || (this.worker.activeReviewer && !this.worker.activeDivider && this.worker.lastWork == 'review') && (DateTime.now().diff( DateTime.fromISO(this.machinesByReview[0].lastReview)).toMillis() > 7200000)
+
+      ( this.worker.activeReviewer && this.worker.lastWork == 'divide' 
+      && DateTime.now().diff( DateTime.fromISO(this.machinesByReview[0].lastReview)).toMillis() > 7200000) 
+
+      || 
+
+      (this.worker.activeReviewer && !this.worker.activeDivider && this.worker.lastWork == 'review') 
+      && (DateTime.now().diff( DateTime.fromISO(this.machinesByReview[0].lastReview)).toMillis() > 7200000)
+
+      ||
+      (this.worker.activeReviewer && !this.worker.activeDivider && this.worker.lastWork == 'review')
+      && (DateTime.now().diff( DateTime.fromISO(this.machinesByReview[0].lastReview)).toMillis() > 7200000)
+      && (DateTime.now().diff( DateTime.fromISO(this.machinesByDivition[0].lastDivition)).toMillis() < 7200000)
+
       ) {
         this.router.navigate(['inicio/password/' + this.workerID + '/revisar']);
       } else if (
-        (this.worker.activeDivider && this.worker.lastWork == 'review') || (this.worker.activeDivider && !this.worker.activeReviewer && this.worker.lastWork == 'divde') && (DateTime.now().diff( DateTime.fromISO(this.machinesByDivition[0].lastDivition)).toMillis() > 7200000)
+        (this.worker.activeDivider && this.worker.lastWork == 'review')
+
+        || 
+
+        (this.worker.activeDivider && !this.worker.activeReviewer && this.worker.lastWork == 'divide') 
+        && (DateTime.now().diff( DateTime.fromISO(this.machinesByDivition[0].lastDivition)).toMillis() > 7200000)
+
+        ||
+
+        (this.worker.activeDivider && this.worker.activeReviewer && this.worker.lastWork == 'divide')
+        && (DateTime.now().diff( DateTime.fromISO(this.machinesByDivition[0].lastDivition)).toMillis() > 7200000)
+        && (DateTime.now().diff( DateTime.fromISO(this.machinesByReview[0].lastReview)).toMillis() < 7200000)
+
         ) {
           this.router.navigate(['inicio/password/' + this.workerID + '/separar']);
         } else if(

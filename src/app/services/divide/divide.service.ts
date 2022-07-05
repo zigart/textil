@@ -69,7 +69,7 @@ getMachine(machines:any){
     }else if(!machine.activeMachine && machine._id == this.individualMachine._id ){
       this.individualMachine.lastDivition = '2200-01-01T00:00:00.000-03:00'
     }
-    
+    console.log(this.individualMachine);
     this.individualMachine2.next(this.individualMachine);
   }
   );
